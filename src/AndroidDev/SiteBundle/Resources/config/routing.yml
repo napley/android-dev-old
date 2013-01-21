@@ -1,3 +1,27 @@
-android_dev_site_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: AndroidDevSiteBundle:Blog:index }
+sdzblog_accueil:
+    pattern:   /{page}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:index, page: 1 }
+    requirements:
+        page:  \d*
+ 
+sdzblog_voir:
+    pattern:   /article/{id}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:voir }
+    requirements:
+        id:  \d+
+ 
+sdzblog_ajouter:
+    pattern:   /ajouter
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:ajouter }
+ 
+sdzblog_modifier:
+    pattern:   /modifier/{id}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:modifier }
+    requirements:
+        id:  \d+
+ 
+sdzblog_supprimer:
+    pattern:   /supprimer/{id}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:supprimer }
+    requirements:
+        id:  \d+
