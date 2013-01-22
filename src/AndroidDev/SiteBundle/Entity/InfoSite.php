@@ -33,6 +33,20 @@ class InfoSite
     /**
      * @var string
      *
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="entete", type="text")
+     */
+    private $entete;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="footer", type="text")
      */
     private $footer;
@@ -96,6 +110,52 @@ class InfoSite
     public function getTitre()
     {
         return $this->titre;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return InfoSite
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get Description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set entete
+     *
+     * @param string $entete
+     * @return InfoSite
+     */
+    public function setEntete($entete)
+    {
+        $this->entete = $entete;
+    
+        return $this;
+    }
+
+    /**
+     * Get entete
+     *
+     * @return string 
+     */
+    public function getEntete()
+    {
+        return $this->entete;
     }
 
     /**
