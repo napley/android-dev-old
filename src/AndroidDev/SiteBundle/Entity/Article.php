@@ -96,8 +96,8 @@ class Article
     private $Projet;
 
     /**
-     * @ManyToMany(targetEntity="AndroidDev\SiteBundle\Entity\MotCle", inversedBy="Articles")
-     * @JoinTable(name="article_motcles")
+     * @ORM\ManyToMany(targetEntity="AndroidDev\SiteBundle\Entity\MotCle", inversedBy="Articles")
+     * @ORM\JoinTable(name="article_motcles")
      * */
     private $MotCles;
 

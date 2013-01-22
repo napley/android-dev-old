@@ -43,7 +43,7 @@ class MotCle
     private $deletedAt;
 
     /**
-     * @ManyToMany(targetEntity="AndroidDev\SiteBundle\Entity\Article", mappedBy="MotCles")
+     * @ORM\ManyToMany(targetEntity="AndroidDev\SiteBundle\Entity\Article", mappedBy="MotCles")
      * */
     private $Articles;
     
