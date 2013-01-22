@@ -96,6 +96,17 @@ class Article
     private $Projet;
 
     /**
+     * @ManyToMany(targetEntity="AndroidDev\SiteBundle\Entity\MotCle", inversedBy="Articles")
+     * @JoinTable(name="article_motcles")
+     * */
+    private $MotCles;
+
+    public function __construct()
+    {
+        $this->MotCles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -332,6 +343,16 @@ class Article
     public function getProjet()
     {
         return $this->Projet;
+    }
+
+    public function addMotCle(\AndroidDev\SiteBundle\Entity\MotCle $motCle)
+    {
+        $this->MotCles[] = $motCle;
+    }
+
+    public function getMotCles()
+    {
+        return $this->MotCles;
     }
 
 }

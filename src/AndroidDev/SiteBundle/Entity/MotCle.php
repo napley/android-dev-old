@@ -14,6 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class MotCle
 {
+
     /**
      * @var integer
      *
@@ -36,12 +37,19 @@ class MotCle
      */
     private $slug;
 
-
     /**
      * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
      */
     private $deletedAt;
 
+    /**
+     * @ManyToMany(targetEntity="AndroidDev\SiteBundle\Entity\Article", mappedBy="MotCles")
+     * */
+    private $Articles;
+    
+    public function __construct() {
+        $this->Articles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -62,7 +70,7 @@ class MotCle
     public function setNom($nom)
     {
         $this->nom = $nom;
-    
+
         return $this;
     }
 
@@ -85,7 +93,7 @@ class MotCle
     public function setSlug($slug)
     {
         $this->slug = $slug;
-    
+
         return $this;
     }
 
@@ -98,4 +106,5 @@ class MotCle
     {
         return $this->slug;
     }
+
 }
