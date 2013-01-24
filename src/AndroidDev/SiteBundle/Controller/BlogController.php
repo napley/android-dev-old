@@ -18,12 +18,9 @@ class BlogController extends Controller
      * @return type
      * @throws type
      */
-    public function indexAction($page = 1)
+    public function indexAction($page)
     {
-        if ($page < 1) {
-            throw $this->createNotFoundException('Page inexistante (page =' . $page . ')');
-        }
-        $render = $this->render('SdzBlogBundle:Blog:index.html.twig');
+        $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig');
         return $render;
     }
 
