@@ -8,18 +8,23 @@
 <div style="max-width: 200px; padding: 8px 0;" class="span2 visible-desktop">
     <ul class="nav nav-list">
         <li class="nav-header"><a href="#">Article</a></li>
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Library</a></li>
-        <li><a href="#">Applications</a></li>
+        {% for article in filtrecat['article'] %}
+        <li><a href="#">{{article.getNom()}}</a></li>
+        {% endfor %}
+
         <li class="divider"></li>
-        <li class="nav-header"><a href="#">Tuto</a></li>
-        <li><a href="#">Profile</a></li>
-        <li><a href="#">Settings</a></li>
-        <li><a href="#">Help</a></li>
-        <li class="nav-header"><a href="#">Tuto</a></li>
-        <li><a href="#">Profile</a></li>
-        <li><a href="#">Settings</a></li>
-        <li><a href="#">Help</a></li>
+
+        <li class="nav-header"><a href="#">Projet</a></li>
+        {% for projet in filtrecat['projet'] %}
+        <li><a href="#">{{projet.getTitre()}}</a></li>
+        {% endfor %}
+
+        <li class="divider"></li>
+
+        <li class="nav-header"><a href="#">Astuce</a></li>
+        {% for astuce in filtrecat['astuce'] %}
+        <li><a href="#">{{astuce.getNom()}}</a></li>
+        {% endfor %}
     </ul>
 </div>
 {% endblock %}

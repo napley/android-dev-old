@@ -48,33 +48,29 @@
                 <a data-toggle="dropdown" class="dropdown-toggle">Article <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li class="nav-header"><a href="#">Tous les articles</a></li>
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li><a href="#">Separated link</a></li>
-                    <li><a href="#">One more separated link</a></li>
+
+                    {% for article in filtrecat['article'] %}
+                    <li><a href="#">{{article.getNom()}}</a></li>
+                    {% endfor %}
                 </ul>
             </li>
             <li class="dropdown">
-                <a data-toggle="dropdown" class="dropdown-toggle">Tuto <b class="caret"></b></a>
+                <a data-toggle="dropdown" class="dropdown-toggle">Projet <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li class="nav-header"><a href="#">Tous les projets</a></li>
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li><a href="#">Separated link</a></li>
-                    <li><a href="#">One more separated link</a></li>
+                    {% for projet in filtrecat['projet'] %}
+                    <li><a href="#">{{projet.getTitre()}}</a></li>
+                    {% endfor %}
                 </ul>
             </li>
             <li class="dropdown">
                 <a data-toggle="dropdown" class="dropdown-toggle">Astuce <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li class="nav-header"><a href="#">Toutes les astuces</a></li>
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li><a href="#">Separated link</a></li>
-                    <li><a href="#">One more separated link</a></li>
+
+                    {% for astuce in filtrecat['astuce'] %}
+                    <li><a href="#">{{astuce.getNom()}}</a></li>
+                    {% endfor %}
                 </ul>
             </li>
         </ul>
@@ -88,7 +84,7 @@
     <div class="alert alert-block hidden-desktop">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <h4>Important !</h4>
-        Si vous ne pouvez pas choisir un type de tuto ou article dans la barre ci-dessus (se referme automatiquement), <strong>maintener 1 seconde la pression</strong> sur article ou tuto !!
+        Si vous ne pouvez pas choisir un type d'article, projet ou astuce dans la barre ci-dessus (se referme automatiquement), <strong>maintener 1 seconde la pression</strong> sur article ou tuto !!
     </div>
 {% endblock %}
 

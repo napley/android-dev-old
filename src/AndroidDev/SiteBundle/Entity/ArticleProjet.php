@@ -35,9 +35,16 @@ class ArticleProjet
     private $Article;
     
 
-    public function __construct(AndroidDev\SiteBundle\Entity\Article $article, $index)
+    /**
+     * @ORM\ManyToOne(targetEntity="AndroidDev\SiteBundle\Entity\Projet", cascade={"persist", "remove"},
+      inversedBy="articles")
+     */
+    private $Projet;
+
+    public function __construct(AndroidDev\SiteBundle\Entity\Projet $projet, AndroidDev\SiteBundle\Entity\Article $article, $index)
     {
         $this->setArticle($article);
+        $this->setProjet($projet);
         $this->setRang($index);
     }
 
@@ -75,7 +82,7 @@ class ArticleProjet
     }
 
     /**
-     * Set Article
+     * Add Article
      * 
      * @param \AndroidDev\SiteBundle\Entity\Article $article
      * @return \AndroidDev\SiteBundle\Entity\ArticleProjet

@@ -12,4 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class ProjetRepository extends EntityRepository
 {
+
+    public function findNotEmpty()
+    {
+        $query = $this->_em->createQuery('SELECT p FROM AndroidDevSiteBundle:Projet p 
+                        INNER JOIN p.Articles pa
+                        ORDER BY p.titre');
+        $projets = $query->getResult();
+        
+        return $projets;
+    }
+
 }
