@@ -5,7 +5,12 @@ services:
 #    android_dev_site.example:
 #        class: %android_dev_site.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
-
+    
+    androiddev.infosite:
+        class: AndroidDev\SiteBundle\Service\InfoSite
+        arguments:
+          doctrine: "@doctrine"
+          
     twig.extension.infosite:
         class: AndroidDev\SiteBundle\Extensions\InfoSiteExtension
         arguments:

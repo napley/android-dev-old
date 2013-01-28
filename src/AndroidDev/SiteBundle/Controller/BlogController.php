@@ -18,9 +18,20 @@ class BlogController extends Controller
      * @return type
      * @throws type
      */
-    public function indexAction($page)
+    public function indexAction($page = 1)
     {
-        $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig');
+        $page = (($page < 1 || empty($page)) ? 1 : $page);
+
+        $infoSite = $this->container->get('androiddev.infosite')->getInfoSite();
+
+        $liste_articles = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Article')
+                ->findLastArticleByPage($page, $infoSite['nbByPage']);
+
+        $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
+            'articles' => $liste_articles, 'page' => $page
+                ));
         return $render;
     }
 

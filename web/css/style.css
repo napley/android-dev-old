@@ -1,0 +1,44 @@
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+.sidebar-nav {
+    padding: 9px 0;
+}
+.dropdown-toggle:hover {
+    cursor: pointer;
+}
+.nav-header > a{
+    color: #4b4b4b;
+}
+div.content > div.row-fluid > div {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+ul.dropdown-menu > li.nav-header > a {
+    color: #4b4b4b;
+    font-weight: bold;
+}
+ul.dropdown-menu > li.nav-header > a:hover {
+    color: #fefefe;
+}
+
+h2 {
+    font-size: 20.5px;
+}
+h1, h2, h3 {
+    line-height: 22px;
+}
+
+.hero-unit {
+    padding: 2%;
+    line-height: 22px;
+}
+
+.hero-unit h1 {
+    font-size: 40px;
+}
+
+.hero-unit > p {
+    margin-top: 10px;
+}

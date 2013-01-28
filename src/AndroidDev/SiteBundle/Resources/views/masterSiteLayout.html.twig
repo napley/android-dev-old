@@ -5,87 +5,62 @@
 
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
-<style type="text/css">
-        body {
-            padding-top: 60px;
-            padding-bottom: 40px;
-        }
-        .sidebar-nav {
-            padding: 9px 0;
-        }
-        .dropdown-toggle:hover {
-            cursor: pointer;
-        }
-        .nav-header > a{
-            color: #4b4b4b;
-        }
-        div.content > div.row-fluid > div {
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-        ul.dropdown-menu > li.nav-header > a {
-            color: #4b4b4b;
-            font-weight: bold;
-        }
-        ul.dropdown-menu > li.nav-header > a:hover {
-            color: #fefefe;
-        }
-    </style>
-    <link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.min.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.min.css') }}" type="text/css" />
 {% endblock %}
 
 {% block navbar %}
-    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-    </a>
-    <a class="brand" href="#">{{ infosite['titre'] }}</a>
-    <div class="nav-collapse collapse">
-        <ul class="nav" role="navigation">
-            <li><a href="#">Accueil</a></li>
-            <li class="dropdown">
-                <a data-toggle="dropdown" class="dropdown-toggle">Article <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li class="nav-header"><a href="#">Tous les articles</a></li>
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+</a>
+<a class="brand" href="#">{{ infosite['titre'] }}</a>
+<div class="nav-collapse collapse">
+    <ul class="nav" role="navigation">
+        <li><a href="#">Accueil</a></li>
+        <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle">Article <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li class="nav-header"><a href="#">Tous les articles</a></li>
 
                     {% for article in filtrecat['article'] %}
-                    <li><a href="#">{{article.getNom()}}</a></li>
+                <li><a href="#">{{article.getNom()}}</a></li>
                     {% endfor %}
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a data-toggle="dropdown" class="dropdown-toggle">Projet <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li class="nav-header"><a href="#">Tous les projets</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle">Projet <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li class="nav-header"><a href="#">Tous les projets</a></li>
                     {% for projet in filtrecat['projet'] %}
-                    <li><a href="#">{{projet.getTitre()}}</a></li>
+                <li><a href="#">{{projet.getTitre()}}</a></li>
                     {% endfor %}
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a data-toggle="dropdown" class="dropdown-toggle">Astuce <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li class="nav-header"><a href="#">Toutes les astuces</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle">Astuce <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li class="nav-header"><a href="#">Toutes les astuces</a></li>
 
                     {% for astuce in filtrecat['astuce'] %}
-                    <li><a href="#">{{astuce.getNom()}}</a></li>
+                <li><a href="#">{{astuce.getNom()}}</a></li>
                     {% endfor %}
-                </ul>
-            </li>
-        </ul>
-        <form class="navbar-search pull-right">
-            <input type="text" class="search-query" placeholder="Rechercher sur android-dev.fr">
-        </form>
-    </div><!--/.nav-collapse -->
+            </ul>
+        </li>
+    </ul>
+    <form class="navbar-search pull-right">
+        <input type="text" class="search-query" placeholder="Rechercher sur android-dev.fr">
+    </form>
+</div><!--/.nav-collapse -->
 {% endblock %}
 
 {% block infoMobileTablet %}
-    <div class="alert alert-block hidden-desktop">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <h4>Important !</h4>
-        Si vous ne pouvez pas choisir un type d'article, projet ou astuce dans la barre ci-dessus (se referme automatiquement), <strong>maintener 1 seconde la pression</strong> sur article ou tuto !!
-    </div>
+<div class="alert alert-block hidden-desktop">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <h4>Important !</h4>
+    Si vous ne pouvez pas choisir un type d'article, projet ou astuce dans la barre ci-dessus (se referme automatiquement), <strong>maintener 1 seconde la pression</strong> sur article ou tuto !!
+</div>
 {% endblock %}
 
 {% block menuGauche %}
@@ -108,38 +83,38 @@
 {% endblock %}
 
 {% block colonneDroite %}
-    <div class="well sidebar-nav">
-        <ul class="nav nav-list">
-            <li class="nav-header">Android-dev.fr sur</li>
+<div class="well sidebar-nav">
+    <ul class="nav nav-list">
+        <li class="nav-header">Android-dev.fr sur</li>
 
-        </ul>
-    </div><!--/.well --> 
-    <div class="well sidebar-nav">
-        <ul class="nav nav-list">
-            <li class="nav-header">Top des 7 derniers jours</li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-        </ul>
-    </div><!--/.well --> 
-    <div class="well sidebar-nav">
-        <ul class="nav nav-list">
-            <li class="nav-header">Mise à jour</li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-        </ul>
-    </div><!--/.well -->
+    </ul>
+</div><!--/.well --> 
+<div class="well sidebar-nav">
+    <ul class="nav nav-list">
+        <li class="nav-header">Top des 7 derniers jours</li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+    </ul>
+</div><!--/.well --> 
+<div class="well sidebar-nav">
+    <ul class="nav nav-list">
+        <li class="nav-header">Mise à jour</li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+    </ul>
+</div><!--/.well -->
 {% endblock %}
 
 

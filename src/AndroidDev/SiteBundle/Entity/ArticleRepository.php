@@ -12,4 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class ArticleRepository extends EntityRepository
 {
+
+    public function findLastArticleByPage($page, $nb)
+    {
+        $deb = ($nb * $page) - ($nb - 1);
+
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a ORDER BY a.created DESC');
+        $query->setMaxResults($nb);
+        $query->setFirstResult($deb);
+        return $query->getResult();
+    }
+
 }

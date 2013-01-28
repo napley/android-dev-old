@@ -72,11 +72,33 @@ class InfoSite
      */
     private $codeAnalytics;
 
+    /**
+     * @var int
+     * 
+     * @ORM\Column(name="nbByPage", type="integer")
+     */
+    private $nbByPage;
 
     /**
      * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
      */
     private $deletedAt;
+
+    /**
+     * @var datetime $created
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+
+    /**
+     * @var datetime $updated
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
 
 
     /**
@@ -248,5 +270,28 @@ class InfoSite
     public function getCodeAnalytics()
     {
         return $this->codeAnalytics;
+    }
+
+    /**
+     * Set nbByPage
+     *
+     * @param string $codeAnalytics
+     * @return InfoSite
+     */
+    public function setNbByPage($nb)
+    {
+        $this->nbByPage = $nb;
+    
+        return $this;
+    }
+
+    /**
+     * Get nbByPage
+     *
+     * @return string 
+     */
+    public function getNbByPage()
+    {
+        return $this->nbByPage;
     }
 }
