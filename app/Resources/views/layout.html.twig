@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
     <head>
         <meta charset="utf-8">
         <title>{% block title %}{% endblock %}</title>
@@ -90,5 +90,6 @@
                                 .on('touchstart.dropdown', '.dropdown-menu', function (e) { e.stopPropagation(); })
                                 .on('touchstart.dropdown', '.dropdown-submenu', function (e) { e.preventDefault(); });
                                 </script>
+                                <script type="text/javascript" src="{{ asset('js/javascript.js') }}"></script>
                             </body>
                         </html>

@@ -11,31 +11,31 @@
 
 {% for article in articles %}
     {% if loop.index is divisibleby(2)  %}
-<div class="span6">
-    <h2>{{ article.titre | raw }}</h2>
-    <p>{{ article.sousTitre | raw }}</p>
-    <p><a class="btn" href="">View details &raquo;</a></p>
+<div class="span6 listeArticle">
+    <h2><a href="{{ path('androiddev_voir', {'id': article.id}) }}">{{ article.titre | raw }}</a></h2>
+    {{ article.sousTitre | raw }}
+    <p><a class="btn"  href="{{ path('androiddev_voir', {'id': article.id}) }}">Lire la suite &raquo;</a></p>
 </div>
 </div>
     {% else %}
 <div class="row-fluid">
-    <div class="span6">
-        <h2>{{ article.titre | raw }}</h2>
-        <p>{{ article.sousTitre | raw }}</p>
-        <p><a class="btn" href="">View details &raquo;</a></p>
+    <div class="span6 listeArticle">
+        <h2><a href="{{ path('androiddev_voir', {'id': article.id}) }}">{{ article.titre | raw }}</a></h2>
+        {{ article.sousTitre | raw }}
+        <p><a class="btn"  href="{{ path('androiddev_voir', {'id': article.id}) }}">Lire la suite &raquo;</a></p>
     </div>
     {% endif %}
 {% endfor %}
     <ul class="pager">
         <li class="previous">
-            <a href="{{ page + 1 }}">&larr; Older</a>
+            <a href="{{ page + 1 }}">&larr; Plus ancien</a>
         </li>
         <li class="next {% if  page == 1 %}
-               disabled
+            disabled
               {% endif %} ">
-            <a href="{{ page - 1 }} ">Newer &rarr;</a>
-        </li>
-    </ul>
+                <a href="{{ page - 1 }} ">Plus récent &rarr;</a>
+            </li>
+        </ul>
 {% endblock %}
 
 {% block enteteContentMobileTablet %}
@@ -46,29 +46,29 @@
 
 {% for article in articles %}
     {% if loop.index is divisibleby(2)  %}
-    <div class="span6">
-        <h2>{{ article.titre | raw }}</h2>
-        <p>{{ article.sousTitre | raw }}</p>
-        <p><a class="btn" href="">View details &raquo;</a></p>
+        <div class="span6 listeArticle">
+            <h2><a href="{{ path('androiddev_voir', {'id': article.id}) }}">{{ article.titre | raw }}</a></h2>
+            {{ article.sousTitre | raw }}
+            <p><a class="btn"  href="{{ path('androiddev_voir', {'id': article.id}) }}">Lire la suite &raquo;</a></p>
+        </div>
     </div>
-</div>
     {% else %}
-<div class="row-fluid">
-    <div class="span6">
-        <h2>{{ article.titre | raw }}</h2>
-        <p>{{ article.sousTitre | raw }}</p>
-        <p><a class="btn" href="">View details &raquo;</a></p>
-    </div>
+    <div class="row-fluid">
+        <div class="span6 listeArticle">
+            <h2><a href="{{ path('androiddev_voir', {'id': article.id}) }}">{{ article.titre | raw }}</a></h2>
+            {{ article.sousTitre | raw }}
+            <p><a class="btn"  href="{{ path('androiddev_voir', {'id': article.id}) }}">Lire la suite &raquo;</a></p>
+        </div>
     {% endif %}
 {% endfor %}   
-    <ul class="pager">
-        <li class="previous ">
-            <a href="{{ page + 1 }}">&larr; Older</a>
-        </li>
-        <li class="next {% if  page == 1 %}
-               disabled
+        <ul class="pager">
+            <li class="previous ">
+                <a href="{{ page + 1 }}">&larr; Plus ancien</a>
+            </li>
+            <li class="next {% if  page == 1 %}
+                disabled
               {% endif %} ">
-            <a href="{{ page - 1 }}">Newer &rarr;</a>
-        </li>
-    </ul>
+                    <a href="{{ page - 1 }}">Plus récent &rarr;</a>
+                </li>
+            </ul>
 {% endblock %}

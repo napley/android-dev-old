@@ -36,9 +36,29 @@ h1, h2, h3 {
 }
 
 .hero-unit h1 {
-    font-size: 40px;
+    font-size: 30px;
 }
 
 .hero-unit > p {
     margin-top: 10px;
+}
+
+.listeArticle > h2 > a {
+    color: #333333;
+}
+
+.listeArticle > h2 > a:hover {
+    color: #07013a;
+}
+
+.listeArticle > p:first-child {
+    text-indent: 3%;
+}
+
+.contenuArticle p {
+    text-indent: 3%;
+}
+
+#sommaire {
+    width: 15%;
 }

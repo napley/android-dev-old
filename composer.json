@@ -9,10 +9,12 @@
         "symfony-app-dir": "app",
         "symfony-web-dir": "web"
     },
+    "minimum-stability": "stable",
     "name": "symfony/framework-standard-edition",
     "require": {
         "doctrine/doctrine-bundle": "1.0.*",
         "doctrine/orm": ">=2.2.3,<2.4-dev",
+        "friendsofsymfony/user-bundle": "*",
         "jms/di-extra-bundle": "1.1.*",
         "jms/security-extra-bundle": "1.2.*",
         "php": ">=5.3.3",

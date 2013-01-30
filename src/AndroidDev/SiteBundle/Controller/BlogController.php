@@ -42,19 +42,11 @@ class BlogController extends Controller
      */
     public function voirAction($id)
     {
-        // $id vaut 5 si l'on a appelé l'URL /blog/article/5
-        // Ici, on récupèrera depuis la base de données l'article correspondant à l'id $id
-        // Puis on passera l'article à la vue pour qu'elle puisse l'afficher
+        $article = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Article')
+                ->find($id);
 
-        $article = array(
-            'id' => 1,
-            'titre' => 'Mon weekend a Phi Phi Island !',
-            'auteur' => 'winzou',
-            'contenu' => 'Ce weekend était trop bien. Blabla…',
-            'date' => new \Datetime()
-        );
-
-        // Puis modifiez la ligne du render comme ceci, pour prendre en compte l'article :
         $render = $this->render('AndroidDevSiteBundle:Blog:voir.html.twig', array(
             'article' => $article
                 )

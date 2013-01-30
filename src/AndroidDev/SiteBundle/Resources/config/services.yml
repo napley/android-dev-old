@@ -17,6 +17,13 @@ services:
           doctrine: "@doctrine"
         tags:
             - { name: twig.extension }
+          
+    twig.extension.lastupdate:
+        class: AndroidDev\SiteBundle\Extensions\LastUpdateExtension
+        arguments:
+          doctrine: "@doctrine"
+        tags:
+            - { name: twig.extension }
             
     twig.extension.filtrecat:
         class: AndroidDev\SiteBundle\Extensions\FiltreCatExtension
