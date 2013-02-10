@@ -62,3 +62,19 @@ h1, h2, h3 {
 #sommaire {
     width: 15%;
 }
+
+
+div.formLogin > form > input[type="text"], 
+div.formLogin > form > input[type="submit"],
+div.formLogin > form > input[type="password"] {
+    display: block;
+    margin-bottom: 10px;
+}
+
+div.formLogin > form > input[type="submit"] {
+    margin-top: 10px;
+}
+
+div.formLogin > form > label {
+    display: inline;
+}

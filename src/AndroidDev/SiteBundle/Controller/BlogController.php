@@ -116,4 +116,23 @@ class BlogController extends Controller
         return $render;
     }
 
+    /**
+     * 
+     * @param type $id
+     * @return type
+     */
+    public function createAction()
+    {
+
+        // Pour récupérer le service UserManager du bundle
+        $userManager = $this->get('fos_user.user_manager');
+
+// Pour charger un utilisateur
+        $user = $userManager->findUserBy(array('username' => 'androiddev'));
+
+// Pour modifier un utilisateur
+        $user->setPassword('test');
+        $userManager->updateUser($user); // Pas besoin de faire un flush avec l'entityManager, cette méthode le fait toute seule !
+    }
+
 }

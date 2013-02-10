@@ -1,0 +1,37 @@
+{% extends "::layout2.html.twig" %}
+
+{% block title %}Android-dev{% endblock %}
+{% block description %}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.min.css') }}" type="text/css" />
+{% endblock %}
+
+{% block navbar %}
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+</a>
+<a class="brand" href="#">{{ infosite['titre'] }}</a>
+<div class="nav-collapse collapse">
+    <ul class="nav" role="navigation">
+        <li><a href="{{ path('androiddev_accueil') }}">Accueil</a></li>
+        <li><a href="{{ path('admin_article') }}">Articles</a></li>
+        
+    </ul>
+    
+</div><!--/.nav-collapse -->
+{% endblock %}
+
+
+{% block content %}
+
+{% endblock %}
+
+
+{% block footer %}
+    {{ infosite['footer'] | raw  }}
+{% endblock %}

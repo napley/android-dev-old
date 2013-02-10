@@ -1,0 +1,48 @@
+{% extends "::layout2.html.twig" %}
+
+{% block title %}Android-dev{% endblock %}
+{% block description %}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.min.css') }}" type="text/css" />
+{% endblock %}
+
+{% block navbar %}
+
+<a class="brand" href="#">{{ infosite['titre'] }}</a>
+<div class="nav-collapse collapse">
+
+</div><!--/.nav-collapse -->
+{% endblock %}
+{% block content %}
+<div>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+        <a href="{{ path('fos_user_security_logout') }}">
+                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+            </a>
+            {% else %}
+            <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+            {% endif %}
+        </div>
+
+        {% for key, message in app.session.flashbag.all() %}
+        <div class="{{ key }}">
+            {{ message|trans({}, 'FOSUserBundle') }}
+            </div>
+        {% endfor %}
+
+            <div class="formLogin">
+            {% block fos_user_content %}
+            {% endblock fos_user_content %}
+                </div>
+{% endblock %}
+
+
+
+
+{% block footer %}
+    {{ infosite['footer'] | raw  }}
+{% endblock %}

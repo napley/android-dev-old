@@ -1,7 +1,7 @@
 <?php
 // src/AndroidDev/UserBundle/AndroidDevUserBundle.php
  
-namespace Sdz\UserBundle;
+namespace AndroidDev\UserBundle;
  
 use Symfony\Component\HttpKernel\Bundle\Bundle;
  

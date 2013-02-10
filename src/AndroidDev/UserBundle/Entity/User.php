@@ -5,79 +5,88 @@ namespace AndroidDev\UserBundle\Entity;
  
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
  
 /**
- * @ORM\Entity
- * @ORM\Table(name="Auteur")
+ * Auteur
+ *
+ * @ORM\Table("Auteur")
+ * @ORM\Entity(repositoryClass="AndroidDev\UserBundle\Entity\UserRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class User extends BaseUser
 {
-    /**
+     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+     protected $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="text")
+     * @ORM\Column(name="nom", type="text", nullable=true)
      */
     private $nom;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="text")
+     * @ORM\Column(name="prenom", type="text", nullable=true)
      */
     private $prenom;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="text")
-     */
-    private $mail;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="text")
-     */
-    private $pseudo;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="text")
+     * @ORM\Column(name="lienProfil", type="text", nullable=true)
      */
     private $lienProfil;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="text")
+     * @ORM\Column(name="textPresentation", type="text", nullable=true)
      */
-    private $presentation;
-    
-    
+    private $textPresentation;
 
     /**
-     * Get nom
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AndroidDev\SiteBundle\Entity\Article",
+      mappedBy="Auteur")
+     */
+    private $Articles;
+
+    
+    public function __construct()
+    {
+        $this->Articles = new \Doctrine\Common\Collections\ArrayCollection();
+        parent::__construct();
+    }
+
+    /**
+     * Get id
      *
      * @return integer 
      */
-    public function getNom()
+    public function getId()
     {
-        return $this->nom;
+        return $this->id;
     }
 
     /**
      * Set nom
      *
      * @param string $nom
-     * @return Article
+     * @return Auteur
      */
     public function setNom($nom)
     {
@@ -89,18 +98,18 @@ class User extends BaseUser
     /**
      * Get nom
      *
-     * @return integer 
+     * @return string 
      */
-    public function getPrenom()
+    public function getNom()
     {
-        return $this->prenom;
+        return $this->nom;
     }
 
     /**
-     * Set nom
+     * Set prenom
      *
-     * @param string $nom
-     * @return Article
+     * @param string $prenom
+     * @return Auteur
      */
     public function setPrenom($prenom)
     {
@@ -110,66 +119,21 @@ class User extends BaseUser
     }
 
     /**
-     * Get nom
+     * Get prenom
      *
-     * @return integer 
+     * @return string 
      */
-    public function getMail()
+    public function getPrenom()
     {
-        return $this->mail;
+        return $this->prenom;
     }
 
-    /**
-     * Set nom
-     *
-     * @param string $nom
-     * @return Article
-     */
-    public function setMail($mail)
-    {
-        $this->mail = $mail;
-
-        return $this;
-    }
 
     /**
-     * Get nom
+     * Set lienProfil
      *
-     * @return integer 
-     */
-    public function getPseudo()
-    {
-        return $this->pseudo;
-    }
-
-    /**
-     * Set nom
-     *
-     * @param string $nom
-     * @return Article
-     */
-    public function setPseudo($pseudo)
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
-    }
-
-    /**
-     * Get nom
-     *
-     * @return integer 
-     */
-    public function getLienProfil()
-    {
-        return $this->lienProfil;
-    }
-
-    /**
-     * Set nom
-     *
-     * @param string $nom
-     * @return Article
+     * @param string $lienProfil
+     * @return Auteur
      */
     public function setLienProfil($lienProfil)
     {
@@ -179,25 +143,51 @@ class User extends BaseUser
     }
 
     /**
-     * Get nom
+     * Get lienProfil
      *
-     * @return integer 
+     * @return string 
      */
-    public function getPresentation()
+    public function getLienProfil()
     {
-        return $this->presentation;
+        return $this->lienProfil;
     }
 
     /**
-     * Set nom
+     * Set textPresentation
      *
-     * @param string $nom
-     * @return Article
+     * @param string $textPresentation
+     * @return Auteur
      */
-    public function setPresentation($presentation)
+    public function setTextPresentation($textPresentation)
     {
-        $this->presentation = $presentation;
+        $this->textPresentation = $textPresentation;
 
         return $this;
+    }
+
+    /**
+     * Get textPresentation
+     *
+     * @return string 
+     */
+    public function getTextPresentation()
+    {
+        return $this->textPresentation;
+    }
+
+    public function addArticle(\AndroidDev\SiteBundle\Entity\Article $article)
+    {
+        $this->Articles[] = $article;
+        return $this;
+    }
+
+    public function removeArticle(\AndroidDev\SiteBundle\Entity\Article $article)
+    {
+        $this->Articles->removeElement($article);
+    }
+
+    public function getArticles()
+    {
+        return $this->Articles;
     }
 }

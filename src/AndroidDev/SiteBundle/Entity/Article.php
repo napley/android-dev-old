@@ -46,7 +46,7 @@ class Article
     private $contenu;
 
     /**
-     * @Gedmo\Slug(fields={"titre"})
+     * @Gedmo\Slug(fields={"titre"}, updatable=false, separator="_")
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
@@ -79,7 +79,7 @@ class Article
     private $Type;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AndroidDev\SiteBundle\Entity\Auteur", cascade={"persist", "remove"},
+     * @ORM\ManyToOne(targetEntity="AndroidDev\UserBundle\Entity\User", cascade={"persist", "remove"},
       inversedBy="articles")
      */
     private $Auteur;
@@ -254,9 +254,9 @@ class Article
     /**
      * set Auteur
      * 
-     * @param \AndroidDev\SiteBundle\Entity\Auteur $auteur
+     * @param \AndroidDev\UserBundle\Entity\User $auteur
      */
-    public function setAuteur(\AndroidDev\SiteBundle\Entity\Auteur $auteur)
+    public function setAuteur(\AndroidDev\UserBundle\Entity\User $auteur)
     {
         if (!empty($this->Auteur)) {
             $this->removeAuteur();
@@ -267,7 +267,7 @@ class Article
     /**
      * remove Auteur
      * 
-     * @param \AndroidDev\SiteBundle\Entity\Auteur $auteur
+     * @param \AndroidDev\UserBundle\Entity\Auteur $auteur
      */
     public function removeAuteur()
     {

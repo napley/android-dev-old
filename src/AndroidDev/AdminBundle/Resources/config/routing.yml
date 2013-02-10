@@ -1,0 +1,35 @@
+android_dev_admin_homepage:
+    pattern:  /
+    defaults: { _controller: AndroidDevAdminBundle:Default:index }
+
+admin_article:
+    pattern:  /article/
+    defaults: { _controller: AndroidDevAdminBundle:Article:index }
+
+admin_article_show:
+    pattern:  /article/{id}/show
+    defaults: { _controller: AndroidDevAdminBundle:Article:show }
+
+admin_article_edit:
+    pattern:  /article/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:Article:edit }
+
+admin_article_new:
+    pattern:  /article/new
+    defaults: { _controller: AndroidDevAdminBundle:Article:new }
+
+admin_article_delete:
+    pattern:  /article/{id}/deletes
+    defaults: { _controller: AndroidDevAdminBundle:Article:delete }
+
+admin_article_create:
+    pattern:  /article/create
+    defaults: { _controller: AndroidDevAdminBundle:Article:create }
+    
+admin_article_edit:
+    pattern:  /article/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:Article:edit }
+    
+admin_article_update:
+    pattern:  /article/{id}/update
+    defaults: { _controller: AndroidDevAdminBundle:Article:update }
