@@ -24,10 +24,17 @@
     <ul class="nav" role="navigation">
         <li><a href="{{ path('androiddev_accueil') }}">Accueil</a></li>
         <li><a href="{{ path('admin_article') }}">Articles</a></li>
-
+        <li><a href="{{ path('admin_infosite') }}">Info Site</a></li>
     </ul>
+    <span class="pull-right infoConnect">
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+            {% else %}
+                    <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+            {% endif %}
+            </span>
 
-</div><!--/.nav-collapse -->
+        </div><!--/.nav-collapse -->
 {% endblock %}
 
 

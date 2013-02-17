@@ -94,3 +94,8 @@ div#form label {
 h1 {
     margin-bottom: 20px;
 }
+
+span.infoConnect {
+    color: #999999;
+    padding-top: 10px;
+}

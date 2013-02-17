@@ -1,6 +1,6 @@
 <?php
 
-namespace AndroidDev\SiteBundle\Form;
+namespace AndroidDev\AdminBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,10 +14,6 @@ class ArticleType extends AbstractType
             ->add('titre')
             ->add('sousTitre')
             ->add('contenu')
-            ->add('slug')
-            ->add('deletedAt')
-            ->add('created')
-            ->add('updated')
             ->add('Type')
             ->add('Auteur')
             ->add('Categorie')
@@ -29,12 +25,12 @@ class ArticleType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AndroidDev\SiteBundle\Entity\Article'
+            'data_class' => 'AndroidDev\AdminBundle\Entity\Article'
         ));
     }
 
     public function getName()
     {
-        return 'androiddev_sitebundle_articletype';
+        return 'androiddev_adminbundle_articletype';
     }
 }

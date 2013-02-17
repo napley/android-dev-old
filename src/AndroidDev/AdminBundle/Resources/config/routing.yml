@@ -33,3 +33,35 @@ admin_article_edit:
 admin_article_update:
     pattern:  /article/{id}/update
     defaults: { _controller: AndroidDevAdminBundle:Article:update }
+
+admin_infosite:
+    pattern:  /infosite/
+    defaults: { _controller: AndroidDevAdminBundle:InfoSite:index }
+
+admin_infosite_show:
+    pattern:  /infosite/{id}/show
+    defaults: { _controller: AndroidDevAdminBundle:InfoSite:show }
+
+admin_infosite_edit:
+    pattern:  /infosite/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:InfoSite:edit }
+
+admin_infosite_new:
+    pattern:  /infosite/new
+    defaults: { _controller: AndroidDevAdminBundle:InfoSite:new }
+
+admin_infosite_delete:
+    pattern:  /infosite/{id}/deletes
+    defaults: { _controller: AndroidDevAdminBundle:InfoSite:delete }
+
+admin_infosite_create:
+    pattern:  /infosite/create
+    defaults: { _controller: AndroidDevAdminBundle:InfoSite:create }
+    
+admin_infosite_edit:
+    pattern:  /infosite/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:InfoSite:edit }
+    
+admin_infosite_update:
+    pattern:  /infosite/{id}/update
+    defaults: { _controller: AndroidDevAdminBundle:InfoSite:update }

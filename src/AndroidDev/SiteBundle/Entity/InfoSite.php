@@ -157,6 +157,15 @@ class InfoSite
         return $this->description;
     }
 
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
     /**
      * Set entete
      *

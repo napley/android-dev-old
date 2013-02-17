@@ -1,0 +1,65 @@
+{% extends "AndroidDevAdminBundle::layout.html.twig" %}
+
+{% block title %}Accueil - Android-dev{% endblock %}
+{% block description %}{% endblock %}
+
+{% block contentDetail %}
+<div class="span12"><h1>InfoSite edit</h1><h1>InfoSite list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Entete</th>
+                <th>Footer</th>
+                <th>Apropos</th>
+                <th>Codesocial</th>
+                <th>Codeanalytics</th>
+                <th>Nbbypage</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for entity in entities %}
+                <tr>
+                    <td><a href="{{ path('admin_infosite_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{{ entity.titre }}</td>
+                    <td>{{ entity.description }}</td>
+                    <td>{{ entity.entete }}</td>
+                    <td>{{ entity.footer }}</td>
+                    <td>{{ entity.aPropos }}</td>
+                    <td>{{ entity.codeSocial }}</td>
+                    <td>{{ entity.codeAnalytics }}</td>
+                    <td>{{ entity.nbByPage }}</td>
+                    <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>{% if entity.updated %}{{ entity.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('admin_infosite_show', { 'id': entity.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('admin_infosite_edit', { 'id': entity.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+    {% endfor %}
+            </tbody>
+        </table>
+
+        <ul>
+            <li>
+                <a href="{{ path('admin_infosite_new') }}">
+                    Create a new entry
+                </a>
+            </li>
+        </ul>
+
+    </div>
+
+{% endblock %}
