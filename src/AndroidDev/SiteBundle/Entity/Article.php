@@ -73,7 +73,7 @@ class Article
     private $updated;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AndroidDev\SiteBundle\Entity\Type", cascade={"persist", "remove"},
+     * @ORM\ManyToOne(targetEntity="AndroidDev\SiteBundle\Entity\Type",
       inversedBy="articles")
      */
     private $Type;
@@ -85,7 +85,7 @@ class Article
     private $Auteur;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AndroidDev\SiteBundle\Entity\Categorie", cascade={"persist", "remove"},
+     * @ORM\ManyToOne(targetEntity="AndroidDev\SiteBundle\Entity\Categorie",
       inversedBy="articles")
      */
     private $Categorie;

@@ -10,6 +10,9 @@
         <!-- Le styles -->
         {% block stylesheets %}
             {% endblock %}
+        
+        {% block head %}
+        {% endblock %}
 
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
@@ -55,11 +58,13 @@
                     <!-- Placed at the end of the document so the pages load faster -->
                     <script type="text/javascript" src="{{ asset('js/jquery-1.8.3.min.js') }}"></script>
                     <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+                    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
                     <script type="text/javascript">
                         $('body')
                         .on('touchstart.dropdown', '.dropdown-menu', function (e) { e.stopPropagation(); })
                         .on('touchstart.dropdown', '.dropdown-submenu', function (e) { e.preventDefault(); });
                         </script>
-                        <script type="text/javascript" src="{{ asset('js/javascript.js') }}"></script>
+                        <script type="text/javascript" src="{{ asset('js/javascriptAdmin.js') }}"></script>
+                     <script type="text/javascript" src="{{ asset('ckeditor/ckeditor.js') }}"></script>
                     </body>
                 </html>

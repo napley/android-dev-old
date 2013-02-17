@@ -66,7 +66,7 @@ class ArticleController extends Controller
         $entity = new Article();
         $form = $this->createFormBuilder($entity)
                 ->add('titre', 'text')
-                ->add('sousTitre', 'text')
+                ->add('sousTitre', 'textarea')
                 ->add('contenu', 'textarea')
                 ->add('type', 'entity', array(
                     'class' => 'AndroidDevSiteBundle:Type',
@@ -95,7 +95,7 @@ class ArticleController extends Controller
         $entity = new Article();
         $form = $this->createFormBuilder($entity)
                 ->add('titre', 'text')
-                ->add('sousTitre', 'text')
+                ->add('sousTitre', 'textarea')
                 ->add('contenu', 'textarea')
                 ->add('type', 'entity', array(
                     'class' => 'AndroidDevSiteBundle:Type',
@@ -141,7 +141,7 @@ class ArticleController extends Controller
 
         $editForm = $this->createFormBuilder($entity)
                 ->add('titre', 'text')
-                ->add('sousTitre', 'text')
+                ->add('sousTitre', 'textarea')
                 ->add('contenu', 'textarea')
                 ->add('type', 'entity', array(
                     'class' => 'AndroidDevSiteBundle:Type',
@@ -179,7 +179,7 @@ class ArticleController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createFormBuilder($entity)
                 ->add('titre', 'text')
-                ->add('sousTitre', 'text')
+                ->add('sousTitre', 'textarea')
                 ->add('contenu', 'textarea')
                 ->add('type', 'entity', array(
                     'class' => 'AndroidDevSiteBundle:Type',

@@ -35,7 +35,7 @@
             </tr>
             <tr>
                 <th>Catégorie</th>
-                <td>{{ entity.Categorie.nom }}</td>
+                <td>{% if entity.Categorie%}{{ entity.Categorie.nom }}{% endif %}</td>
             </tr>
             <tr>
                 <th>Created</th>
@@ -51,18 +51,18 @@
     <ul class="record_actions">
         <li>
             <a href="{{ path('admin_article') }}">
-                Back to the list
+                Retour à la liste des articles
             </a>
         </li>
         <li>
             <a href="{{ path('admin_article_edit', { 'id': entity.id }) }}">
-                Edit
+                Modifier
             </a>
         </li>
         <li>
             <form action="{{ path('admin_article_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
-                    <button type="submit">Delete</button>
+                    <button type="submit">Supprimer</button>
                 </form>
             </li>
         </ul>

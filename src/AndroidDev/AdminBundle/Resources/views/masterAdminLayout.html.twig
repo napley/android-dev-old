@@ -7,6 +7,10 @@
 <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
 <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" />
 <link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.min.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/demo_table.css') }}" type="text/css" />
+{% endblock %}
+
+{% block head %}
 {% endblock %}
 
 {% block navbar %}
@@ -20,9 +24,9 @@
     <ul class="nav" role="navigation">
         <li><a href="{{ path('androiddev_accueil') }}">Accueil</a></li>
         <li><a href="{{ path('admin_article') }}">Articles</a></li>
-        
+
     </ul>
-    
+
 </div><!--/.nav-collapse -->
 {% endblock %}
 

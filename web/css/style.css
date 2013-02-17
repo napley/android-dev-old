@@ -78,3 +78,19 @@ div.formLogin > form > input[type="submit"] {
 div.formLogin > form > label {
     display: inline;
 }
+
+table>tbody>tr>td {
+    padding: 10px;
+}
+
+table>thead>tr>th {
+    padding: 6px;
+}
+
+div#form label {
+    margin-top: 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
