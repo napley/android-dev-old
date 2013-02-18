@@ -1,0 +1,26 @@
+{% extends "AndroidDevAdminBundle::layout.html.twig" %}
+
+{% block title %}Accueil - Android-dev{% endblock %}
+{% block description %}{% endblock %}
+
+{% block contentDetail %}
+<div class="span12"><h1>Création d'un type</h1>
+
+    <form action="{{ path('admin_type_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+            <p>
+                <button type="submit">Créer</button>
+            </p>
+        </form>
+
+        <ul class="record_actions">
+            <li>
+                <a href="{{ path('admin_type') }}">
+                    Retour à la liste
+                </a>
+            </li>
+        </ul>
+
+    </div>
+
+{% endblock %}

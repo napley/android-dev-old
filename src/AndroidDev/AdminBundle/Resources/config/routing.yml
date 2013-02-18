@@ -65,3 +65,35 @@ admin_infosite_edit:
 admin_infosite_update:
     pattern:  /infosite/{id}/update
     defaults: { _controller: AndroidDevAdminBundle:InfoSite:update }
+
+admin_type:
+    pattern:  /type/
+    defaults: { _controller: AndroidDevAdminBundle:Type:index }
+
+admin_type_show:
+    pattern:  /type/{id}/show
+    defaults: { _controller: AndroidDevAdminBundle:Type:show }
+
+admin_type_edit:
+    pattern:  /type/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:Type:edit }
+
+admin_type_new:
+    pattern:  /type/new
+    defaults: { _controller: AndroidDevAdminBundle:Type:new }
+
+admin_type_delete:
+    pattern:  /type/{id}/deletes
+    defaults: { _controller: AndroidDevAdminBundle:Type:delete }
+
+admin_type_create:
+    pattern:  /type/create
+    defaults: { _controller: AndroidDevAdminBundle:Type:create }
+    
+admin_type_edit:
+    pattern:  /type/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:Type:edit }
+    
+admin_type_update:
+    pattern:  /type/{id}/update
+    defaults: { _controller: AndroidDevAdminBundle:Type:update }
