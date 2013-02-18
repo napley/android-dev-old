@@ -97,3 +97,35 @@ admin_type_edit:
 admin_type_update:
     pattern:  /type/{id}/update
     defaults: { _controller: AndroidDevAdminBundle:Type:update }
+
+admin_categorie:
+    pattern:  /categorie/
+    defaults: { _controller: AndroidDevAdminBundle:Categorie:index }
+
+admin_categorie_show:
+    pattern:  /categorie/{id}/show
+    defaults: { _controller: AndroidDevAdminBundle:Categorie:show }
+
+admin_categorie_edit:
+    pattern:  /categorie/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:Categorie:edit }
+
+admin_categorie_new:
+    pattern:  /categorie/new
+    defaults: { _controller: AndroidDevAdminBundle:Categorie:new }
+
+admin_categorie_delete:
+    pattern:  /categorie/{id}/deletes
+    defaults: { _controller: AndroidDevAdminBundle:Categorie:delete }
+
+admin_categorie_create:
+    pattern:  /categorie/create
+    defaults: { _controller: AndroidDevAdminBundle:Categorie:create }
+    
+admin_categorie_edit:
+    pattern:  /categorie/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:Categorie:edit }
+    
+admin_categorie_update:
+    pattern:  /categorie/{id}/update
+    defaults: { _controller: AndroidDevAdminBundle:Categorie:update }
