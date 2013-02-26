@@ -3,28 +3,36 @@
 {% block title %}Accueil - Android-dev{% endblock %}
 {% block description %}{% endblock %}
 
+
 {% block enteteContentPC %}
-<div class="hero-unit">
-    <h1>{{ article.titre | raw }}</h1>
+    <div class="hero-unit">
+        <h1>{{ article.titre | raw }}</h1>
     {{ article.sousTitre | raw }}
-</div>
+    </div>
 {% endblock %}
 
 {% block contentPC %}
-<div class="contenuArticle">
+    <div class="contenuArticle">
     {{ article.contenu | raw }}
-</div>
+        </div>
 {% endblock %}
 
 {% block enteteContentMobileTablet %}
-<div class="hero-unit">
-    <h1>{{ article.titre | raw }}</h1>
+        <div class="hero-unit">
+            <h1>{{ article.titre | raw }}</h1>
     {{ article.sousTitre | raw }}
-</div>
+        </div>
 {% endblock %}
 
 {% block contentMobileTablet %}
-<div class="contenuArticle">
+        <div class="contenuArticle">
     {{ article.contenu | raw }}
-</div>
+            </div>
+{% endblock %}
+
+{% block script %}           
+<script type="text/javascript">
+    SyntaxHighlighter.config.tagName='textarea';
+    SyntaxHighlighter.all();
+</script>
 {% endblock %}

@@ -1,7 +1,7 @@
 $(document).ready(function(){
     
+    $(".lightbox").attr('rel', 'gallery').fancybox();
     createSommaire();
-
 
 });
 

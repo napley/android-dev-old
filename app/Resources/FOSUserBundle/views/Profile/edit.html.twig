@@ -1,0 +1,11 @@
+{% extends "AndroidDevAdminBundle::layout.html.twig" %}
+
+{% block title %}Accueil - Android-dev{% endblock %}
+{% block description %}{% endblock %}
+
+{% block contentDetail %}
+{% block fos_user_content %}
+{% include "FOSUserBundle:Profile:edit_content.html.twig" %}
+{% endblock fos_user_content %}
+
+{% endblock %}

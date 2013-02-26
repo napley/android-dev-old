@@ -91,5 +91,14 @@
                                 .on('touchstart.dropdown', '.dropdown-submenu', function (e) { e.preventDefault(); });
                                 </script>
                                 <script type="text/javascript" src="{{ asset('js/javascript.js') }}"></script>
+                                <script type="text/javascript" src="{{ asset('js/jquery.fancybox.js') }}"></script>
+                                <script type="text/javascript" src="{{ asset('js/jquery.fancybox.pack.js') }}"></script>
+                                <script type="text/javascript" src="{{ asset('js/shCore.js') }}"></script>
+                                <script type="text/javascript" src="{{ asset('js/shBrushXml.js') }}"></script>
+                                <script type="text/javascript" src="{{ asset('js/shBrushJava.js') }}"></script>
+                                <script type="text/javascript" src="{{ asset('js/shBrushBash.js') }}"></script>
+
+{% block script %}
+{% endblock %}
                             </body>
                         </html>

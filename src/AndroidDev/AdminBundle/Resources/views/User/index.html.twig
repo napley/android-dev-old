@@ -1,0 +1,60 @@
+{% extends "AndroidDevAdminBundle::layout.html.twig" %}
+
+{% block title %}Accueil - Android-dev{% endblock %}
+{% block description %}{% endblock %}
+
+{% block contentDetail %}
+    <div class="span12"><h1>Liste d'utilisateur</h1>
+
+   <a href="{{ path('fos_user_profile_show') }}">Mon profil</a>     
+        
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Lienprofil</th>
+            <th>Textpresentation</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td>{{ entity.id }}</td>
+            <td><a href="{{ path('admin_user_show', { 'id': entity.id }) }}">{{ entity.username }}</a></td>
+            <td>{{ entity.email }}</td>
+            <td>{{ entity.nom }}</td>
+            <td>{{ entity.prenom }}</td>
+            <td>{{ entity.lienProfil }}</td>
+            <td>{{ entity.textPresentation }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('admin_user_show', { 'id': entity.id }) }}">Voir</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('admin_user_edit', { 'id': entity.id }) }}">Modifier</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('fos_user_registration_register') }}">
+            Crée un nouveau utilisateur
+        </a>
+    </li>
+</ul>
+
+
+            </div>
+
+{% endblock %}

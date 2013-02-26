@@ -99,3 +99,15 @@ span.infoConnect {
     color: #999999;
     padding-top: 10px;
 }
+
+a.lightbox img {
+    box-shadow: 0 0 4px #333333;
+}
+
+a.lightbox img:hover {
+    box-shadow: 0 0 6px #000000;
+}
+
+div.syntaxhighlighter .container:before,div.syntaxhighlighter .container:after {
+    content:none;
+}

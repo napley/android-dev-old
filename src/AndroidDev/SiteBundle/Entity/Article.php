@@ -96,7 +96,7 @@ class Article
     private $Projet;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AndroidDev\SiteBundle\Entity\MotCle", inversedBy="Articles")
+     * @ORM\ManyToMany(targetEntity="AndroidDev\SiteBundle\Entity\MotCle", inversedBy="Articles", cascade={"persist"})
      * @ORM\JoinTable(name="article_motcles")
      * */
     private $MotCles;
@@ -345,9 +345,27 @@ class Article
         return $this->Projet;
     }
 
-    public function addMotCle(\AndroidDev\SiteBundle\Entity\MotCle $motCle)
+    public function setMotCles(ArrayCollection $motCles)
     {
-        $this->MotCles[] = $motCle;
+        foreach ($motCles as $motcle) {
+            $motcle->addMotCle($this);
+        }
+
+        $this->MotCles = $motCles;
+    }
+
+    public function addMotCle(MotCle $motcle)
+    {
+        if (!$this->MotCles->contains($motcle)) {
+            $this->MotCles->add($motcle);
+        }
+    }
+
+    public function removeMotcle(MotCle $motcle)
+    {
+        if (!$this->MotCles->contains($motcle)) {
+            $this->MotCles->remove($motcle);
+        }
     }
 
     public function getMotCles()

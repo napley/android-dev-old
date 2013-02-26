@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AndroidDev\SiteBundle\Entity\Article;
-use AndroidDev\SiteBundle\Form\ArticleType;
+use AndroidDev\AdminBundle\Form\ArticleType;
 
 /**
  * Article controller.
@@ -64,19 +64,8 @@ class ArticleController extends Controller
     public function newAction()
     {
         $entity = new Article();
-        $form = $this->createFormBuilder($entity)
-                ->add('titre', 'text')
-                ->add('sousTitre', 'textarea')
-                ->add('contenu', 'textarea')
-                ->add('type', 'entity', array(
-                    'class' => 'AndroidDevSiteBundle:Type',
-                    'property' => 'nom',
-                ))
-                ->add('categorie', 'entity', array(
-                    'class' => 'AndroidDevSiteBundle:Categorie',
-                    'property' => 'nom',
-                ))
-                ->getForm();
+
+        $form = $this->createForm(new ArticleType(), $entity);
 
         return array(
             'entity' => $entity,
@@ -93,19 +82,7 @@ class ArticleController extends Controller
     public function createAction(Request $request)
     {
         $entity = new Article();
-        $form = $this->createFormBuilder($entity)
-                ->add('titre', 'text')
-                ->add('sousTitre', 'textarea')
-                ->add('contenu', 'textarea')
-                ->add('type', 'entity', array(
-                    'class' => 'AndroidDevSiteBundle:Type',
-                    'property' => 'nom',
-                ))
-                ->add('categorie', 'entity', array(
-                    'class' => 'AndroidDevSiteBundle:Categorie',
-                    'property' => 'nom',
-                ))
-                ->getForm();
+        $form = $this->createForm(new ArticleType(), $entity);
 
         if ($request->isMethod('POST')) {
             $form->bind($request);
@@ -129,7 +106,7 @@ class ArticleController extends Controller
      *
      * @Template("AndroidDevAdminBundle:Article:edit.html.twig")
      */
-    public function editAction($id)
+    public function editAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -139,19 +116,50 @@ class ArticleController extends Controller
             throw $this->createNotFoundException('Unable to find Article entity.');
         }
 
-        $editForm = $this->createFormBuilder($entity)
-                ->add('titre', 'text')
-                ->add('sousTitre', 'textarea')
-                ->add('contenu', 'textarea')
-                ->add('type', 'entity', array(
-                    'class' => 'AndroidDevSiteBundle:Type',
-                    'property' => 'nom',
-                ))
-                ->add('categorie', 'entity', array(
-                    'class' => 'AndroidDevSiteBundle:Categorie',
-                    'property' => 'nom',
-                ))
-                ->getForm();
+        foreach ($entity->getMotCles() as $motcle) {
+            $originalMotCles[] = $motcle;
+        }
+
+        $editForm = $this->createForm(new ArticleType(), $entity);
+
+        if ($request->isMethod('POST')) {
+            $editForm->bind($this->getRequest());
+
+            if ($editForm->isValid()) {
+
+                // filter $originalTags to contain tags no longer present
+                foreach ($entity->getMotCles() as $motcle) {
+                    foreach ($originalMotCles as $key => $toDel) {
+                        if ($toDel->getId() === $motcle->getId()) {
+                            unset($originalMotCles[$key]);
+                        }
+                    }
+                }
+
+                // remove the relationship between the tag and the Task
+                foreach ($originalMotCles as $motcle) {
+                    // remove the Task from the Tag
+                    $motcle->getMotCles()->removeElement($entity);
+
+                    // if it were a ManyToOne relationship, remove the relationship like this
+                    // $tag->setTask(null);
+
+                    $em->persist($motcle);
+
+                    // if you wanted to delete the Tag entirely, you can also do that
+                    // $em->remove($tag);
+                }
+
+                $em->persist($entity);
+                $em->flush();
+
+                // redirect back to some edit page
+                return $this->redirect($this->generateUrl('admin_article_edit', array('id' => $id)));
+            }
+        }
+
+
+
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
@@ -177,19 +185,7 @@ class ArticleController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createFormBuilder($entity)
-                ->add('titre', 'text')
-                ->add('sousTitre', 'textarea')
-                ->add('contenu', 'textarea')
-                ->add('type', 'entity', array(
-                    'class' => 'AndroidDevSiteBundle:Type',
-                    'property' => 'nom',
-                ))
-                ->add('categorie', 'entity', array(
-                    'class' => 'AndroidDevSiteBundle:Categorie',
-                    'property' => 'nom',
-                ))
-                ->getForm();
+        $editForm = $this->createForm(new ArticleType(), $entity);
         if ($request->isMethod('POST')) {
             $editForm->bind($request);
 

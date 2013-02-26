@@ -4,33 +4,42 @@
 {% block description %}{% endblock %}
 
 {% block head %}
-    <script type="text/javascript">
-    window.onload = function()
-    {
-        CKEDITOR.replace( 'form[sousTitre]' );
-        CKEDITOR.replace( 'form[contenu]' );
-    };
-        </script>
+<script type="text/javascript">
+window.onload = function()
+{
+    CKEDITOR.replace( 'androiddev_adminbundle_articletype[sousTitre]' );
+    CKEDITOR.replace( 'androiddev_adminbundle_articletype[contenu]' );
+};
+    </script>
 {% endblock %}
 
 {% block contentDetail %}
-<div class="span12">
-    <h1>Création d'article</h1>
+    <div class="span12">
+        <h1>Création d'article</h1>
 
-    <form action="{{ path('admin_article_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-            <p>
-                <button type="submit">Créer</button>
-            </p>
-        </form>
+        <form action="{{ path('admin_article_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_row(form.titre) }}
 
-        <ul class="record_actions">
-            <li>
-                <a href="{{ path('admin_article') }}">
-                    Retour à la liste des articles
-                </a>
-            </li>
-        </ul>
+                <h3>Mot clés</h3>
+                <ul class="motcles" data-prototype="{{ form_widget(form.motcles.vars.prototype.nom)|e }}">
+        {# iterate over each existing tag and render its only field: name #}
+        {% for motcle in form.motcles %}
+                        <li>{{ form_row(motcle.nom) }}</li>
+        {% endfor %}
+                    </ul>
+    {{ form_rest(form) }}
+                    <p>
+                        <button type="submit">Créer</button>
+                    </p>
+                </form>
 
-    </div>
+                <ul class="record_actions">
+                    <li>
+                        <a href="{{ path('admin_article') }}">
+                            Retour à la liste des articles
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
 {% endblock %}
