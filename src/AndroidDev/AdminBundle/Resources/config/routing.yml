@@ -177,3 +177,35 @@ admin_user_resetting:
 admin_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /user
+
+admin_projet:
+    pattern:  /projet/
+    defaults: { _controller: AndroidDevAdminBundle:Projet:index }
+
+admin_projet_show:
+    pattern:  /projet/{id}/show
+    defaults: { _controller: AndroidDevAdminBundle:Projet:show }
+
+admin_projet_edit:
+    pattern:  /projet/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:Projet:edit }
+
+admin_projet_new:
+    pattern:  /projet/new
+    defaults: { _controller: AndroidDevAdminBundle:Projet:new }
+
+admin_projet_delete:
+    pattern:  /projet/{id}/deletes
+    defaults: { _controller: AndroidDevAdminBundle:Projet:delete }
+
+admin_projet_create:
+    pattern:  /projet/create
+    defaults: { _controller: AndroidDevAdminBundle:Projet:create }
+    
+admin_projet_edit:
+    pattern:  /projet/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:Projet:edit }
+    
+admin_projet_update:
+    pattern:  /projet/{id}/update
+    defaults: { _controller: AndroidDevAdminBundle:Projet:update }

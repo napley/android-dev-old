@@ -111,3 +111,14 @@ a.lightbox img:hover {
 div.syntaxhighlighter .container:before,div.syntaxhighlighter .container:after {
     content:none;
 }
+
+label {
+    display: inline;
+    margin-bottom: 5px;
+    margin-right: 20px;
+}
+
+form > div {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
