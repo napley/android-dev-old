@@ -14,6 +14,9 @@ class ArticleType extends AbstractType
         $builder->add('titre', 'text')
                 ->add('sousTitre', 'textarea')
                 ->add('contenu', 'textarea')
+                ->add('visible', 'checkbox', array(
+                    'required' => false,
+                ))
                 ->add('type', 'entity', array(
                     'class' => 'AndroidDevSiteBundle:Type',
                     'property' => 'nom',

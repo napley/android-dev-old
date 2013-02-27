@@ -46,6 +46,13 @@ class Article
     private $contenu;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="visible", type="boolean")
+     */
+    private $visible = false;
+
+    /**
      * @Gedmo\Slug(fields={"titre"}, updatable=false, separator="_")
      * @ORM\Column(length=128, unique=true)
      */
@@ -125,6 +132,29 @@ class Article
     public function setTitre($titre)
     {
         $this->titre = $titre;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getVisible()
+    {
+        return $this->visible;
+    }
+
+    /**
+     * Set titre
+     *
+     * @param string $titre
+     * @return Article
+     */
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
 
         return $this;
     }

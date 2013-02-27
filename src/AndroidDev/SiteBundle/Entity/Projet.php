@@ -45,6 +45,13 @@ class Projet
     private $contenu;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="visible", type="boolean")
+     */
+    private $visible = false;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="contenuFin", type="text")
@@ -154,6 +161,30 @@ class Projet
     {
         return $this->contenu;
     }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getVisible()
+    {
+        return $this->visible;
+    }
+
+    /**
+     * Set titre
+     *
+     * @param string $titre
+     * @return Article
+     */
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+
+        return $this;
+    }
+
 
     /**
      * Set contenuFin
