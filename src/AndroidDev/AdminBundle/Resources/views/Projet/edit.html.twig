@@ -3,6 +3,17 @@
 {% block title %}Accueil - Android-dev{% endblock %}
 {% block description %}{% endblock %}
 
+{% block head %}
+    <script type="text/javascript">
+    window.onload = function()
+    {
+        CKEDITOR.replace( 'androiddev_adminbundle_projettype[sousTitre]' );
+        CKEDITOR.replace( 'androiddev_adminbundle_projettype[contenu]' );
+        CKEDITOR.replace( 'androiddev_adminbundle_projettype[contenuFin]' );
+    };
+        </script>
+{% endblock %}
+
 {% block contentDetail %}
 <div class="span12"><h1>Edition de projet</h1>
 

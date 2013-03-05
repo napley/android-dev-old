@@ -65,9 +65,9 @@ $.fn.dataTableExt.oApi.fnPagingInfo = function ( oSettings )
         "iTotal":         oSettings.fnRecordsTotal(),
         "iFilteredTotal": oSettings.fnRecordsDisplay(),
         "iPage":          oSettings._iDisplayLength === -1 ?
-        0 : Math.ceil( oSettings._iDisplayStart / oSettings._iDisplayLength ),
+            0 : Math.ceil( oSettings._iDisplayStart / oSettings._iDisplayLength ),
         "iTotalPages":    oSettings._iDisplayLength === -1 ?
-        0 : Math.ceil( oSettings.fnRecordsDisplay() / oSettings._iDisplayLength )
+            0 : Math.ceil( oSettings.fnRecordsDisplay() / oSettings._iDisplayLength )
     };
 };
 
@@ -85,11 +85,11 @@ $.extend( $.fn.dataTableExt.oPagination, {
             };
 
             $(nPaging).addClass('pagination').append(
-                '<ul>'+
+            '<ul>'+
                 '<li class="prev disabled"><a href="#">&larr; '+oLang.sPrevious+'</a></li>'+
                 '<li class="next disabled"><a href="#">'+oLang.sNext+' &rarr; </a></li>'+
                 '</ul>'
-                );
+        );
             var els = $('a', nPaging);
             $(els[0]).bind( 'click.DT', {
                 action: "previous"
@@ -223,4 +223,18 @@ function addMotCleFormDeleteLink($motcleFormLi) {
         // remove the li for the tag form
         $motcleFormLi.remove();
     });
+}
+
+function addPartProject(){
+    var $listePartProject = $("#listePartProject");
+    
+    $listePartProject.append('<li>'
+        +'<input type="hidden" name="partProject[id][]" value="'+ $("#partProject").val() +'" />'
+        +'<label>'+ $("#partProject option:selected").text() + '</label>'
+        +'<input class="indexPartProject" type="text" name="partProject[index][]" value="'+ $("#indexPartProject").val() +'" />'
+        +'<label onclick="delPartProject(this);">x</label></li>');
+}
+
+function delPartProject(lignePartProject){
+    lignePartProject.parentNode.parentNode.removeChild(lignePartProject.parentNode);
 }

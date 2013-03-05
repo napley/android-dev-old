@@ -16,6 +16,7 @@ use AndroidDev\AdminBundle\Form\ProjetType;
  */
 class ProjetController extends Controller
 {
+
     /**
      * Lists all Projet entities.
      *
@@ -50,7 +51,7 @@ class ProjetController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -63,11 +64,11 @@ class ProjetController extends Controller
     public function newAction()
     {
         $entity = new Projet();
-        $form   = $this->createForm(new ProjetType(), $entity);
+        $form = $this->createForm(new ProjetType(), $entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -79,13 +80,19 @@ class ProjetController extends Controller
      */
     public function createAction(Request $request)
     {
-        $entity  = new Projet();
+        $entity = new Projet();
         $form = $this->createForm(new ProjetType(), $entity);
         $form->bind($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
+
+            foreach ($_POST['partProject']['id'] as $cle => $idPartProject) {
+                $article = $this->container->get('androiddev.article')->getArticle($idPartProject);
+                $PartProject = new \AndroidDev\SiteBundle\Entity\ArticleProjet($entity, $article, $_POST['partProject']['index'][$cle]);
+                $em->persist($PartProject);
+            }
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_projet_show', array('id' => $entity->getId())));
@@ -93,7 +100,7 @@ class ProjetController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -116,8 +123,8 @@ class ProjetController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -150,8 +157,8 @@ class ProjetController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -184,8 +191,9 @@ class ProjetController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
+                        ->add('id', 'hidden')
+                        ->getForm()
         ;
     }
+
 }

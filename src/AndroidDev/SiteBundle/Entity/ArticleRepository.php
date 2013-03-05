@@ -34,4 +34,11 @@ class ArticleRepository extends EntityRepository
         return $query->getResult();
     }
 
+    public function findAllPartProject()
+    {
+
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type t WHERE t.id = 3 ORDER BY a.created DESC');
+        return $query->getResult();
+    }
+
 }

@@ -8,14 +8,22 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ProjetType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('titre')
-            ->add('sousTitre')
-            ->add('contenu')
-            ->add('contenuFin')
-            ->add('visible')
+        $builder->add('titre')
+                ->add('sousTitre', 'checkbox', array(
+                    'required' => false,
+                ))
+                ->add('contenu', 'checkbox', array(
+                    'required' => false,
+                ))
+                ->add('contenuFin', 'checkbox', array(
+                    'required' => false,
+                ))
+                ->add('visible', 'checkbox', array(
+                    'required' => false,
+                ))
         ;
     }
 
@@ -30,4 +38,5 @@ class ProjetType extends AbstractType
     {
         return 'androiddev_adminbundle_projettype';
     }
+
 }

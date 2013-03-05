@@ -41,7 +41,7 @@ class ArticleProjet
      */
     private $Projet;
 
-    public function __construct(AndroidDev\SiteBundle\Entity\Projet $projet, AndroidDev\SiteBundle\Entity\Article $article, $index)
+    public function __construct( $projet, $article, $index)
     {
         $this->setArticle($article);
         $this->setProjet($projet);
@@ -82,6 +82,19 @@ class ArticleProjet
     }
 
     /**
+     * Set rang
+     *
+     * @param integer $rang
+     * @return ArticleProjet
+     */
+    public function setArticle($article)
+    {
+        $this->Article = $article;
+
+        return $this;
+    }
+
+    /**
      * Add Article
      * 
      * @param \AndroidDev\SiteBundle\Entity\Article $article
@@ -101,5 +114,19 @@ class ArticleProjet
     {
         return $this->Articles;
     }
+
+    /**
+     * Set rang
+     *
+     * @param integer $rang
+     * @return ArticleProjet
+     */
+    public function setProjet($project)
+    {
+        $this->Projet = $project;
+
+        return $this;
+    }
+
 
 }
