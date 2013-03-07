@@ -30,7 +30,7 @@
         <tbody>
     {% for entity in entities %}
                 <tr>
-                    <td><a href="{{ path('vprojet_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td><a href="{{ path('admin_projet_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                     <td>{{ entity.titre }}</td>
                     <td>{{ entity.sousTitre }}</td>
                     <td>{{ entity.contenu }}</td>

@@ -30,13 +30,13 @@ class ArticleProjet
     private $rang;
 
     /**
-     * @ORM\OneToOne(targetEntity="AndroidDev\SiteBundle\Entity\Article", inversedBy="Projet", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="AndroidDev\SiteBundle\Entity\Article", inversedBy="Projet", cascade={"persist"})
      * */
     private $Article;
     
 
     /**
-     * @ORM\ManyToOne(targetEntity="AndroidDev\SiteBundle\Entity\Projet", cascade={"persist", "remove"},
+     * @ORM\ManyToOne(targetEntity="AndroidDev\SiteBundle\Entity\Projet", cascade={"persist"},
       inversedBy="articles")
      */
     private $Projet;
@@ -110,9 +110,9 @@ class ArticleProjet
      *
      * @return integer 
      */
-    public function getArticles()
+    public function getArticle()
     {
-        return $this->Articles;
+        return $this->Article;
     }
 
     /**

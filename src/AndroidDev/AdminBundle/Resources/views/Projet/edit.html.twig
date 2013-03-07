@@ -4,39 +4,65 @@
 {% block description %}{% endblock %}
 
 {% block head %}
-    <script type="text/javascript">
-    window.onload = function()
-    {
-        CKEDITOR.replace( 'androiddev_adminbundle_projettype[sousTitre]' );
-        CKEDITOR.replace( 'androiddev_adminbundle_projettype[contenu]' );
-        CKEDITOR.replace( 'androiddev_adminbundle_projettype[contenuFin]' );
-    };
-        </script>
+<script type="text/javascript">
+window.onload = function()
+{
+    CKEDITOR.replace( 'androiddev_adminbundle_projettype[sousTitre]' );
+    CKEDITOR.replace( 'androiddev_adminbundle_projettype[contenu]' );
+    CKEDITOR.replace( 'androiddev_adminbundle_projettype[contenuFin]' );
+};
+    </script>
 {% endblock %}
 
 {% block contentDetail %}
-<div class="span12"><h1>Edition de projet</h1>
+    <div class="span12"><h1>Edition de projet</h1>
 
-    <form action="{{ path('admin_projet_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+        <form action="{{ path('admin_projet_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
     {{ form_widget(edit_form) }}
-            <p>
-                <button type="submit">Modifier</button>
-            </p>
-        </form>
 
-        <ul class="record_actions">
-            <li>
-                <a href="{{ path('admin_projet') }}">
-                    Retour à la liste des projets
-                </a>
-            </li>
-            <li>
-                <form action="{{ path('admin_projet_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-                        <button type="submit">Supprimer</button>
+                <div>
+                    <fieldset>
+                        <legend>Partie</legend>
+
+                        <ul id="listePartProject">
+                        {% for part in entity.Articles %}
+                                <li>
+                                    <input type="hidden" value="{{ part.getArticle().id }}" name="partProject[id][]">
+                                    <label>{{ part.getArticle().id }} - {{ part.getArticle().titre }}</label>
+                                    <input type="text" value="{{ part.getRang() }}" name="partProject[index][]" class="indexPartProject"/>
+                                    <label onclick="delPartProject(this);">x</label>
+                                </li>
+                        {% endfor %}    
+                            </ul>
+
+                            <select id="partProject">
+                {% for part in partProject %}
+                                    <option value="{{ part.id }}">{{ part.id }} - {{ part.titre }}</option>
+                {% endfor %}    
+                                </select>
+                                <input id="indexPartProject" class="indexPartProject" type="text" maxlength="3" size="3" />
+                                <label class="labelClick" onclick="addPartProject();" >Ajouter</label>
+                            </fieldset>
+                        </div>
+
+                        <p>
+                            <button type="submit">Modifier</button>
+                        </p>
                     </form>
-                </li>
-            </ul>
 
-        </div>
+                    <ul class="record_actions">
+                        <li>
+                            <a href="{{ path('admin_projet') }}">
+                                Retour à la liste des projets
+                            </a>
+                        </li>
+                        <li>
+                            <form action="{{ path('admin_projet_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+                                    <button type="submit">Supprimer</button>
+                                </form>
+                            </li>
+                        </ul>
+
+                    </div>
 {% endblock %}

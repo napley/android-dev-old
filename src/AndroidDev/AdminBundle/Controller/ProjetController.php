@@ -151,6 +151,30 @@ class ProjetController extends Controller
 
         if ($editForm->isValid()) {
             $em->persist($entity);
+
+            foreach ($entity->getArticles() as $part) {
+                $trouve = false;
+                foreach ($_POST['partProject']['id'] as $cle => $idPartProject) {
+                    if ($idPartProject == $part->getArticle()->getId()) {
+                        $trouve = true;
+                    }
+                }
+                if ($trouve == false) {
+                    $em->remove($part);
+                }
+            }
+
+            foreach ($_POST['partProject']['id'] as $cle => $idPartProject) {
+                $article = $this->container->get('androiddev.article')->getArticle($idPartProject);
+                $part = $em->getRepository('AndroidDevSiteBundle:ArticleProjet')->findPartByProjetAndArticle($entity, $article);
+                if (!empty($part)) {
+                    $part->setRang($_POST['partProject']['index'][$cle]);
+                } else {
+                    $PartProject = new \AndroidDev\SiteBundle\Entity\ArticleProjet($entity, $article, $_POST['partProject']['index'][$cle]);
+                    $em->persist($PartProject);
+                }
+            }
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_projet_edit', array('id' => $id)));

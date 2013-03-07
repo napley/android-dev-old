@@ -12,13 +12,13 @@ class ProjetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('titre')
-                ->add('sousTitre', 'checkbox', array(
+                ->add('sousTitre', 'textarea', array(
                     'required' => false,
                 ))
-                ->add('contenu', 'checkbox', array(
+                ->add('contenu', 'textarea', array(
                     'required' => false,
                 ))
-                ->add('contenuFin', 'checkbox', array(
+                ->add('contenuFin', 'textarea', array(
                     'required' => false,
                 ))
                 ->add('visible', 'checkbox', array(

@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class ArticleProjetRepository extends EntityRepository
 {
+
+    public function findPartByProjetAndArticle($projet, $article)
+    {
+
+        $query = $this->_em->createQuery('SELECT ap FROM AndroidDevSiteBundle:ArticleProjet ap WHERE ap.Projet = :projet AND ap.Article = :article');
+        $query->setParameter('projet', $projet);
+        $query->setParameter('article', $article);
+        return $query->getOneOrNullResult();
+    }
+
 }

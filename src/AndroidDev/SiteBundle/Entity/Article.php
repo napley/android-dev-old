@@ -375,7 +375,7 @@ class Article
         return $this->Projet;
     }
 
-    public function setMotCles(ArrayCollection $motCles)
+    public function setMotCles($motCles)
     {
         foreach ($motCles as $motcle) {
             $motcle->addMotCle($this);
