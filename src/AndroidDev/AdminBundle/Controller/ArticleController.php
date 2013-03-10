@@ -215,13 +215,15 @@ class ArticleController extends Controller
                     }
                 }
 
-                foreach ($_POST['motCle'] as $cle => $textMotCle) {
-                    $motCleEnt = $em->getRepository('AndroidDevSiteBundle:MotCle')->findByMotCle($textMotCle);
-                    if (!empty($motCleEnt)) {
-                        $entity->addMotCle($motCleEnt);
-                    } else {
-                        $motCleEnt = new \AndroidDev\SiteBundle\Entity\MotCle($textMotCle);
-                        $entity->addMotCle($motCleEnt);
+                if (!empty($_POST['motCle'])) {
+                    foreach ($_POST['motCle'] as $cle => $textMotCle) {
+                        $motCleEnt = $em->getRepository('AndroidDevSiteBundle:MotCle')->findByMotCle($textMotCle);
+                        if (!empty($motCleEnt)) {
+                            $entity->addMotCle($motCleEnt);
+                        } else {
+                            $motCleEnt = new \AndroidDev\SiteBundle\Entity\MotCle($textMotCle);
+                            $entity->addMotCle($motCleEnt);
+                        }
                     }
                 }
 

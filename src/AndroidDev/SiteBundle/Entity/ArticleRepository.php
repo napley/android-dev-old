@@ -17,7 +17,7 @@ class ArticleRepository extends EntityRepository
     {
         $deb = ($nb * $page) - ($nb);
 
-        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a ORDER BY a.created DESC');
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a WHERE a.visible = 1 ORDER BY a.created DESC');
         $query->setMaxResults($nb);
         $query->setFirstResult($deb);
         return $query->getResult();
@@ -28,7 +28,7 @@ class ArticleRepository extends EntityRepository
         $query = $this->_em->createQuery('SELECT a 
             FROM AndroidDevSiteBundle:Article a 
             JOIN a.Type t
-            WHERE (t.id = 1 OR t.id = 2)
+            WHERE (t.id = 1 OR t.id = 2) AND a.visible = 1
             ORDER BY a.updated DESC');
         $query->setMaxResults($nb);
         return $query->getResult();
@@ -37,7 +37,7 @@ class ArticleRepository extends EntityRepository
     public function findAllPartProject()
     {
 
-        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type t WHERE t.id = 3 ORDER BY a.created DESC');
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type t WHERE t.id = 3 AND a.visible = 1 ORDER BY a.created DESC');
         return $query->getResult();
     }
 
