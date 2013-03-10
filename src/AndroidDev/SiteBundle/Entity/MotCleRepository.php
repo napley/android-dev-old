@@ -12,4 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class MotCleRepository extends EntityRepository
 {
+
+    public function findByMotCle($text)
+    {
+        $query = $this->_em->createQuery('SELECT m FROM AndroidDevSiteBundle:MotCle m 
+                        WHERE m.nom = :text');
+        $query->setParameter('text', $text);
+        $motCle = $query->getOneOrNullResult();
+
+        return $motCle;
+    }
+
 }

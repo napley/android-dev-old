@@ -89,6 +89,17 @@ class ArticleController extends Controller
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
+
+                foreach ($_POST['motCle'] as $cle => $textMotCle) {
+                    $motCle = $em->getRepository('AndroidDevSiteBundle:MotCle')->findByMotCle($textMotCle);
+                    if (!empty($motCle)) {
+                        $entity->addMotCle($motCle);
+                    } else {
+                        $motCle = new \AndroidDev\SiteBundle\Entity\MotCle($textMotCle);
+                        $entity->addMotCle($motCle);
+                    }
+                }
+
                 $em->flush();
 
                 return $this->redirect($this->generateUrl('admin_article_show', array('id' => $entity->getId())));
@@ -191,6 +202,29 @@ class ArticleController extends Controller
 
             if ($editForm->isValid()) {
                 $em->persist($entity);
+
+                foreach ($entity->getMotCles() as $motCle) {
+                    $trouve = false;
+                    foreach ($_POST['motCle'] as $cle => $textMotCle) {
+                        if ($textMotCle == $motCle->getNom()) {
+                            $trouve = true;
+                        }
+                    }
+                    if ($trouve == false) {
+                        $entity->removeMotcle($motCle);
+                    }
+                }
+
+                foreach ($_POST['motCle'] as $cle => $textMotCle) {
+                    $motCleEnt = $em->getRepository('AndroidDevSiteBundle:MotCle')->findByMotCle($textMotCle);
+                    if (!empty($motCleEnt)) {
+                        $entity->addMotCle($motCleEnt);
+                    } else {
+                        $motCleEnt = new \AndroidDev\SiteBundle\Entity\MotCle($textMotCle);
+                        $entity->addMotCle($motCleEnt);
+                    }
+                }
+
                 $em->flush();
 
                 return $this->redirect($this->generateUrl('admin_article_edit', array('id' => $id)));

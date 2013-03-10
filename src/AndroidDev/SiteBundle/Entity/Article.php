@@ -393,8 +393,8 @@ class Article
 
     public function removeMotcle(MotCle $motcle)
     {
-        if (!$this->MotCles->contains($motcle)) {
-            $this->MotCles->remove($motcle);
+        if ($this->MotCles->contains($motcle)) {
+            $this->MotCles->removeElement($motcle);
         }
     }
 

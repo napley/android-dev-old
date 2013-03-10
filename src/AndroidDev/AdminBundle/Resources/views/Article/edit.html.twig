@@ -4,49 +4,53 @@
 {% block description %}{% endblock %}
 
 {% block head %}
-    <script type="text/javascript">
-    window.onload = function()
-    {
-        CKEDITOR.replace( 'androiddev_adminbundle_articletype[sousTitre]' );
-        CKEDITOR.replace( 'androiddev_adminbundle_articletype[contenu]' );
-    };
-        </script>
+<script type="text/javascript">
+window.onload = function()
+{
+    CKEDITOR.replace( 'androiddev_adminbundle_articletype[sousTitre]' );
+    CKEDITOR.replace( 'androiddev_adminbundle_articletype[contenu]' );
+};
+    </script>
 {% endblock %}
-        
+
 {% block contentDetail %}
-<div class="span12">
-    <h1>Modification d'article</h1>
+    <div class="span12">
+        <h1>Modification d'article</h1>
 
-    <form action="{{ path('admin_article_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-            <form action="{{ path('admin_article_create') }}" method="post" {{ form_enctype(edit_form) }}>
-    {{ form_row(edit_form.titre) }}
-
-                <h3>Mot clés</h3>
-                <ul class="motcles" data-prototype="{{ form_widget(edit_form.motcles.vars.prototype.nom)|e }}">
-        {# iterate over each existing tag and render its only field: name #}
-        {% for motcle in edit_form.motcles %}
-                        <li>{{ form_row(motcle.nom) }}</li>
-        {% endfor %}
-                    </ul>
-    {{ form_rest(edit_form) }}
-            <p>
-                <button type="submit">Modifier</button>
-            </p>
-        </form>
-
-        <ul class="record_actions">
-            <li>
-                <a href="{{ path('admin_article') }}">
-                    Retour à la liste des articles
-                </a>
-            </li>
-            <li>
-                <form action="{{ path('admin_article_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-                        <button type="submit">Supprimer</button>
+        <form action="{{ path('admin_article_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    {{ form_widget(edit_form) }}
+                    <div>
+                        <fieldset>
+                            <legend>Mot Clé</legend>
+                            <ul id="listeMotCle">
+                    {% for motcle in entity.MotCles %}
+                                    <li>
+                                        <input type="text" name="motCle[]" value="{{ motcle.nom }}" />
+                                        <label onclick="delMotCle(this);">x</label>
+                                    </li>
+                    {% endfor %}
+                                </ul>
+                                <label class="labelClick" onclick="addMotCle();" >Ajouter</label>
+                            </fieldset>
+                        </div>
+                        <p>
+                            <button type="submit">Modifier</button>
+                        </p>
                     </form>
-                </li>
-            </ul>
 
-        </div>
+                    <ul class="record_actions">
+                        <li>
+                            <a href="{{ path('admin_article') }}">
+                                Retour à la liste des articles
+                            </a>
+                        </li>
+                        <li>
+                            <form action="{{ path('admin_article_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+                                    <button type="submit">Supprimer</button>
+                                </form>
+                            </li>
+                        </ul>
+
+                </div>
 {% endblock %}

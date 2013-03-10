@@ -12,8 +12,12 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('titre', 'text')
-                ->add('sousTitre', 'textarea')
-                ->add('contenu', 'textarea')
+                ->add('sousTitre', 'textarea', array(
+                    'required' => false,
+                ))
+                ->add('contenu', 'textarea', array(
+                    'required' => false,
+                ))
                 ->add('visible', 'checkbox', array(
                     'required' => false,
                 ))
@@ -24,11 +28,6 @@ class ArticleType extends AbstractType
                 ->add('categorie', 'entity', array(
                     'class' => 'AndroidDevSiteBundle:Categorie',
                     'property' => 'nom',));
-        $builder->add('motcles', 'collection', array('type' => new MotClesType(),
-            'allow_add' => true,
-            'allow_delete' => true,
-            'by_reference' => false,))
-        ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -46,9 +46,11 @@ class MotCle
      * @ORM\ManyToMany(targetEntity="AndroidDev\SiteBundle\Entity\Article", mappedBy="MotCles")
      * */
     private $Articles;
-    
-    public function __construct() {
+
+    public function __construct($nom)
+    {
         $this->Articles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->nom = $nom;
     }
 
     /**
