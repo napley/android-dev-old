@@ -31,7 +31,7 @@ h1, h2, h3 {
 }
 
 .hero-unit {
-    padding: 2%;
+    padding: 14px;
     line-height: 22px;
 }
 
@@ -60,7 +60,7 @@ h1, h2, h3 {
 }
 
 #sommaire {
-    width: 15%;
+    width: 13%;
 }
 
 

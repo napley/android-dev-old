@@ -18,7 +18,8 @@ class TypeRepository extends EntityRepository
         $query = $this->_em->createQuery('SELECT c FROM AndroidDevSiteBundle:Categorie c 
                         INNER JOIN c.Articles ac
                         INNER JOIN ac.Type act
-                        WHERE act.id = :idType
+                        WHERE act.id = :idType AND ac.visible = 1
+                        GROUP BY c
                         ORDER BY c.nom');
         $query->setParameter('idType', $type);
         $cat = $query->getResult();

@@ -18,6 +18,11 @@ services:
         tags:
             - { name: twig.extension }
           
+    twig.extension.toppiwik:
+        class: AndroidDev\SiteBundle\Extensions\TopPiwikExtension
+        tags:
+            - { name: twig.extension }
+          
     twig.extension.lastupdate:
         class: AndroidDev\SiteBundle\Extensions\LastUpdateExtension
         arguments:

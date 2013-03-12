@@ -14,16 +14,16 @@
 
         <li class="divider"></li>
 
-        <li class="nav-header"><a href="#">Projet</a></li>
-        {% for projet in filtrecat['projet'] %}
-        <li><a href="#">{{projet.getTitre()}}</a></li>
+        <li class="nav-header"><a href="#">Astuce</a></li>
+        {% for astuce in filtrecat['astuce'] %}
+        <li><a href="#">{{astuce.getNom()}}</a></li>
         {% endfor %}
 
         <li class="divider"></li>
 
-        <li class="nav-header"><a href="#">Astuce</a></li>
-        {% for astuce in filtrecat['astuce'] %}
-        <li><a href="#">{{astuce.getNom()}}</a></li>
+        <li class="nav-header"><a href="#">Projet</a></li>
+        {% for projet in filtrecat['projet'] %}
+        <li><a href="#">{{projet.getTitre()}}</a></li>
         {% endfor %}
     </ul>
 </div>

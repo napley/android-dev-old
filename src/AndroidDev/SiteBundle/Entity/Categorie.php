@@ -44,7 +44,7 @@ class Categorie
     
     /**
      * @ORM\OneToMany(targetEntity="AndroidDev\SiteBundle\Entity\Article",
-      mappedBy="Type")
+      mappedBy="Categorie")
      */
     private $Articles;
 
