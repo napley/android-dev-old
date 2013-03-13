@@ -20,6 +20,8 @@ services:
           
     twig.extension.toppiwik:
         class: AndroidDev\SiteBundle\Extensions\TopPiwikExtension
+        arguments:
+          doctrine: "@doctrine"
         tags:
             - { name: twig.extension }
           

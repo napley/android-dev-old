@@ -96,7 +96,7 @@
                     <ul class="nav nav-list">
                         <li class="nav-header">Top des 7 derniers jours</li>
         {% for article in topPiwik %}
-                            <li><a href="#">{{ article.label }}</a></li>
+                            <li><a href="{{ path('androiddev_voir', {'id': article.id}) }}">{{ article.label }}</a></li>
         {% endfor %}
                             </ul>
                         </div><!--/.well --> 

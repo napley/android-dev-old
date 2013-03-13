@@ -9,13 +9,17 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 class TopPiwikExtension extends \Twig_Extension
 {
 
-    function __construct()
+    protected $doctrine;
+
+    function __construct(RegistryInterface $doctrine)
     {
-        
+        $this->doctrine = $doctrine;
     }
 
     public function getGlobals()
     {
+        $repository = $this->doctrine->getRepository('AndroidDevSiteBundle:Article');
+
         // this token is used to authenticate your API request. 
 // You can get the token on the API page inside your Piwik interface
         $token_auth = 'bad356cc2019d53e9e09edbadaae9312';
@@ -24,7 +28,7 @@ class TopPiwikExtension extends \Twig_Extension
         $url = "http://android-dev.fr/Piwik/";
         $url .= "?module=API&method=Actions.getPageTitles";
         $url .= "&idSite=1&period=range&date=2013-03-5,2013-03-12";
-        $url .= "&format=php&filter_limit=10";
+        $url .= "&format=php&filter_limit=15";
         $url .= "&token_auth=$token_auth";
 
         $fetched = file_get_contents($url);
@@ -32,6 +36,14 @@ class TopPiwikExtension extends \Twig_Extension
 
         foreach ($content as $cle => $article) {
             $content[$cle]['label'] = html_entity_decode($article['label'], ENT_QUOTES);
+            $article = $repository->findByNom($content[$cle]['label']);
+            if ($article == null) {
+                unset($content[$cle]);
+            }
+            else {
+                $content[$cle]['id'] = $article->getId();
+                $content[$cle]['slug'] = $article->getSlug();
+            }
         }
 
 
