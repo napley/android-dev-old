@@ -23,6 +23,43 @@ class ArticleRepository extends EntityRepository
         return $query->getResult();
     }
 
+    public function findArticleByPage($page, $nb)
+    {
+        $deb = ($nb * $page) - ($nb);
+
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at WHERE a.visible = 1 AND at.id = 1 ORDER BY a.created DESC');
+        $query->setMaxResults($nb);
+        $query->setFirstResult($deb);
+        return $query->getResult();
+    }
+
+    public function findAstuceByPage($page, $nb)
+    {
+        $deb = ($nb * $page) - ($nb);
+
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at WHERE a.visible = 1 AND at.id = 2 ORDER BY a.created DESC');
+        $query->setMaxResults($nb);
+        $query->setFirstResult($deb);
+        return $query->getResult();
+    }
+
+    public function findProjetByPage($page, $nb)
+    {
+        $deb = ($nb * $page) - ($nb);
+
+        $query = $this->_em->createQuery('SELECT p FROM AndroidDevSiteBundle:Projet p WHERE p.visible = 1 ORDER BY p.created DESC');
+        $query->setMaxResults($nb);
+        $query->setFirstResult($deb);
+        return $query->getResult();
+    }
+
+    public function findBySlug($slug)
+    {
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a WHERE a.slug = :slug AND a.visible=1');
+        $query->setParameter('slug', $slug);
+        return $query->getOneOrNullResult();
+    }
+
     public function findByNom($nom)
     {
         $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a WHERE a.titre = :titre AND a.visible=1');

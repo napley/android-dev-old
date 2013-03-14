@@ -30,7 +30,73 @@ class BlogController extends Controller
                 ->findLastArticleByPage($page, $infoSite['nbByPage']);
 
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
-            'articles' => $liste_articles, 'page' => $page
+            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_accueil'
+                ));
+        return $render;
+    }
+    
+    /**
+     * 
+     * @return type
+     * @throws type
+     */
+    public function articleAction($page = 1)
+    {
+        $page = (($page < 1 || empty($page)) ? 1 : $page);
+
+        $infoSite = $this->container->get('androiddev.infosite')->getInfoSite();
+
+        $liste_articles = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Article')
+                ->findArticleByPage($page, $infoSite['nbByPage']);
+
+        $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
+            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_article'
+                ));
+        return $render;
+    }
+    
+    /**
+     * 
+     * @return type
+     * @throws type
+     */
+    public function astuceAction($page = 1)
+    {
+        $page = (($page < 1 || empty($page)) ? 1 : $page);
+
+        $infoSite = $this->container->get('androiddev.infosite')->getInfoSite();
+
+        $liste_articles = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Article')
+                ->findAstuceByPage($page, $infoSite['nbByPage']);
+
+        $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
+            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_astuce'
+                ));
+        return $render;
+    }
+    
+    /**
+     * 
+     * @return type
+     * @throws type
+     */
+    public function projetAction($page = 1)
+    {
+        $page = (($page < 1 || empty($page)) ? 1 : $page);
+
+        $infoSite = $this->container->get('androiddev.infosite')->getInfoSite();
+
+        $liste_articles = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Article')
+                ->findProjetByPage($page, $infoSite['nbByPage']);
+
+        $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
+            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_projet'
                 ));
         return $render;
     }
@@ -40,12 +106,12 @@ class BlogController extends Controller
      * @param type $id
      * @return type
      */
-    public function voirAction($id)
+    public function voirAction($slug)
     {
         $article = $this->getDoctrine()
                 ->getEntityManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
-                ->find($id);
+                ->findBySlug($slug);
 
         $render = $this->render('AndroidDevSiteBundle:Blog:voir.html.twig', array(
             'article' => $article

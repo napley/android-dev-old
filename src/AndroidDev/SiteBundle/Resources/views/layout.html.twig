@@ -7,26 +7,26 @@
 {% block menuGauche %}                    
 <div style="max-width: 200px; padding: 8px 0;" class="span2 visible-desktop">
     <ul class="nav nav-list">
-        <li class="nav-header"><a href="#">Article</a></li>
+        <li class="nav-header"><a href="{{ path('androiddev_article')}}">Article</a></li>
         {% for article in filtrecat['article'] %}
-        <li><a href="#">{{article.getNom()}}</a></li>
+            <li><a href="#">{{article.getNom()}}</a></li>
         {% endfor %}
 
-        <li class="divider"></li>
+                <li class="divider"></li>
 
-        <li class="nav-header"><a href="#">Astuce</a></li>
+                <li class="nav-header"><a href="{{ path('androiddev_astuce')}}">Astuce</a></li>
         {% for astuce in filtrecat['astuce'] %}
-        <li><a href="#">{{astuce.getNom()}}</a></li>
+                    <li><a href="#">{{astuce.getNom()}}</a></li>
         {% endfor %}
 
-        <li class="divider"></li>
+                        <li class="divider"></li>
 
-        <li class="nav-header"><a href="#">Projet</a></li>
+                        <li class="nav-header"><a href="{{ path('androiddev_projet')}}">Projet</a></li>
         {% for projet in filtrecat['projet'] %}
-        <li><a href="#">{{projet.getTitre()}}</a></li>
+                            <li><a href="#">{{projet.getTitre()}}</a></li>
         {% endfor %}
-    </ul>
-</div>
+                            </ul>
+                        </div>
 {% endblock %}
 
 {% block enteteContentPC %}

@@ -25,7 +25,7 @@
         <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle">Article <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li class="nav-header"><a href="#">Tous les articles</a></li>
+                <li class="nav-header"><a href="{{ path('androiddev_article')}}">Tous les articles</a></li>
 
                     {% for article in filtrecat['article'] %}
                 <li><a href="#">{{article.getNom()}}</a></li>
@@ -33,21 +33,21 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a data-toggle="dropdown" class="dropdown-toggle">Projet <b class="caret"></b></a>
+                <a data-toggle="dropdown" class="dropdown-toggle">Astuce <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li class="nav-header"><a href="#">Tous les projets</a></li>
-                    {% for projet in filtrecat['projet'] %}
-                        <li><a href="#">{{projet.getTitre()}}</a></li>
-                    {% endfor %}
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle">Astuce <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li class="nav-header"><a href="#">Toutes les astuces</a></li>
+                    <li class="nav-header"><a href="{{ path('androiddev_astuce')}}">Toutes les astuces</a></li>
 
                     {% for astuce in filtrecat['astuce'] %}
-                            <li><a href="#">{{astuce.getNom()}}</a></li>
+                    <li><a href="#">{{astuce.getNom()}}</a></li>
+                    {% endfor %}
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle">Projet <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-header"><a href="{{ path('androiddev_projet')}}">Tous les projets</a></li>
+                    {% for projet in filtrecat['projet'] %}
+                            <li><a href="#">{{projet.getTitre()}}</a></li>
                     {% endfor %}
                             </ul>
                         </li>
@@ -96,7 +96,7 @@
                     <ul class="nav nav-list">
                         <li class="nav-header">Top des 7 derniers jours</li>
         {% for article in topPiwik %}
-                            <li><a href="{{ path('androiddev_voir', {'id': article.id}) }}">{{ article.label }}</a></li>
+                            <li><a href="{{ path('androiddev_voir', {'slug': article.slug}) }}">{{ article.label }}</a></li>
         {% endfor %}
                             </ul>
                         </div><!--/.well --> 
@@ -104,7 +104,7 @@
                             <ul class="nav nav-list">
                                 <li class="nav-header">Mise à jour</li>
          {% for article in lastUpdate %}
-                                    <li><a href="{{ path('androiddev_voir', {'id': article.id}) }}">{{ article.titre | raw }}</a></li>
+                                    <li><a href="{{ path('androiddev_voir', {'slug': article.slug}) }}">{{ article.titre | raw }}</a></li>
         {% endfor %}
                                     </ul>
                                 </div><!--/.well -->

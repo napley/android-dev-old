@@ -43,6 +43,10 @@ h1, h2, h3 {
     margin-top: 10px;
 }
 
+.listeArticle{
+    margin-bottom: 20px;
+}
+
 .listeArticle > h2 > a {
     color: #333333;
 }

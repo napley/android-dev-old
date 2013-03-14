@@ -4,8 +4,24 @@ androiddev_accueil:
     requirements:
         page:  \d*
  
-androiddev_voir:
-    pattern:   /article/{id}
-    defaults:  { _controller: AndroidDevSiteBundle:Blog:voir }
+androiddev_article:
+    pattern:   /article/{page}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:article, page: 1 }
     requirements:
-        id:  \d+
+        page:  \d*
+    
+androiddev_astuce:
+    pattern:   /astuce/{page}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:astuce, page: 1 }
+    requirements:
+        page:  \d*
+ 
+androiddev_projet:
+    pattern:   /projet/{page}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:projet, page: 1 }
+    requirements:
+        page:  \d*
+ 
+androiddev_voir:
+    pattern:   /{slug}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:voir }
