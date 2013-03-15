@@ -52,7 +52,34 @@ class BlogController extends Controller
                 ->findArticleByPage($page, $infoSite['nbByPage']);
 
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
-            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_article'
+            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_article', 'type' => 'article'
+                ));
+        return $render;
+    }
+    
+    /**
+     * 
+     * @return type
+     * @throws type
+     */
+    public function articleCatAction($slug, $page = 1)
+    {
+        $page = (($page < 1 || empty($page)) ? 1 : $page);
+
+        $infoSite = $this->container->get('androiddev.infosite')->getInfoSite();
+
+        $liste_articles = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Article')
+                ->findArticleCatByPage($slug, $page, $infoSite['nbByPage']);
+
+        $categorie = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Categorie')
+                ->findOneBySlug($slug);
+
+        $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
+            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_article', 'type' => 'article', 'categorie' => $categorie->getNom()
                 ));
         return $render;
     }
@@ -74,7 +101,34 @@ class BlogController extends Controller
                 ->findAstuceByPage($page, $infoSite['nbByPage']);
 
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
-            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_astuce'
+            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_astuce', 'type' => 'astuce'
+                ));
+        return $render;
+    }
+    
+    /**
+     * 
+     * @return type
+     * @throws type
+     */
+    public function astuceCatAction($slug, $page = 1)
+    {
+        $page = (($page < 1 || empty($page)) ? 1 : $page);
+
+        $infoSite = $this->container->get('androiddev.infosite')->getInfoSite();
+
+        $liste_articles = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Article')
+                ->findAstuceCatByPage($slug, $page, $infoSite['nbByPage']);
+
+        $categorie = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Categorie')
+                ->findOneBySlug($slug);
+
+        $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
+            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_astuce', 'type' => 'astuce', 'categorie' => $categorie->getNom()
                 ));
         return $render;
     }

@@ -22,6 +22,24 @@ androiddev_projet:
     requirements:
         page:  \d*
  
+androiddev_articleCat:
+    pattern:   /article/{slug}/{page}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:articleCat, page: 1 }
+    requirements:
+        page:  \d*
+    
+androiddev_astuceCat:
+    pattern:   /astuce/{slug}/{page}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:astuceCat, page: 1 }
+    requirements:
+        page:  \d*
+ 
+androiddev_projetCat:
+    pattern:   /projet/{slug}/{page}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:projet, page: 1 }
+    requirements:
+        page:  \d*
+ 
 androiddev_voir:
     pattern:   /{slug}
     defaults:  { _controller: AndroidDevSiteBundle:Blog:voir }

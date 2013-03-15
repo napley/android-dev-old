@@ -33,11 +33,33 @@ class ArticleRepository extends EntityRepository
         return $query->getResult();
     }
 
+    public function findArticleCatByPage($slug, $page, $nb)
+    {
+        $deb = ($nb * $page) - ($nb);
+
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at JOIN a.Categorie ac WHERE a.visible = 1 AND at.id = 1 AND ac.slug = :slug ORDER BY a.created DESC');
+        $query->setParameter('slug', $slug);
+        $query->setMaxResults($nb);
+        $query->setFirstResult($deb);
+        return $query->getResult();
+    }
+
     public function findAstuceByPage($page, $nb)
     {
         $deb = ($nb * $page) - ($nb);
 
         $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at WHERE a.visible = 1 AND at.id = 2 ORDER BY a.created DESC');
+        $query->setMaxResults($nb);
+        $query->setFirstResult($deb);
+        return $query->getResult();
+    }
+
+    public function findAstuceCatByPage($slug, $page, $nb)
+    {
+        $deb = ($nb * $page) - ($nb);
+
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at JOIN a.Categorie ac WHERE a.visible = 1 AND at.id = 2 AND ac.slug = :slug ORDER BY a.created DESC');
+        $query->setParameter('slug', $slug);
         $query->setMaxResults($nb);
         $query->setFirstResult($deb);
         return $query->getResult();

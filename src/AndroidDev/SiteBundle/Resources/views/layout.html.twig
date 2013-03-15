@@ -8,22 +8,22 @@
 <div style="max-width: 200px; padding: 8px 0;" class="span2 visible-desktop">
     <ul class="nav nav-list">
         <li class="nav-header"><a href="{{ path('androiddev_article')}}">Article</a></li>
-        {% for article in filtrecat['article'] %}
-            <li><a href="#">{{article.getNom()}}</a></li>
+        {% for categorie in filtrecat['article'] %}
+            <li><a href="{{ path('androiddev_articleCat', {'slug': categorie.slug}) }}">{{categorie.getNom()}}</a></li>
         {% endfor %}
 
                 <li class="divider"></li>
 
                 <li class="nav-header"><a href="{{ path('androiddev_astuce')}}">Astuce</a></li>
-        {% for astuce in filtrecat['astuce'] %}
-                    <li><a href="#">{{astuce.getNom()}}</a></li>
+        {% for categorie in filtrecat['astuce'] %}
+                    <li><a href="{{ path('androiddev_astuceCat', {'slug': categorie.slug}) }}">{{categorie.getNom()}}</a></li>
         {% endfor %}
 
                         <li class="divider"></li>
 
                         <li class="nav-header"><a href="{{ path('androiddev_projet')}}">Projet</a></li>
         {% for projet in filtrecat['projet'] %}
-                            <li><a href="#">{{projet.getTitre()}}</a></li>
+                            <li><a href="{{ path('androiddev_voir', {'slug': projet.slug}) }}">{{projet.getTitre()}}</a></li>
         {% endfor %}
                             </ul>
                         </div>
