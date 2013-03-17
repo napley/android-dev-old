@@ -20,8 +20,17 @@ class ProjetRepository extends EntityRepository
                         WHERE p.visible = 1
                         ORDER BY p.titre');
         $projets = $query->getResult();
-        
+
         return $projets;
+    }
+
+    public function listPartsByIndex($projet)
+    {
+        $listParts = array();
+        foreach ($projet->getArticles() as $part) {
+            $listParts[$part->getRang()] = $part->getArticle();
+        }
+        return $listParts;
     }
 
 }

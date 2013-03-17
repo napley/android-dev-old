@@ -31,10 +31,10 @@ class BlogController extends Controller
 
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
             'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_accueil'
-                ));
+        ));
         return $render;
     }
-    
+
     /**
      * 
      * @return type
@@ -53,10 +53,10 @@ class BlogController extends Controller
 
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
             'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_article', 'type' => 'article'
-                ));
+        ));
         return $render;
     }
-    
+
     /**
      * 
      * @return type
@@ -80,10 +80,10 @@ class BlogController extends Controller
 
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
             'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_article', 'type' => 'article', 'categorie' => $categorie->getNom()
-                ));
+        ));
         return $render;
     }
-    
+
     /**
      * 
      * @return type
@@ -102,10 +102,10 @@ class BlogController extends Controller
 
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
             'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_astuce', 'type' => 'astuce'
-                ));
+        ));
         return $render;
     }
-    
+
     /**
      * 
      * @return type
@@ -129,10 +129,10 @@ class BlogController extends Controller
 
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
             'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_astuce', 'type' => 'astuce', 'categorie' => $categorie->getNom()
-                ));
+        ));
         return $render;
     }
-    
+
     /**
      * 
      * @return type
@@ -149,9 +149,9 @@ class BlogController extends Controller
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findProjetByPage($page, $infoSite['nbByPage']);
 
-        $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
+        $render = $this->render('AndroidDevSiteBundle:Blog:allProjet.html.twig', array(
             'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_projet'
-                ));
+        ));
         return $render;
     }
 
@@ -169,6 +169,31 @@ class BlogController extends Controller
 
         $render = $this->render('AndroidDevSiteBundle:Blog:voir.html.twig', array(
             'article' => $article
+                )
+        );
+        return $render;
+    }
+
+    /**
+     * 
+     * @param type $slug
+     * @return type
+     */
+    public function projetVoirAction($slug)
+    {
+        $parts = array();
+        $projet = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Projet')
+                ->findOneBySlug($slug);
+        
+        $parts = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Projet')
+                ->listPartsByIndex($projet);
+        
+        $render = $this->render('AndroidDevSiteBundle:Blog:projet.html.twig', array(
+            'projet' => $projet, 'parts' => $parts
                 )
         );
         return $render;

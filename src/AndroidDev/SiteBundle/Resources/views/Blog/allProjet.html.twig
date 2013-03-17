@@ -1,0 +1,58 @@
+{% extends "AndroidDevSiteBundle::layout.html.twig" %}
+
+{% block title %}Accueil - Android-dev{% endblock %}
+{% block description %}{% endblock %}
+
+{% block enteteContentPC %}
+<div class="hero-unit">
+    <h1>Tous les projets du site android-dev.fr</h1>
+</div>
+{% endblock %}
+
+{% block contentPC %}
+
+{% for article in articles %}
+<div class="row-fluid listeArticle">
+    <h2><a href="{{ path('androiddev_projetVoir', {'slug': article.slug}) }}">{{ article.titre | raw }}</a></h2>
+        {{ article.sousTitre | raw }}
+        <p><a class="btn"  href="{{ path('androiddev_projetVoir', {'slug': article.slug}) }}">Lire la suite &raquo;</a></p>
+    </div>
+{% endfor %}
+    <ul class="pager">
+        <li class="previous">
+            <a href="{{path(route, {'page': page + 1}) }}">&larr; Plus ancien</a>
+        </li>
+        <li class="next {% if  page == 1 %}
+            disabled
+              {% endif %} ">
+                <a href="{{path(route, {'page': page - 1}) }}">Plus récent &rarr;</a>
+            </li>
+        </ul>
+{% endblock %}
+
+{% block enteteContentMobileTablet %}
+        <div class="hero-unit">
+            <h1>Tous les projets du site android-dev.fr</h1>
+        </div>
+{% endblock %}
+
+{% block contentMobileTablet %}
+
+{% for article in articles %}
+        <div class="row-fluid listeArticle">
+            <h2><a href="{{ path('androiddev_projetVoir', {'slug': article.slug}) }}">{{ article.titre | raw }}</a></h2>
+        {{ article.sousTitre | raw }}
+                <p><a class="btn"  href="{{ path('androiddev_projetVoir', {'slug': article.slug}) }}">Lire la suite &raquo;</a></p>
+            </div>
+{% endfor %}   
+            <ul class="pager">
+                <li class="previous ">
+                    <a href="{{path(route, {'page': page + 1}) }}">&larr; Plus ancien</a>
+                </li>
+                <li class="next {% if  page == 1 %}
+                    disabled
+              {% endif %} ">
+                        <a href="{{path(route, {'page': page - 1}) }}">Plus récent &rarr;</a>
+                    </li>
+                </ul>
+{% endblock %}

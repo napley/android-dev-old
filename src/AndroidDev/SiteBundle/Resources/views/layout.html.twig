@@ -23,7 +23,7 @@
 
                         <li class="nav-header"><a href="{{ path('androiddev_projet')}}">Projet</a></li>
         {% for projet in filtrecat['projet'] %}
-                            <li><a href="{{ path('androiddev_voir', {'slug': projet.slug}) }}">{{projet.getTitre()}}</a></li>
+                            <li><a href="{{ path('androiddev_projetVoir', {'slug': projet.slug}) }}">{{projet.getTitre()}}</a></li>
         {% endfor %}
                             </ul>
                         </div>

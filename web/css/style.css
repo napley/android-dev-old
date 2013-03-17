@@ -106,6 +106,7 @@ span.infoConnect {
 
 a.lightbox img {
     box-shadow: 0 0 4px #333333;
+    margin: 10px;
 }
 
 a.lightbox img:hover {

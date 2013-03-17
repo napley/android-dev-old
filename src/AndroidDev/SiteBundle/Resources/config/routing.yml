@@ -34,12 +34,10 @@ androiddev_astuceCat:
     requirements:
         page:  \d*
  
-androiddev_projetCat:
-    pattern:   /projet/{slug}/{page}
-    defaults:  { _controller: AndroidDevSiteBundle:Blog:projet, page: 1 }
-    requirements:
-        page:  \d*
- 
 androiddev_voir:
     pattern:   /{slug}
     defaults:  { _controller: AndroidDevSiteBundle:Blog:voir }
+ 
+androiddev_projetVoir:
+    pattern:   /projet/{slug}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:projetVoir }

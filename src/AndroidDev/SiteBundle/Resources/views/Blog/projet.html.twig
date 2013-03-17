@@ -1,0 +1,47 @@
+{% extends "AndroidDevSiteBundle::layoutArticle.html.twig" %}
+
+{% block title %}Accueil - Android-dev{% endblock %}
+{% block description %}{% endblock %}
+
+
+{% block enteteContentPC %}
+<div class="hero-unit">
+    <h1>{{ projet.titre | raw }}</h1>
+    {{ projet.sousTitre | raw }}
+</div>
+{% endblock %}
+
+{% block contentPC %}
+<div class="contenuArticle">
+    {{ projet.contenu | raw }}
+
+        <dl>
+{% for rang, part in parts %}
+                <dt><a href="{{ path('androiddev_voir', {'slug': part.slug}) }}">{{ rang }} - {{ part.titre }}</a></dt>
+                <dd>{{ part.sousTitre | raw }}</dd>
+{% endfor %}
+                </dl>
+    {{ projet.contenuFin | raw }}
+            </div>
+{% endblock %}
+
+{% block enteteContentMobileTablet %}
+            <div class="hero-unit">
+                <h1>{{ projet.titre | raw }}</h1>
+    {{ projet.sousTitre | raw }}
+            </div>
+{% endblock %}
+
+{% block contentMobileTablet %}
+            <div class="contenuArticle">
+    {{ projet.contenu | raw }}
+
+        <dl>
+{% for rang, part in parts %}
+                <dt><a href="{{ path('androiddev_voir', {'slug': part.slug}) }}">{{ rang }} - {{ part.titre }}</a></dt>
+                <dd>{{ part.sousTitre | raw }}</dd>
+{% endfor %}
+                </dl>
+    {{ projet.contenuFin | raw }}
+            </div>
+{% endblock %}
