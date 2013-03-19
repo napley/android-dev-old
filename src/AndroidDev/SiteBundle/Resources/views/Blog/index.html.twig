@@ -6,7 +6,12 @@
 {% block enteteContentPC %}
 <div class="hero-unit">
 {% if type is defined %}
+{% if type == 'recherche' %}
+        <h1>Recherche sur android-dev.fr</h1>
+        <p>Mots clés : {{ motCle }}</p>
+{% else %}
         <h1>Les {{ type }}s du site android-dev.fr</h1>
+{% endif %}
 
     {% if categorie is defined %}
         <p>De la catégorie : {{ categorie }}</p>
@@ -28,12 +33,12 @@
 {% endfor %}
         <ul class="pager">
             <li class="previous">
-                <a href="{{path(route, {'page': page + 1}) }}">&larr; Plus ancien</a>
+                <a href="{{path(route, routeAft) }}">&larr; Plus ancien</a>
             </li>
             <li class="next {% if  page == 1 %}
                 disabled
               {% endif %} ">
-                    <a href="{{path(route, {'page': page - 1}) }}">Plus récent &rarr;</a>
+                    <a href="{{path(route, routeBef) }}">Plus récent &rarr;</a>
                 </li>
             </ul>
 {% endblock %}
@@ -64,12 +69,12 @@
 {% endfor %}   
                     <ul class="pager">
                         <li class="previous ">
-                            <a href="{{path(route, {'page': page + 1}) }}">&larr; Plus ancien</a>
+                            <a href="{{path(route, routeAft) }}">&larr; Plus ancien</a>
                         </li>
                         <li class="next {% if  page == 1 %}
                             disabled
               {% endif %} ">
-                                <a href="{{path(route, {'page': page - 1}) }}">Plus récent &rarr;</a>
+                                <a href="{{path(route, routeBef) }}">Plus récent &rarr;</a>
                             </li>
                         </ul>
 {% endblock %}

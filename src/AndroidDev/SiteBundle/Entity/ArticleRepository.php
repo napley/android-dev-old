@@ -107,4 +107,24 @@ class ArticleRepository extends EntityRepository
         return $query->getResult();
     }
 
+    public function getArticleBySearch($motCles, $page, $nb)
+    {
+        $deb = ($nb * $page) - ($nb);
+
+        $requete = 'SELECT a FROM AndroidDevSiteBundle:Article a
+                        JOIN a.Type at
+                        WHERE a.visible = 1 ';
+
+        foreach ($motCles as $cle => $motCle) {
+            $requete .=" AND ( a.titre LIKE '%" . $motCle . "%' OR a.sousTitre LIKE '%" . $motCle . "%' OR a.contenu LIKE '%" . $motCle . "%' ) ";
+        }
+
+        $query = $this->_em->createQuery($requete);
+        $query->setMaxResults($nb);
+        $query->setFirstResult($deb);
+        $articles = $query->getResult();
+
+        return $articles;
+    }
+
 }

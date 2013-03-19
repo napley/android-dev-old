@@ -38,6 +38,16 @@ androiddev_voir:
     pattern:   /{slug}
     defaults:  { _controller: AndroidDevSiteBundle:Blog:voir }
  
+androiddev_search:
+    pattern:   /recherche/
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:search }
+ 
+androiddev_recherche:
+    pattern:   /recherche/{motcles}/{page}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:recherche, page: 1 }
+    requirements:
+        page:  \d*
+ 
 androiddev_projetVoir:
     pattern:   /projet/{slug}
     defaults:  { _controller: AndroidDevSiteBundle:Blog:projetVoir }

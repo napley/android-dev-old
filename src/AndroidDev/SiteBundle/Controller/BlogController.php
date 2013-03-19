@@ -29,8 +29,11 @@ class BlogController extends Controller
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findLastArticleByPage($page, $infoSite['nbByPage']);
 
+        $routeBef['page'] = $page - 1;
+        $routeAft['page'] = $page + 1;
+
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
-            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_accueil'
+            'articles' => $liste_articles, 'page' => $page, 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'route' => 'androiddev_accueil'
         ));
         return $render;
     }
@@ -51,8 +54,11 @@ class BlogController extends Controller
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findArticleByPage($page, $infoSite['nbByPage']);
 
+        $routeBef['page'] = $page - 1;
+        $routeAft['page'] = $page + 1;
+
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
-            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_article', 'type' => 'article'
+            'articles' => $liste_articles, 'page' => $page, 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'route' => 'androiddev_article', 'type' => 'article'
         ));
         return $render;
     }
@@ -78,8 +84,13 @@ class BlogController extends Controller
                 ->getRepository('AndroidDevSiteBundle:Categorie')
                 ->findOneBySlug($slug);
 
+        $routeBef['slug'] = $slug;
+        $routeBef['page'] = $page - 1;
+        $routeAft['slug'] = $slug;
+        $routeAft['page'] = $page + 1;
+
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
-            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_article', 'type' => 'article', 'categorie' => $categorie->getNom()
+            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_articleCat', 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'type' => 'article', 'categorie' => $categorie->getNom()
         ));
         return $render;
     }
@@ -100,8 +111,11 @@ class BlogController extends Controller
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findAstuceByPage($page, $infoSite['nbByPage']);
 
+        $routeBef['page'] = $page - 1;
+        $routeAft['page'] = $page + 1;
+
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
-            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_astuce', 'type' => 'astuce'
+            'articles' => $liste_articles, 'page' => $page, 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'route' => 'androiddev_astuce', 'type' => 'astuce'
         ));
         return $render;
     }
@@ -127,8 +141,13 @@ class BlogController extends Controller
                 ->getRepository('AndroidDevSiteBundle:Categorie')
                 ->findOneBySlug($slug);
 
+        $routeBef['slug'] = $slug;
+        $routeBef['page'] = $page - 1;
+        $routeAft['slug'] = $slug;
+        $routeAft['page'] = $page + 1;
+
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
-            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_astuce', 'type' => 'astuce', 'categorie' => $categorie->getNom()
+            'articles' => $liste_articles, 'page' => $page, 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'route' => 'androiddev_astuceCat', 'type' => 'astuce', 'categorie' => $categorie->getNom()
         ));
         return $render;
     }
@@ -186,12 +205,12 @@ class BlogController extends Controller
                 ->getEntityManager()
                 ->getRepository('AndroidDevSiteBundle:Projet')
                 ->findOneBySlug($slug);
-        
+
         $parts = $this->getDoctrine()
                 ->getEntityManager()
                 ->getRepository('AndroidDevSiteBundle:Projet')
                 ->listPartsByIndex($projet);
-        
+
         $render = $this->render('AndroidDevSiteBundle:Blog:projet.html.twig', array(
             'projet' => $projet, 'parts' => $parts
                 )
@@ -278,6 +297,55 @@ class BlogController extends Controller
 // Pour modifier un utilisateur
         $user->setPassword('test');
         $userManager->updateUser($user); // Pas besoin de faire un flush avec l'entityManager, cette méthode le fait toute seule !
+    }
+
+    /**
+     * 
+     * @return type
+     * @throws type
+     */
+    public function searchAction()
+    {
+//        $motCle = array();
+//        $motCle = explode(' ', $_POST['motCles']);
+//        $articles = $this->getDoctrine()
+//                ->getEntityManager()
+//                ->getRepository('AndroidDevSiteBundle:Article')
+//                ->getArticleBySearch($motCle);
+
+        return $this->redirect($this->generateUrl('androiddev_recherche', array('motcles' => str_replace(' ', '+', $_POST['motCles']))));
+    }
+
+    /**
+     * 
+     * @return type
+     * @throws type
+     */
+    public function rechercheAction($motcles, $page = 1)
+    {
+        $page = (($page < 1 || empty($page)) ? 1 : $page);
+
+        $infoSite = $this->container->get('androiddev.infosite')->getInfoSite();
+
+        $motCle = array();
+        $motCle = explode(' ', str_replace('+', ' ', $motcles));
+
+        $articles = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Article')
+                ->getArticleBySearch($motCle, $page, $infoSite['nbByPage']);
+
+        $routeBef['motcles'] = $motcles;
+        $routeBef['page'] = $page - 1;
+        $routeAft['motcles'] = $motcles;
+        $routeAft['page'] = $page + 1;
+        
+        $motCleJoin = implode(' - ', $motCle);
+        
+        $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
+            'articles' => $articles, 'page' => $page, 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'route' => 'androiddev_recherche', 'type' => 'recherche', 'motCle' => $motCleJoin
+        ));
+        return $render;
     }
 
 }
