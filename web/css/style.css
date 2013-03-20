@@ -142,3 +142,7 @@ form > div > div {
     color: #005580;
     text-decoration: underline;
 }
+
+.listeDroite > .nav-list > li > a {
+    padding: 5px 15px;
+}

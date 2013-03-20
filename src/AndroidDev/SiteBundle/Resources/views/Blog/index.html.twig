@@ -1,7 +1,33 @@
 {% extends "AndroidDevSiteBundle::layout.html.twig" %}
 
-{% block title %}Accueil - Android-dev{% endblock %}
-{% block description %}{% endblock %}
+{% block title %}
+    {% if type is defined %}
+        {% if type == 'recherche' %}
+Recherche sur android-dev.fr
+        {% else %}
+Les {{ type }}s du site android-dev.fr
+        {% endif %}
+    {% else %}
+        Android-dev.fr - Le site du développement pour Android.
+    {% endif %}
+{% endblock %}
+
+{% block description %}
+    {% if type is defined %}
+        {% if type == 'recherche' %}
+                Recherche sur android-dev.fr. 
+                Mots clés : {{ motCle }}.
+        {% else %}
+                Les {{ type }}s du site android-dev.fr. 
+        {% endif %}
+
+        {% if categorie is defined %}
+            De la catégorie : {{ categorie }}.
+        {% endif %}
+    {% else %}
+        {{ infosite['description'] | raw  }}
+    {% endif %}
+{% endblock %}
 
 {% block enteteContentPC %}
 <div class="hero-unit">

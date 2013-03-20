@@ -1,8 +1,8 @@
 {% extends "AndroidDevSiteBundle::layoutArticle.html.twig" %}
 
-{% block title %}Accueil - Android-dev{% endblock %}
-{% block description %}{% endblock %}
-
+{% block title %}{{ article.titre | raw }} | Android-dev.fr{% endblock %}
+{% block description %}{{ article.titre | raw }}. {{ article.sousTitre | striptags  }}{% endblock %}
+{% block urlCanonical %}http://www.android-dev.fr/{{ article.slug  }}{% endblock %}
 
 {% block enteteContentPC %}
     <div class="hero-unit">

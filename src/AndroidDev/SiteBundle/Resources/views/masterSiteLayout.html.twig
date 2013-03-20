@@ -2,6 +2,7 @@
 
 {% block title %}Android-dev{% endblock %}
 {% block description %}{% endblock %}
+{% block urlCanonical %}{% endblock %}
 
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
@@ -92,7 +93,7 @@
 
                     </ul>
                 </div><!--/.well --> 
-                <div class="well sidebar-nav">
+                <div class="well sidebar-nav listeDroite">
                     <ul class="nav nav-list">
                         <li class="nav-header">Top des 7 derniers jours</li>
         {% for article in topPiwik %}
@@ -100,7 +101,7 @@
         {% endfor %}
                             </ul>
                         </div><!--/.well --> 
-                        <div class="well sidebar-nav">
+                        <div class="well sidebar-nav listeDroite">
                             <ul class="nav nav-list">
                                 <li class="nav-header">Mise à jour</li>
          {% for article in lastUpdate %}
