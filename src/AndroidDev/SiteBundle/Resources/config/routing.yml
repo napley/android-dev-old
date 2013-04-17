@@ -3,6 +3,12 @@ androiddev_accueil:
     defaults:  { _controller: AndroidDevSiteBundle:Blog:index, page: 1 }
     requirements:
         page:  \d*
+    
+androiddev_sitemap:
+    pattern:   /sitemap.{_format}
+    defaults:  { _controller: AndroidDevAdminBundle:Sitemap:sitemap }
+    requirements:
+      format: xml
  
 androiddev_article:
     pattern:   /article/{page}

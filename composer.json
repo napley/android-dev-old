@@ -26,7 +26,8 @@
         "symfony/monolog-bundle": "2.1.*",
         "symfony/swiftmailer-bundle": "2.1.*",
         "symfony/symfony": "2.1.*",
-        "twig/extensions": "1.0.*@dev"
+        "twig/extensions": "1.0.*@dev",
+        "nekland/feed-bundle": "*"
     },
     "scripts": {
         "post-install-cmd": [

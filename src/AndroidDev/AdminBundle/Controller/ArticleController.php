@@ -28,6 +28,36 @@ class ArticleController extends Controller
 
         $entities = $em->getRepository('AndroidDevSiteBundle:Article')->findAll();
 
+
+        $articles = $em->getRepository('AndroidDevSiteBundle:Article')->findLastArticleByPage(1, 10);
+        $factory = $this->get('nekland_feed.factory');
+        $factory->load('my_feed', 'rss_file'); 
+        $feed = $factory->get('my_feed');
+        foreach ($articles as $article) {
+            $feed->add($article);
+        }
+        
+        $articles = $em->getRepository('AndroidDevSiteBundle:Article')->findArticleByPage(1, 10);
+        $factory2 = $this->get('nekland_feed.factory');
+        $factory2->load('my_feed2', 'rss_file'); 
+        $feed2 = $factory->get('my_feed2');
+        foreach ($articles as $article) {
+            $feed2->add($article);
+        }
+
+
+        $articles = $em->getRepository('AndroidDevSiteBundle:Article')->findAstuceByPage(1, 10);
+        $factory3 = $this->get('nekland_feed.factory');
+        $factory3->load('my_feed3', 'rss_file'); 
+        $feed3 = $factory->get('my_feed3');
+        foreach ($articles as $astuce) {
+            $feed3->add($astuce);
+        }
+        
+        $factory->render('my_feed', 'rss');
+        $factory2->render('my_feed2', 'rss');
+        $factory3->render('my_feed3', 'rss');
+        
         return array(
             'entities' => $entities,
         );

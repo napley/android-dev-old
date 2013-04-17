@@ -2,6 +2,9 @@ android_dev_admin:
     resource: "@AndroidDevAdminBundle/Resources/config/routing.yml"
     prefix:   /admin
 
+admin_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
 android_dev_site:
     resource: "@AndroidDevSiteBundle/Resources/config/routing.yml"
     prefix:   /
@@ -14,8 +17,3 @@ android_dev_site:
 #_internal:
 #    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
 #    prefix:   /_internal
-
-
-    
-admin_user_security:
-    resource: "@FOSUserBundle/Resources/config/routing/security.xml"

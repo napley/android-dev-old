@@ -21,15 +21,13 @@ $enregistrements = $select->fetchAll();
 
 foreach ($enregistrements as $enregistrement) {
 
-    $update = $connection->prepare('UPDATE Article SET titre = :titre, sousTitre = :sousTitre, contenu = :contenu WHERE id = :id');
+    $update = $connection->prepare('UPDATE Article SET slug = :slug WHERE id = :id');
     try {
         // On envois la requète
         $success = $update->execute(array(
-            'id' => $enregistrement->id, 
-            'titre' => stripslashes($enregistrement->titre),
-            'sousTitre' => stripslashes($enregistrement->sousTitre),
-            'contenu' => stripslashes($enregistrement->contenu)
-                ));
+            'id' => $enregistrement->id,
+            'slug' => str_replace('dereiers', 'derniers', $enregistrement->slug)
+        ));
 
         if ($success) {
             echo "Enregistrement réussi";

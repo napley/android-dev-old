@@ -7,6 +7,10 @@
         <meta name="description" content="{% block description %}{% endblock %}">
         <meta name="author" content="Android-dev">
         <link rel="canonical" href="{% block urlCanonical %}{% endblock %}" />
+        <link rel="alternate" type="application/rss+xml" href="/feeds/derniersArticles.rss" title="Derniers articles">
+        <link rel="alternate" type="application/rss+xml" href="/feeds/derniersAstuces.rss" title="Dernieres astuces">
+        <link rel="alternate" type="application/rss+xml" href="/feeds/derniersArticlesAstuces.rss" title="Derniers articles et astuces">
+        <link rel="alternate" type="application/rss+xml" href="/feeds/derniersProjets.rss" title="Derniers projets">
 
         <!-- Le styles -->
         {% block stylesheets %}

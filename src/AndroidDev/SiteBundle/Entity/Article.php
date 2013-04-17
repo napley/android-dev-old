@@ -12,7 +12,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity(repositoryClass="AndroidDev\SiteBundle\Entity\ArticleRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
-class Article
+class Article implements \Nekland\Bundle\FeedBundle\Item\ItemInterface
 {
 
     /**
@@ -401,6 +401,34 @@ class Article
     public function getMotCles()
     {
         return $this->MotCles;
+    }
+
+    public function getFeedDate()
+    {
+        return $this->getCreated();
+    }
+
+    public function getFeedDescription()
+    {
+        return $this->getSousTitre();
+    }
+
+    public function getFeedId()
+    {
+        return $this->getId();
+    }
+
+    public function getFeedRoutes()
+    {
+        $route[0]['route'][0] = 'androiddev_voir';
+        $route[0]['route'][1]['slug'] = $this->slug;
+        $route[1] = 'http://www.android-dev.fr';
+        return $route;
+    }
+
+    public function getFeedTitle()
+    {
+        return $this->getTitre();
     }
 
 }
