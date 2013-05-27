@@ -8,21 +8,21 @@ Recherche sur android-dev.fr
 Les {{ type }}s du site android-dev.fr
         {% endif %}
     {% else %}
-        Android-dev.fr - Le site du développement pour Android.
+Android-dev.fr - Le site du développement pour Android.
     {% endif %}
 {% endblock %}
 
 {% block description %}
     {% if type is defined %}
         {% if type == 'recherche' %}
-                Recherche sur android-dev.fr. 
-                Mots clés : {{ motCle }}.
+Recherche sur android-dev.fr. 
+Mots clés : {{ motCle }}.
         {% else %}
-                Les {{ type }}s du site android-dev.fr. 
+Les {{ type }}s du site android-dev.fr. 
         {% endif %}
 
         {% if categorie is defined %}
-            De la catégorie : {{ categorie }}.
+De la catégorie : {{ categorie }}.
         {% endif %}
     {% else %}
         {{ infosite['description'] | raw  }}
@@ -51,10 +51,15 @@ Les {{ type }}s du site android-dev.fr
 {% block contentPC %}
 
 {% for article in articles %}
-    <div class="row-fluid listeArticle">
+    <div class="row-fluid listeArticle well well-small">
         <h2><a href="{{ path('androiddev_voir', {'slug': article.slug}) }}">{{ article.titre | raw }}</a></h2>
         {{ article.sousTitre | raw }}
-            <p><a class="btn"  href="{{ path('androiddev_voir', {'slug': article.slug}) }}">Lire la suite &raquo;</a></p>
+            <p class="text-left"><small><span class="label label-info">{{ article.getType().getNom() }} </span>  <span class="label label-info"> {{ article.getCategorie().getNom() }}</span>
+            <br />{% for motCle in article.getMotCles() %}
+                    <span class="label">{{ motCle.getNom() }}</span>
+            {% endfor %}
+            </small></p>
+            <p class="text-left"><a class="btn"  href="{{ path('androiddev_voir', {'slug': article.slug}) }}">Lire la suite &raquo;</a></p>
         </div>
 {% endfor %}
         <ul class="pager">
@@ -67,40 +72,4 @@ Les {{ type }}s du site android-dev.fr
                     <a href="{{path(route, routeBef) }}">Plus récent &rarr;</a>
                 </li>
             </ul>
-{% endblock %}
-
-{% block enteteContentMobileTablet %}
-            <div class="hero-unit">
-{% if type is defined %}
-                    <h1>Les {{ type }}s du site android-dev.fr</h1>
-
-    {% if categorie is defined %}
-                    <p>De la catégorie : {{ categorie }}</p>
-    {% endif %}
-{% else %}
-    {{ infosite['entete'] | raw  }}
-{% endif %}
-                </div>
-{% endblock %}
-
-{% block contentMobileTablet %}
-
-{% for article in articles %}
-                <div class="row-fluid listeArticle">
-                    <h2><a href="{{ path('androiddev_voir', {'slug': article.slug}) }}">{{ article.titre | raw }}</a></h2>
-            {{ article.sousTitre | raw }}
-                        <p><a class="btn"  href="{{ path('androiddev_voir', {'slug': article.slug}) }}">Lire la suite &raquo;</a></p>
-
-                    </div>
-{% endfor %}   
-                    <ul class="pager">
-                        <li class="previous ">
-                            <a href="{{path(route, routeAft) }}">&larr; Plus ancien</a>
-                        </li>
-                        <li class="next {% if  page == 1 %}
-                            disabled
-              {% endif %} ">
-                                <a href="{{path(route, routeBef) }}">Plus récent &rarr;</a>
-                            </li>
-                        </ul>
 {% endblock %}

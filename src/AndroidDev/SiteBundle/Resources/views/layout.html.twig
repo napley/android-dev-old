@@ -5,7 +5,7 @@
 {% block description %}{% endblock %}
 
 {% block menuGauche %}                    
-<div style="max-width: 200px; padding: 8px 0;" class="span2 visible-desktop">
+<div style="max-width: 200px; padding: 8px 0;" class="span2 hidden-phone">
     <ul class="nav nav-list">
         <li class="nav-header"><a href="{{ path('androiddev_article')}}">Article</a></li>
         {% for categorie in filtrecat['article'] %}

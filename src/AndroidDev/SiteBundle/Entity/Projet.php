@@ -131,6 +131,27 @@ class Projet implements \Nekland\Bundle\FeedBundle\Item\ItemInterface
     {
         return $this->titre;
     }
+    
+    /**
+     * Get titre
+     *
+     * @return string 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+    
+    /**
+     * Get titre
+     *
+     * @return string 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
 
     /**
      * Set sousTitre
