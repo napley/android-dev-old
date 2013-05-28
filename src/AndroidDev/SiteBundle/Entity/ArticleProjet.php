@@ -128,5 +128,16 @@ class ArticleProjet
         return $this;
     }
 
+    /**
+     * Get Article
+     *
+     * @return integer 
+     */
+    public function getProjet()
+    {
+        return $this->Projet;
+    }
+
+
 
 }

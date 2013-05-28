@@ -42,6 +42,7 @@ class ProjetRepository extends EntityRepository
         foreach ($projet->getArticles() as $part) {
             $listParts[$part->getRang()] = $part->getArticle();
         }
+        ksort($listParts);
         return $listParts;
     }
 
