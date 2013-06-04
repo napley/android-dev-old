@@ -8,12 +8,12 @@
 <ul class="breadcrumb">
     <li><a href="{{ path('androiddev_accueil') }}">Accueil</a> <span class="divider">/</span></li>
     <li><a href="{{ path('androiddev_'~article.getType().getNom()|lower) }}">{{ article.getType().getNom() }}</a> <span class="divider">/</span></li>
-    {% if article.getType().getNom()|lower ==  'projet' %}
+            {% if article.getType().getNom()|lower ==  'projet' %}
         <li><a href="{{ path('androiddev_'~article.getType().getNom()|lower ~'Voir', {'slug': article.getProjet().getProjet().getSlug() }) }}">{{ article.getProjet().getProjet().getTitre() }}</a> <span class="divider">/</span></li>
-   
-        {% else %}
-        <li><a href="{{ path('androiddev_'~article.getType().getNom()|lower ~'Cat', {'slug': article.getCategorie().getSlug() }) }}">{{ article.getCategorie().getNom() }}</a> <span class="divider">/</span></li>
-    {% endif %}  
+               
+                {% else %}
+                <li><a href="{{ path('androiddev_'~article.getType().getNom()|lower ~'Cat', {'slug': article.getCategorie().getSlug() }) }}">{{ article.getCategorie().getNom() }}</a> <span class="divider">/</span></li>
+            {% endif %}  
             <li class="active">{{ article.getTitre() }}</li>
         </ul>
         <div class="hero-unit">

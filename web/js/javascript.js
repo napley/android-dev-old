@@ -10,6 +10,7 @@ function createSommaire() {
 
     var arraySommaire = new Array();
     var j = 0;
+    var listeLi = "";
 
     $(".content h1, h2, h3").each(function(i) {
         var current = $(this);
@@ -23,10 +24,15 @@ function createSommaire() {
 
             current.attr("id", "title" + i);
 
-            $("#sommaire").append("<li><a id='link" + i + "' href='#title" +
+            listeLi += "<li><a id='link" + i + "' href='#title" +
                     i + "' title='" + current.attr("tagName") + "'>" + "<i class='icon-chevron-right'></i>" +
-                    current.html() + "</a></li>");
+                    current.html() + "</a></li>"
+
             j++;
         }
     });
+    
+    $("#sommaire").prepend(listeLi);
+    
+    
 }

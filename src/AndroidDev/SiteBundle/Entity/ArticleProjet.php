@@ -33,22 +33,21 @@ class ArticleProjet
      * @ORM\OneToOne(targetEntity="AndroidDev\SiteBundle\Entity\Article", inversedBy="Projet", cascade={"persist"})
      * */
     private $Article;
-    
 
     /**
      * @ORM\ManyToOne(targetEntity="AndroidDev\SiteBundle\Entity\Projet", cascade={"persist"},
-      inversedBy="articles")
+      inversedBy="Articles")
      */
     private $Projet;
 
-    public function __construct( $projet, $article, $index)
+    public function __construct($projet, $article, $index)
     {
         $this->setArticle($article);
         $this->setProjet($projet);
         $this->setRang($index);
     }
 
-        /**
+    /**
      * Get id
      *
      * @return integer 
@@ -138,6 +137,26 @@ class ArticleProjet
         return $this->Projet;
     }
 
+    public function getPrevPart()
+    {
+        if ($this->getRang() > 1) {
+            foreach ($this->getProjet()->getArticles() as $part) {
+                if ($part->getRang() == $this->getRang() - 1) {
+                    return $part;
+                }
+            }
+        }
+        return null;
+    }
 
+    public function getNextPart()
+    {
+        foreach ($this->getProjet()->getArticles() as $part) {
+            if ($part->getRang() == $this->getRang() + 1) {
+                return $part;
+            }
+        }
+        return null;
+    }
 
 }

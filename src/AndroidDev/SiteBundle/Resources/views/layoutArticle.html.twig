@@ -8,9 +8,21 @@
 <div class="span2 hidden-phone">
     <div class="bs-docs-sidebar">
         <ul id="sommaire" class="nav nav-list bs-docs-sidenav affix">
-        </ul>
-    </div>
-</div>
+            {% if article is defined and article.getType().id == 3 %}
+                <hr />
+                {% if article.getPrevArticle != null %}
+                <li><a href="{{ path('androiddev_voir', {'slug': article.getPrevArticle().getSlug() }) }}"><i class="icon-backward"></i> {{ article.getPrevArticle().getProjet().getRang() }} - {{ article.getPrevArticle().getTitre() }}</a></li>
+                {% endif %}
+                {% if article.getNextArticle != null %}
+                    <li><a href="{{ path('androiddev_voir', {'slug': article.getNextArticle().getSlug() }) }}">{{ article.getNextArticle().getProjet().getRang() }} - {{ article.getNextArticle().getTitre() }} <i class="icon-forward"></i></a></li>
+                {% endif %}
+                <hr />
+                <a href="{{ path('androiddev_projetVoir', {'slug': article.getProjet().getProjet().slug}) }}">Retour au projet</a>
+            {% endif %}
+
+                    </ul>
+                </div>
+            </div>
 {% endblock %}
 
 {% block enteteContentPC %}

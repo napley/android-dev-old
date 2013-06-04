@@ -15,7 +15,7 @@
 
         <!-- Le styles -->
         {% block stylesheets %}
-        
+
             {% endblock %}
 
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -101,5 +101,9 @@
 
 {% block script %}
 {% endblock %}
-                        </body>
-                    </html>
+                            <script type="text/javascript">
+                                SyntaxHighlighter.config.tagName="textarea";
+                                SyntaxHighlighter.all();
+                                </script>
+                            </body>
+                        </html>

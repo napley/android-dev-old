@@ -430,5 +430,29 @@ class Article implements \Nekland\Bundle\FeedBundle\Item\ItemInterface
     {
         return $this->getTitre();
     }
+    
+    public function getPrevArticle()
+    {
+        if($this->getProjet()!=null){
+            $part = $this->getProjet()->getPrevPart();
+            
+            if(!empty($part)){
+                return $part->getArticle();
+            }
+        }
+        return null;
+    }
 
+    public function getNextArticle()
+    {
+        if($this->getProjet()!=null){
+            $part = $this->getProjet()->getNextPart();
+            
+            if(!empty($part)){
+                return $part->getArticle();
+            }
+        }
+        return null;
+    }
+    
 }
