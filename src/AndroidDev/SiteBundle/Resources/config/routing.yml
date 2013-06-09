@@ -57,3 +57,11 @@ androiddev_recherche:
 androiddev_projetVoir:
     pattern:   /projet/{slug}
     defaults:  { _controller: AndroidDevSiteBundle:Blog:projetVoir }
+ 
+androiddev_oldUrl:
+    pattern:   /web/blog/voir/{id}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:redirect }
+ 
+androiddev_oldUrlTitre:
+    pattern:   /web/blog/voir/{id}?titre={titre}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:redirect }

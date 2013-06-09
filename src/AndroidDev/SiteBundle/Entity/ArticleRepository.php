@@ -82,6 +82,13 @@ class ArticleRepository extends EntityRepository
         return $query->getOneOrNullResult();
     }
 
+    public function findById($id)
+    {
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a WHERE a.id = :id AND a.visible=1');
+        $query->setParameter('id', $id);
+        return $query->getOneOrNullResult();
+    }
+
     public function findByNom($nom)
     {
         $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a WHERE a.titre = :titre AND a.visible=1');

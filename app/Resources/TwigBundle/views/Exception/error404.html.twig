@@ -1,0 +1,182 @@
+{% extends "::layout.html.twig" %}
+
+
+{% block title %}Android-dev{% endblock %}
+{% block description %}{% endblock %}
+{% block urlCanonical %}{% endblock %}
+
+{% block stylesheets %}
+ <meta http-equiv="refresh" content="3; URL=http://android-dev.fr">
+<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.min.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/jquery.fancybox.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/shCore.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/shThemeDefault.css') }}" type="text/css" />
+{% endblock %}
+
+{% block navbar %}
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+</a>
+<a class="brand" href="{{ path('androiddev_accueil') }}">{{ infosite['titre'] }}</a>
+<div class="nav-collapse collapse">
+    <ul class="nav" role="navigation">
+        <li><a href="{{ path('androiddev_accueil') }}">Accueil</a></li>
+        <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle">Article <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li class="nav-header"><a href="{{ path('androiddev_article')}}">Tous les articles</a></li>
+
+                    {% for categorie in filtrecat['article'] %}
+                <li><a href="{{ path('androiddev_articleCat', {'slug': categorie.slug}) }}">{{categorie.getNom()}}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle">Astuce <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li class="nav-header"><a href="{{ path('androiddev_astuce')}}">Toutes les astuces</a></li>
+
+                    {% for categorie in filtrecat['astuce'] %}
+                    <li><a href="{{ path('androiddev_astuceCat', {'slug': categorie.slug}) }}">{{categorie.getNom()}}</a></li>
+                    {% endfor %}
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle">Projet <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-header"><a href="{{ path('androiddev_projet')}}">Tous les projets</a></li>
+        {% for projet in filtrecat['projet'] %}
+                            <li><a href="{{ path('androiddev_projetVoir', {'slug': projet.slug}) }}">{{projet.getTitre()}}</a></li>
+        {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                    <form action="{{ path('androiddev_search') }}" method="post" class="navbar-search pull-right">
+                        <input type="text" name="motCles" class="search-query" placeholder="Rechercher sur android-dev.fr">
+                    </form>
+                </div><!--/.nav-collapse -->
+{% endblock %}
+
+{% block infoMobileTablet %}
+{% endblock %}
+
+{% block menuGauche %}                    
+<div style="max-width: 200px; padding: 8px 0;" class="span2 hidden-phone">
+    <ul class="nav nav-list">
+        <li class="nav-header"><a href="{{ path('androiddev_article')}}">Article</a></li>
+        {% for categorie in filtrecat['article'] %}
+            <li><a href="{{ path('androiddev_articleCat', {'slug': categorie.slug}) }}">{{categorie.getNom()}}</a></li>
+        {% endfor %}
+
+                <li class="divider"></li>
+
+                <li class="nav-header"><a href="{{ path('androiddev_astuce')}}">Astuce</a></li>
+        {% for categorie in filtrecat['astuce'] %}
+                    <li><a href="{{ path('androiddev_astuceCat', {'slug': categorie.slug}) }}">{{categorie.getNom()}}</a></li>
+        {% endfor %}
+
+                        <li class="divider"></li>
+
+                        <li class="nav-header"><a href="{{ path('androiddev_projet')}}">Projet</a></li>
+        {% for projet in filtrecat['projet'] %}
+                            <li><a href="{{ path('androiddev_projetVoir', {'slug': projet.slug}) }}">{{projet.getTitre()}}</a></li>
+        {% endfor %}
+                            </ul>
+                        </div>
+{% endblock %}
+
+
+{% block enteteContentPC %}
+        <div class="hero-unit">
+            <h1>Cette page n'existe plus</h1>
+            <p>Vous allez être redirigé vers la page d'accueil</p>
+        </div>
+{% endblock %}
+
+{% block contentPC %}
+                
+{% endblock %}
+
+{% block enteteContentMobileTablet %}
+
+{% endblock %}
+
+{% block contentMobileTablet %}
+
+{% endblock %}
+
+{% block colonneDroite %}
+                <div class="well sidebar-nav listeDroite">
+                    <ul class="nav nav-list">
+                        <li class="nav-header">SUIVRE Android-dev.fr</li>
+                        <li><a href="https://twitter.com/androiddevfr" class="twitter-follow-button" data-show-count="false" data-lang="fr">Follow @androiddevfr</a>
+
+                            <script>!function(d, s, id) {
+                                    var js, fjs = d.getElementsByTagName(s)[0];
+                                    if (!d.getElementById(id)) {
+                                        js = d.createElement(s);
+                                        js.id = id;
+                                        js.src = "//platform.twitter.com/widgets.js";
+                                        fjs.parentNode.insertBefore(js, fjs);
+                                    }
+                                }(document, "script", "twitter-wjs");</script></li>
+                            <li><div id="fb-root"></div>
+                                <script>(function(d, s, id) {
+                                        var js, fjs = d.getElementsByTagName(s)[0];
+                                        if (d.getElementById(id))
+                                            return;
+                                        js = d.createElement(s);
+                                        js.id = id;
+                                        js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
+                                        fjs.parentNode.insertBefore(js, fjs);
+                                    }(document, 'script', 'facebook-jssdk'));</script><div class="fb-like" data-href="http://www.facebook.com/androiddev.fr" data-send="true" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+                                </li>
+                                <li>
+                                    <!-- Placez cette balise où vous souhaitez faire apparaître le gadget badge. -->
+                                    <div class="g-plus" data-width="187" data-height="69" data-href="//plus.google.com/109789572578192575458" data-rel="publisher"></div>
+
+                                    <!-- Placez cette ballise après la dernière balise badge. -->
+                                    <script type="text/javascript">
+                                        window.___gcfg = {lang: 'fr'};
+
+                                        (function() {
+                                            var po = document.createElement('script');
+                                            po.type = 'text/javascript';
+                                            po.async = true;
+                                            po.src = 'https://apis.google.com/js/plusone.js';
+                                            var s = document.getElementsByTagName('script')[0];
+                                            s.parentNode.insertBefore(po, s);
+                                        })();
+                                        </script>
+                                    </li>
+                                </ul>
+                            </div><!--/.well --> 
+                            <div class="well sidebar-nav listeDroite">
+                                <ul class="nav nav-list">
+                                    <li class="nav-header">Top des 7 derniers jours</li>
+        {% for article in topPiwik %}
+                                        <li><a href="{{ path('androiddev_voir', {'slug': article.slug}) }}">{{ article.label }}</a></li>
+        {% endfor %}
+                                        </ul>
+                                    </div><!--/.well --> 
+                                    <div class="well sidebar-nav listeDroite">
+                                        <ul class="nav nav-list">
+                                            <li class="nav-header">Mise à jour</li>
+         {% for article in lastUpdate %}
+                                                <li><a href="{{ path('androiddev_voir', {'slug': article.slug}) }}">{{ article.titre | raw }}</a></li>
+        {% endfor %}
+                                                </ul>
+                                            </div><!--/.well -->
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+
+{% block footer %}
+    {{ infosite['footer'] | raw  }}
+{% endblock %}

@@ -186,6 +186,10 @@ class BlogController extends Controller
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findBySlug($slug);
 
+        if (empty($article)) {
+                return $this->redirect($this->generateUrl('androiddev_accueil'), 301);
+        }
+
         $render = $this->render('AndroidDevSiteBundle:Blog:voir.html.twig', array(
             'article' => $article
                 )
@@ -339,13 +343,23 @@ class BlogController extends Controller
         $routeBef['page'] = $page - 1;
         $routeAft['motcles'] = $motcles;
         $routeAft['page'] = $page + 1;
-        
+
         $motCleJoin = implode(' - ', $motCle);
-        
+
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
             'articles' => $articles, 'page' => $page, 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'route' => 'androiddev_recherche', 'type' => 'recherche', 'motCle' => $motCleJoin
         ));
         return $render;
+    }
+
+    public function redirectAction($id, $titre = null)
+    {
+        $article = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Article')
+                ->findById($id);
+        var_dump($article->getId());
+        return $this->redirect($this->generateUrl('androiddev_voir', array('slug' => $article->getSlug())), 301);
     }
 
 }

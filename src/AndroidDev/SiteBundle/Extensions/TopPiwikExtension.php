@@ -26,7 +26,7 @@ class TopPiwikExtension extends \Twig_Extension
 
 // we call the REST API and request the 100 first keywords for the last month for the idsite=1
         $url = "http://android-dev.fr/Piwik/";
-        $url .= "?module=API&method=Actions.getPageTitles";
+        $url .= "index.php?module=API&method=Actions.getPageTitles";
         $url .= "&idSite=1&period=range&date=2013-03-5,2013-03-12";
         $url .= "&format=php&filter_limit=15";
         $url .= "&token_auth=$token_auth";
