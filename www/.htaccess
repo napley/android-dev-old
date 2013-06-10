@@ -14,9 +14,7 @@ ErrorDocument 404 http://android-dev.fr
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ app.php [QSA]
 
-RewriteRule ^web/blog/voir/([0-9]+)$ http://www.android-dev.fr/detail.php?billet=$1 [L,R=301]
-
-
-RedirectMatch permanent ^/web/blog/tuto http://android-dev.fr/projet
-RedirectMatch permanent ^/web/blog/article http://android-dev.fr/article
-RedirectMatch permanent ^/web/blog http://android-dev.fr
+RewriteCond %{QUERY_STRING} ^billet=([0-9]+)$
+RewriteRule ^detail\.php$ http://www.android-dev.fr/web/blog/voir/%1? [L,R=301]
+RewriteCond %{QUERY_STRING} ^billet=([0-9]+)$
+RewriteRule ^detail\.php$ http://www.android-dev.fr/web/blog/voir/%1?titre=%2? [L,R=301]

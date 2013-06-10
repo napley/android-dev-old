@@ -57,6 +57,26 @@ androiddev_recherche:
 androiddev_projetVoir:
     pattern:   /projet/{slug}
     defaults:  { _controller: AndroidDevSiteBundle:Blog:projetVoir }
+    
+androiddev_oldUrlHome:
+    pattern:   /web/blog
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:redirectAccueil }
+    
+androiddev_oldUrlTuto2:
+    pattern:   /web/blog/tuto/
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:redirectProjet }
+    
+androiddev_oldUrlArticle2:
+    pattern:   /web/blog/article/
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:redirectArticle }
+    
+androiddev_oldUrlTuto:
+    pattern:   /web/blog/tuto
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:redirectProjet }
+    
+androiddev_oldUrlArticle:
+    pattern:   /web/blog/article
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:redirectArticle }
  
 androiddev_oldUrl:
     pattern:   /web/blog/voir/{id}

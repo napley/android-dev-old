@@ -362,4 +362,19 @@ class BlogController extends Controller
         return $this->redirect($this->generateUrl('androiddev_voir', array('slug' => $article->getSlug())), 301);
     }
 
+    public function redirectAccueilAction()
+    {
+        return $this->redirect($this->generateUrl('androiddev_accueil'), 301);
+    }
+
+    public function redirectProjetAction()
+    {
+        return $this->redirect($this->generateUrl('androiddev_projet'), 301);
+    }
+
+    public function redirectArticleAction()
+    {
+        return $this->redirect($this->generateUrl('androiddev_article'), 301);
+    }
+
 }

@@ -9,7 +9,7 @@ parameters:
     mailer_transport:  smtp
     mailer_host:       127.0.0.1
     mailer_user:       ~
-    mailer_password:   ~
+    mailer_password:   ~a
 
     locale:            fr
     secret:            6a40c410b1b7951d10bea7be812bb561f7
