@@ -24,10 +24,13 @@ class TopPiwikExtension extends \Twig_Extension
 // You can get the token on the API page inside your Piwik interface
         $token_auth = 'bad356cc2019d53e9e09edbadaae9312';
 
-// we call the REST API and request the 100 first keywords for the last month for the idsite=1
+        $firstDay = new \DateTime();
+        $today = new \DateTime();
+        $firstDay->modify('-7 day');
+
         $url = "http://android-dev.fr/Piwik/";
         $url .= "index.php?module=API&method=Actions.getPageTitles";
-        $url .= "&idSite=1&period=range&date=2013-03-5,2013-03-12";
+        $url .= "&idSite=1&period=range&date=" . $firstDay->format('Y-m-d') . "," . $today->format('Y-m-d');
         $url .= "&format=php&filter_limit=15";
         $url .= "&token_auth=$token_auth";
 
@@ -39,8 +42,7 @@ class TopPiwikExtension extends \Twig_Extension
             $article = $repository->findByNom($content[$cle]['label']);
             if ($article == null) {
                 unset($content[$cle]);
-            }
-            else {
+            } else {
                 $content[$cle]['id'] = $article->getId();
                 $content[$cle]['slug'] = $article->getSlug();
             }
