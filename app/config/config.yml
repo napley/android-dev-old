@@ -84,28 +84,28 @@ nekland_feed:
           my_feed:
               class:        AndroidDev\SiteBundle\Entity\Article
               title:       "Les derniers articles et astuces d'android-dev.fr"
-              description: 'Here is my very fabulous posts'
+              description: "Les derniers articles et astuces d'android-dev.fr"
               url:         'http://www.android-dev.fr'
               language:    'fr'
               filename:    "derniersArticlesAstuces.|format|"
           my_feed2:
               class:        AndroidDev\SiteBundle\Entity\Article
               title:       "Les derniers articles d'android-dev.fr"
-              description: 'Here is my very fabulous comments'
+              description: "Les derniers articles d'android-dev.fr"
               url:         'http://www.android-dev.fr'
               language:    'fr'
               filename:    "derniersArticles.|format|"
           my_feed3:
               class:        AndroidDev\SiteBundle\Entity\Article
               title:       "Les dernieres astuces d'android-dev.fr"
-              description: 'Here is my very fabulous comments'
+              description: "Les dernieres astuces d'android-dev.fr"
               url:         'http://www.android-dev.fr'
               language:    'fr'
               filename:    "derniersAstuces.|format|"
           my_feed4:
               class:        AndroidDev\SiteBundle\Entity\Projet
               title:       "Les derniers projets d'android-dev.fr"
-              description: 'Here is my very fabulous comments'
+              description: "Les derniers projets d'android-dev.fr"
               url:         'http://www.android-dev.fr'
               language:    'fr'
               filename:    "derniersProjets.|format|"

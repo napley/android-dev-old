@@ -30,29 +30,28 @@ class TopPiwikExtension extends \Twig_Extension
 
         $url = "http://android-dev.fr/Piwik/";
         $url .= "index.php?module=API&method=Actions.getPageTitles";
-        $url .= "&idSite=1&period=range&date=" . $firstDay->format('Y-m-d') . "," . $today->format('Y-m-d');
-        $url .= "&format=php&filter_limit=15";
+        $url .= "&idSite=1&period=range&date=2013-06-03,2013-06-09";
+        $url .= "&format=json&filter_limit=15";
         $url .= "&token_auth=$token_auth";
 
         $fetched = file_get_contents($url);
-        $content = unserialize($fetched);
-
+        $content = json_decode($fetched);
         foreach ($content as $cle => $article) {
-            $content[$cle]['label'] = html_entity_decode($article['label'], ENT_QUOTES);
-            $article = $repository->findByNom($content[$cle]['label']);
+            $content[$cle]->label = html_entity_decode($article->label, ENT_QUOTES);
+            $article = $repository->findByNom($content[$cle]->label);
             if ($article == null) {
                 unset($content[$cle]);
             } else {
-                $content[$cle]['id'] = $article->getId();
-                $content[$cle]['slug'] = $article->getSlug();
+                $content[$cle]->id = $article->getId();
+                $content[$cle]->slug = $article->getSlug();
             }
         }
 
 
 // case error
-        if (!$content) {
-            print("Error, content fetched = " . $fetched);
-        }
+//        if (!$content) {
+//            print("Error, content fetched = " . $fetched);
+//        }
 
         return array(
             'topPiwik' => $content,
