@@ -81,17 +81,28 @@
 
                                 {% block contentPC %}
                                  {% endblock %}
-                            <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                            <ins class="adsbygoogle"
-                                 style="display:inline-block;width:160px;height:600px"
-                                 data-ad-client="ca-pub-4672745701309961"
-                                 data-ad-slot="3797414572"></ins>
-                            <script>
-                                                            (adsbygoogle = window.adsbygoogle || []).push({});
-                                </script>
+                            <script type="text/javascript">
+                            google_ad_client = "ca-pub-4672745701309961";
+                            width = document.documentElement.clientWidth;
+                            if (width < 500) {
+                                google_ad_slot = "1978297378";
+                                google_ad_width = 320;
+                                google_ad_height = 50;
+                            }
+                            else if (width > 500 && width < 1300) {
+                                google_ad_slot = "1050010217";
+                                google_ad_width = 468;
+                                google_ad_height = 15;
+                            }
+                            else if (width > 1300) {
+                                google_ad_slot = "9501564175";
+                                google_ad_width = 728;
+                                google_ad_height = 15;
+                            }
+
+                            </script>
                             </div><!--/span-->
-
-
+                            
                             <div class="span3">
                                         {% block colonneDroite %}
 

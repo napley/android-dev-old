@@ -27,9 +27,8 @@ class ProjetRepository extends EntityRepository
     public function findLastNotEmpty($nb)
     {
         $query = $this->_em->createQuery('SELECT p FROM AndroidDevSiteBundle:Projet p 
-                        INNER JOIN p.Articles pa
                         WHERE p.visible = 1
-                        ORDER BY p.titre');
+                        ORDER BY p.created DESC');
         $query->setMaxResults($nb);
         $projets = $query->getResult();
 

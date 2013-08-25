@@ -125,6 +125,7 @@ class ArticleRepository extends EntityRepository
         foreach ($motCles as $cle => $motCle) {
             $requete .=" AND ( a.titre LIKE '%" . $motCle . "%' OR a.sousTitre LIKE '%" . $motCle . "%' OR a.contenu LIKE '%" . $motCle . "%' ) ";
         }
+        $requete .=" ORDER BY a.created DESC ";
 
         $query = $this->_em->createQuery($requete);
         $query->setMaxResults($nb);

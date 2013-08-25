@@ -118,6 +118,7 @@ class ArticleController extends Controller
             $form->bind($request);
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
+                $entity->setAuteur($em->getRepository('AndroidDevSiteBundle:Auteur')->find(1));
                 $em->persist($entity);
 
                 foreach ($_POST['motCle'] as $cle => $textMotCle) {
