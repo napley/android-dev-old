@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<pmd version="1.5.0" timestamp="2013-09-20T19:48:19+02:00">
+<pmd version="1.5.0" timestamp="2013-09-20T19:57:47+02:00">
   <file name="/var/www/android-dev.fr/src/AndroidDev/AdminBundle/Controller/ArticleController.php">
     <violation beginline="124" endline="124" rule="UnusedLocalVariable" ruleset="Unused Code Rules" externalInfoUrl="http://phpmd.org/rules/unusedcode.html#unusedlocalvariable" priority="3">
       Avoid unused local variables such as '$cle'.
