@@ -18,7 +18,7 @@ class SitemapController extends Controller
         
         $urls = array();
         $hostname = $this->getRequest()->getHost();
-
+        
         // add some urls homepage
         $urls[] = array('loc' => $this->generateUrl('androiddev_accueil'), 'changefreq' => 'weekly', 'priority' => '1.0');
 

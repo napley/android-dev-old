@@ -186,12 +186,25 @@ class BlogController extends Controller
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findBySlug($slug);
 
+
+        if (!empty($article)) {
+            $category = $article->getCategorie();
+            if (!empty($category)) {
+                $links = $this->getDoctrine()
+                        ->getEntityManager()
+                        ->getRepository('AndroidDevSiteBundle:Article')
+                        ->findLink($article->getId(), $category->getSlug(), 5);
+            } else {
+                $links = null;
+            }
+        }
+
         if (empty($article)) {
-                return $this->redirect($this->generateUrl('androiddev_accueil'), 301);
+            return $this->redirect($this->generateUrl('androiddev_accueil'), 301);
         }
 
         $render = $this->render('AndroidDevSiteBundle:Blog:voir.html.twig', array(
-            'article' => $article
+            'article' => $article, 'links' => $links
                 )
         );
         return $render;
@@ -358,7 +371,11 @@ class BlogController extends Controller
                 ->getEntityManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findById($id);
-        var_dump($article->getId());
+
+        if (empty($article)) {
+            return $this->redirect($this->generateUrl('androiddev_accueil'), 301);
+        }
+
         return $this->redirect($this->generateUrl('androiddev_voir', array('slug' => $article->getSlug())), 301);
     }
 

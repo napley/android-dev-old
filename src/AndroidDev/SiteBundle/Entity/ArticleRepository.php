@@ -134,5 +134,14 @@ class ArticleRepository extends EntityRepository
 
         return $articles;
     }
+    
+    public function findLink($id, $cat, $nb)
+    {
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at JOIN a.Categorie ac WHERE a.visible = 1 AND (at.id = 1 OR at.id = 2) AND a.id != :id AND ac.slug = :slug ORDER BY a.created DESC');
+        $query->setParameter('slug', $cat);
+        $query->setParameter('id', $id);
+        $query->setMaxResults($nb);
+        return $query->getResult();
+    }
 
 }

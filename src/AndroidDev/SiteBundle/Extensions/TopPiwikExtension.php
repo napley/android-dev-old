@@ -28,16 +28,12 @@ class TopPiwikExtension extends \Twig_Extension
         $today = new \DateTime();
         $firstDay->modify('-7 day');
 
-        $url = "http://android-dev.fr/Piwik/";
-        $url .= "index.php?module=API&method=Actions.getPageTitles";
-        $url .= "&idSite=1&period=range&date=2013-06-03,2013-06-09";
-        $url .= "&format=json&filter_limit=15";
-        $url .= "&token_auth=$token_auth";
+        $url = "http://www.android-dev.fr/Piwik/index.php?module=API&method=Actions.getPageTitles&idSite=1&period=range&date=".$firstDay->format('Y-m-d').",".$today->format('Y-m-d')."&format=json&filter_limit=15&token_auth=bad356cc2019d53e9e09edbadaae9312";
 
         $fetched = file_get_contents($url);
         $content = json_decode($fetched);
         foreach ($content as $cle => $article) {
-            $content[$cle]->label = html_entity_decode($article->label, ENT_QUOTES);
+            $content[$cle]->label = str_replace(' | Android-dev.fr', '', html_entity_decode($article->label, ENT_QUOTES));
             $article = $repository->findByNom($content[$cle]->label);
             if ($article == null) {
                 unset($content[$cle]);
