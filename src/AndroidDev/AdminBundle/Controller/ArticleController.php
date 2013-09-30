@@ -31,15 +31,15 @@ class ArticleController extends Controller
 
         $articles = $em->getRepository('AndroidDevSiteBundle:Article')->findLastArticleByPage(1, 10);
         $factory = $this->get('nekland_feed.factory');
-        $factory->load('my_feed', 'rss_file'); 
+        $factory->load('my_feed', 'rss_file');
         $feed = $factory->get('my_feed');
         foreach ($articles as $article) {
             $feed->add($article);
         }
-        
+
         $articles = $em->getRepository('AndroidDevSiteBundle:Article')->findArticleByPage(1, 10);
         $factory2 = $this->get('nekland_feed.factory');
-        $factory2->load('my_feed2', 'rss_file'); 
+        $factory2->load('my_feed2', 'rss_file');
         $feed2 = $factory->get('my_feed2');
         foreach ($articles as $article) {
             $feed2->add($article);
@@ -48,16 +48,57 @@ class ArticleController extends Controller
 
         $articles = $em->getRepository('AndroidDevSiteBundle:Article')->findAstuceByPage(1, 10);
         $factory3 = $this->get('nekland_feed.factory');
-        $factory3->load('my_feed3', 'rss_file'); 
+        $factory3->load('my_feed3', 'rss_file');
         $feed3 = $factory->get('my_feed3');
         foreach ($articles as $astuce) {
             $feed3->add($astuce);
         }
-        
+
         $factory->render('my_feed', 'rss');
         $factory2->render('my_feed2', 'rss');
         $factory3->render('my_feed3', 'rss');
-        
+
+        //Mise à jour des stats
+        $repository = $em->getRepository('AndroidDevSiteBundle:Article');
+        $repoStat = $em->getRepository('AndroidDevSiteBundle:Stat');
+
+        $stats = $repoStat->SortAllById();
+
+        $content = array();
+        foreach ($stats as $stat) {
+            $em->remove($stat);
+            $em->flush();
+        }
+
+        // this token is used to authenticate your API request. 
+// You can get the token on the API page inside your Piwik interface
+        $token_auth = 'bad356cc2019d53e9e09edbadaae9312';
+
+        $firstDay = new \DateTime();
+        $today = new \DateTime();
+        $firstDay->modify('-7 day');
+
+        $url = "http://www.android-dev.fr/Piwik/index.php?module=API&method=Actions.getPageTitles&idSite=1&period=range&date=" . $firstDay->format('Y-m-d') . "," . $today->format('Y-m-d') . "&format=json&filter_limit=15&token_auth=" . $token_auth;
+
+        $fetched = file_get_contents($url);
+        $content = json_decode($fetched);
+        foreach ($content as $cle => $article) {
+            $content[$cle]->label = str_replace(' | Android-dev.fr', '', html_entity_decode($article->label, ENT_QUOTES));
+            $article = $repository->findByNom($content[$cle]->label);
+            if ($article == null) {
+                unset($content[$cle]);
+            } else {
+                $stat = new \AndroidDev\SiteBundle\Entity\Stat();
+                $stat->setTitre($article->getTitre());
+                $stat->setUrl($article->getSlug());
+                
+                $em->persist($stat);
+                $em->flush();
+//                $content[$cle]->id = $article->getId();
+//                $content[$cle]->slug = $article->getSlug();
+            }
+        }
+
         return array(
             'entities' => $entities,
         );
