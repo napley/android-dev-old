@@ -3,13 +3,16 @@
 {% block title %}
     {% if type is defined %}
         {% if type == 'recherche' %}
-Recherche sur android-dev.fr
+Recherche sur android-dev.fr : {% if motCle is defined %}{{ motCle }}{% endif %}
         {% else %}
-Les {{ type }}s du site android-dev.fr
+Toutes les {{ type }}s {% if categorie is defined %}{{ categorie }}{% endif %} du site android-dev.fr
         {% endif %}
     {% else %}
 Android-dev.fr - Le site du développement pour Android.
     {% endif %}
+{% if  page > 1 %}
+Page {{ page }}.
+{% endif %}
 {% endblock %}
 
 {% block description %}
@@ -18,7 +21,7 @@ Android-dev.fr - Le site du développement pour Android.
 Recherche sur android-dev.fr. 
 Mots clés : {{ motCle }}.
         {% else %}
-Les {{ type }}s du site android-dev.fr. 
+Toutes les {{ type }}s présent sur le site android-dev.fr. 
         {% endif %}
 
         {% if categorie is defined %}
@@ -27,49 +30,83 @@ De la catégorie : {{ categorie }}.
     {% else %}
         {{ infosite['description'] | raw  }}
     {% endif %}
+
+{% if  page > 1 %}
+Page {{ page }}.
+{% endif %}
+{% endblock %}
+
+{% block meta %}
+{% if  page > 1 %}
+<link rel="prev" href="{{path(route, routeBef) }}">
+{% endif %}
+
+<link rel="next" href="{{path(route, routeAft) }}">
 {% endblock %}
 
 {% block enteteContentPC %}
-<div class="hero-unit">
+<div class="jumbotron">
 {% if type is defined %}
 {% if type == 'recherche' %}
-        <h1>Recherche sur android-dev.fr</h1>
-        <p>Mots clés : {{ motCle }}</p>
+    <h1>Recherche sur <span class="logo">android-dev.fr</span></h1>
+    <p>Mots clés : {{ motCle }}</p>
 {% else %}
-        <h1>Les {{ type }}s du site android-dev.fr</h1>
+    <h1>Les {{ type }}s du site <span class="logo">android-dev.fr</span></h1>
 {% endif %}
 
     {% if categorie is defined %}
-        <p>De la catégorie : {{ categorie }}</p>
+    <p>De la catégorie : {{ categorie }}</p>
     {% endif %}
 {% else %}
     {{ infosite['entete'] | raw  }}
 {% endif %}
-    </div>
+</div>
 {% endblock %}
 
 {% block contentPC %}
+<div class="row">
+    <div class="js-isotope">
 
 {% for article in articles %}
-    <div class="row-fluid listeArticle well well-small">
-        <h2><a href="{{ path('androiddev_voir', {'slug': article.slug}) }}">{{ article.titre | raw }}</a></h2>
-        {{ article.sousTitre | raw }}
-            <p class="text-left"><small><span class="label label-info">{{ article.getType().getNom() }} </span>  <span class="label label-info"> {{ article.getCategorie().getNom() }}</span>
-            <br />{% for motCle in article.getMotCles() %}
-                    <span class="label">{{ motCle.getNom() }}</span>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 cadreListeArticle">
+            <div class="listeArticle">
+                <span class="title-article-center"><h2 class="title-list-article"><a href="{{ path('androiddev_voir', {'slug': article.slug}) }}">{{ article.titre | raw }}</a></h2></span>
+                <p class="post-meta"><span class="glyphicon glyphicon-time"></span>  {{ article.getUpdated()|date("d/m/Y") }}    <span class="glyphicon glyphicon-user"></span>  androiddevfr   <span class="glyphicon glyphicon-comment"></span>  <a href="{{ path('androiddev_voir', {'slug': article.slug}) }}#disqus_thread" data-disqus-identifier="{{ article.id }}"></a>   </p>
+                <div class="pres-article-list">{{ article.sousTitre | raw }}</div>
+                <p class="text-left"><span class="cat-slider ">{{ article.getType().getNom() }} </span>  <span class="cat-slider "> {{ article.getCategorie().getNom() }}</span>
+                    <br />{% for motCle in article.getMotCles() %}
+                    <span class="mot-slider ">{{ motCle.getNom() }}</span>
             {% endfor %}
-            </small></p>
-            <p class="text-left"><a class="btn"  href="{{ path('androiddev_voir', {'slug': article.slug}) }}">Lire la suite &raquo;</a></p>
+                </p>
+
+            </div>
         </div>
 {% endfor %}
-        <ul class="pager">
-            <li class="previous">
-                <a href="{{path(route, routeAft) }}">&larr; Plus ancien</a>
-            </li>
-            <li class="next {% if  page == 1 %}
-                disabled
+    </div>
+</div>
+<ul class="pager">
+    <li class="previous">
+        <a href="{{path(route, routeAft) }}">&larr; Plus ancien</a>
+    </li>
+    <li class="next {% if  page == 1 %}
+        disabled
               {% endif %} ">
-                    <a href="{{path(route, routeBef) }}">Plus récent &rarr;</a>
-                </li>
-            </ul>
+        <a href="{{path(route, routeBef) }}">Plus récent &rarr;</a>
+    </li>
+</ul>
+
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'androiddev'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var s = document.createElement('script');
+        s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
 {% endblock %}

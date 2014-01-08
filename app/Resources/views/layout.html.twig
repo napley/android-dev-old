@@ -13,6 +13,17 @@
         <link rel="alternate" type="application/rss+xml" href="/feeds/derniersProjets.rss" title="Derniers projets">
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/fav.ico') }}" />
 
+        <script type="text/javascript">
+            (function() {
+                var po = document.createElement("script");
+                po.type = "text/javascript";
+                po.async = true;
+                po.src = "https://apis.google.com/js/plusone.js?publisherid=109789572578192575458";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(po, s);
+            })();
+        </script>
+
         <!-- Le styles -->
         {% block stylesheets %}
 
@@ -32,119 +43,120 @@
     </head>
 
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container-fluid">
+
                         {% block navbar %}
 
                         {% endblock %}
-                    </div>
-                </div>
-            </div>
+
 
             {% block infoMobileTablet %}
             {% endblock %}
 
-            <div class="container-fluid">
 
-                <div class="row-fluid">
-
+        <div class="row">
+            <div class="col-md-2 hidden-sm hidden-xs">
                     {% block menuGauche %}
                     {% endblock %}
+            </div>
 
-                    <div class="span7 content" itemscope itemtype="http://schema.org/Article">
-                        <script type="text/javascript">
-                            google_ad_client = "ca-pub-4672745701309961";
-                            width = document.documentElement.clientWidth;
-                            if (width < 500) {
-                                google_ad_slot = "7279578179";
-                                google_ad_width = 320;
-                                google_ad_height = 50;
-                            }
-                            else if (width > 500 && width < 1300) {
-                                google_ad_slot = "3027381363";
-                                google_ad_width = 468;
-                                google_ad_height = 60;
-                            }
-                            else if (width > 1300) {
-                                google_ad_slot = "5802844971";
-                                google_ad_width = 728;
-                                google_ad_height = 90;
-                            }
+            <div class="col-md-7 content col-sm-9" itemscope itemtype="http://schema.org/Article">
+                <script type="text/javascript">
+                    google_ad_client = "ca-pub-4672745701309961";
+                    width = document.documentElement.clientWidth;
+                    if (width < 500) {
+                        google_ad_slot = "7279578179";
+                        google_ad_width = 320;
+                        google_ad_height = 50;
+                    }
+                    else if (width > 500 && width < 1300) {
+                        google_ad_slot = "3027381363";
+                        google_ad_width = 468;
+                        google_ad_height = 60;
+                    }
+                    else if (width > 1300) {
+                        google_ad_slot = "5802844971";
+                        google_ad_width = 728;
+                        google_ad_height = 90;
+                    }
 
-                            </script>
-                            <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-                            </script>
+                </script>
+                <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+                </script>
 
-                                {% block enteteContentPC %}
-                                {% endblock %}
+                {% block enteteContentPC %}
+                {% endblock %}
 
-                                {% block contentPC %}
-                                 {% endblock %}
-                            <script type="text/javascript">
-                            google_ad_client = "ca-pub-4672745701309961";
-                            width = document.documentElement.clientWidth;
-                            if (width < 500) {
-                                google_ad_slot = "1978297378";
-                                google_ad_width = 320;
-                                google_ad_height = 50;
-                            }
-                            else if (width > 500 && width < 1300) {
-                                google_ad_slot = "1050010217";
-                                google_ad_width = 468;
-                                google_ad_height = 15;
-                            }
-                            else if (width > 1300) {
-                                google_ad_slot = "9501564175";
-                                google_ad_width = 728;
-                                google_ad_height = 15;
-                            }
+                {% block contentPC %}
+                 {% endblock %}
+                <script type="text/javascript">
+                    google_ad_client = "ca-pub-4672745701309961";
+                    width = document.documentElement.clientWidth;
+                    if (width < 500) {
+                        google_ad_slot = "1978297378";
+                        google_ad_width = 320;
+                        google_ad_height = 50;
+                    }
+                    else if (width > 500 && width < 1300) {
+                        google_ad_slot = "1050010217";
+                        google_ad_width = 468;
+                        google_ad_height = 15;
+                    }
+                    else if (width > 1300) {
+                        google_ad_slot = "9501564175";
+                        google_ad_width = 728;
+                        google_ad_height = 15;
+                    }
 
-                            </script>
-                            </div><!--/span-->
-                            
-                            <div class="span3">
-                                        {% block colonneDroite %}
+                </script>
+            </div><!--/span-->
 
-                                        {% endblock %}
-                                </div><!--/span-->
-                            </div><!--/row-->
+            <div class="col-md-3 col-sm-3">
+            {% block colonneDroite %}
 
-                            <hr>
-                            <div id="footer">
-                                        {% block footer %}
-                                        {% endblock %}
-                                </div>
+            {% endblock %}
+            </div><!--/span-->
+        </div><!--/row-->
 
-                            </div><!--/.fluid-container-->
+        <div class="row">
+            <div class="panel-footer">
+            {% block footer %}
+            {% endblock %}
+                <div class="container">
+                    <!-- AddThis Follow BEGIN -->
+                    <div class="addthis_toolbox addthis_32x32_style addthis_default_style">
+                        <a class="addthis_button_facebook_follow" addthis:userid="androiddev.fr"></a>
+                        <a class="addthis_button_twitter_follow" addthis:userid="androiddevfr"></a>
+                        <a class="addthis_button_google_follow" addthis:userid="+Android-devFr"></a>
+                        <a class="addthis_button_rss_follow" addthis:userid="http://www.android-dev.local/feeds/derniersArticlesAstuces.rss"></a>
+                    </div>
+                    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4e84c63d79df556f"></script>
+                    <!-- AddThis Follow END -->
 
-                            <!-- Le javascript
-                        ================================================== -->
-                            <!-- Placed at the end of the document so the pages load faster -->
-                            <script type="text/javascript" src="{{ asset('js/jquery-1.8.3.min.js') }}"></script>
-                            <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
-                            <script type="text/javascript">
-                                $('body')
-                                        .on('touchstart.dropdown', '.dropdown-menu', function(e) {
-                                    e.stopPropagation();
-                                })
-                                        .on('touchstart.dropdown', '.dropdown-submenu', function(e) {
-                                    e.preventDefault();
-                                });
-                                </script>
-                                <script type="text/javascript" src="{{ asset('js/javascript.js') }}"></script>
-                                <script type="text/javascript" src="{{ asset('js/jquery.fancybox.js') }}"></script>
-                                <script type="text/javascript" src="{{ asset('js/jquery.fancybox.pack.js') }}"></script>
-                                <script type="text/javascript" src="{{ asset('js/shCore.js') }}"></script>
-                                <script type="text/javascript" src="{{ asset('js/shBrushXml.js') }}"></script>
-                                <script type="text/javascript" src="{{ asset('js/shBrushJava.js') }}"></script>
-                                <script type="text/javascript" src="{{ asset('js/shBrushBash.js') }}"></script>
+                    <p class="muted">Autres pages : <a href="{{ path('androiddev_contact') }}">Contact</a> - <a href="{{ path('androiddev_apropos') }}">A Propos</a> - <a href="{{ path('androiddev_mentions') }}">Mentions légales</a>  </p>
+                    <p class="muted credit">&copy; Android-dev.fr / Propulsé par Symfony2 et Bootstrap | COPYRIGHT 2010 - 2014, tout droits réservés.</p>
+                </div>
+            </div>
+        </div>
 
+
+        <!-- Le javascript
+    ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script type="text/javascript" src="{{ asset('js/jquery-1.8.3.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/javascript.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery.fancybox.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery.fancybox.pack.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/shCore.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/shBrushXml.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/shBrushJava.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/shBrushBash.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/isotope.pkgd.min.js') }}"></script>
 {% block script %}
 {% endblock %}
-                                <script type="text/javascript">
-                                    SyntaxHighlighter.config.tagName = "textarea";
-                                    SyntaxHighlighter.all();
-                                    </script>
-                                </body>
-                            </html>
+        <script type="text/javascript">
+            SyntaxHighlighter.config.tagName = "textarea";
+            SyntaxHighlighter.all();
+        </script>
+    </body>
+</html>

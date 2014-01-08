@@ -21,6 +21,22 @@ androiddev_astuce:
     defaults:  { _controller: AndroidDevSiteBundle:Blog:astuce, page: 1 }
     requirements:
         page:  \d*
+    
+androiddev_contact:
+    pattern:   /contact/
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:contact}
+    
+androiddev_apropos:
+    pattern:   /a_propos/
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:apropos}
+    
+androiddev_mentions:
+    pattern:   /mentions/
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:mentions}
+    
+androiddev_send_contact:
+    pattern:   /contact_ok/
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:sendcontact}
  
 androiddev_projet:
     pattern:   /projet/{page}
@@ -85,3 +101,7 @@ androiddev_oldUrl:
 androiddev_oldUrlTitre:
     pattern:   /web/blog/voir/{id}?titre={titre}
     defaults:  { _controller: AndroidDevSiteBundle:Blog:redirect }
+    
+androiddev_apiJson:
+    pattern:   /api/all
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:getJson }

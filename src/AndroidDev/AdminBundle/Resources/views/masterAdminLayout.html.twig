@@ -5,8 +5,8 @@
 
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/bootstrap-theme.min.css') }}" type="text/css" />
 <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" />
-<link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.min.css') }}" type="text/css" />
 <link rel="stylesheet" href="{{ asset('css/demo_table.css') }}" type="text/css" />
 {% endblock %}
 
@@ -14,15 +14,19 @@
 {% endblock %}
 
 {% block navbar %}
-<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-</a>
-<a class="brand" href="#">{{ infosite['titre'] }}</a>
-<div class="nav-collapse collapse">
-    <ul class="nav" role="navigation">
-        <li><a href="{{ path('androiddev_accueil') }}">Accueil</a></li>
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#">android-dev.fr</a>
+</div>
+
+<div style="height: 1px;" class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+        <li><a href="{{ path('android_dev_admin_homepage') }}">Accueil</a></li>
         <li><a href="{{ path('admin_article') }}">Articles</a></li>
         <li><a href="{{ path('admin_infosite') }}">Info Site</a></li>
         <li><a href="{{ path('admin_type') }}">Type</a></li>
@@ -34,11 +38,11 @@
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
             {% else %}
-                    <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+        <a href="{{ path('fos_user_security_login') }}">Connexion</a>
             {% endif %}
-            </span>
+    </span>
 
-        </div><!--/.nav-collapse -->
+</div><!--/.nav-collapse -->
 {% endblock %}
 
 

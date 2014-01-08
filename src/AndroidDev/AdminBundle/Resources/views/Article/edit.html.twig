@@ -14,7 +14,7 @@ window.onload = function()
 {% endblock %}
 
 {% block contentDetail %}
-    <div class="span12">
+    <div class="col-md-12">
         <h1>Modification d'article</h1>
 
         <form action="{{ path('admin_article_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>

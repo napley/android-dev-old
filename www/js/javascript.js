@@ -2,7 +2,9 @@ $(document).ready(function() {
 
     $(".lightbox").attr('rel', 'gallery').fancybox();
     createSommaire();
-    
+
+    $(".lightbox > img").addClass("img-responsive");
+
     $('table').addClass('table table-striped');
 });
 
@@ -11,6 +13,9 @@ function createSommaire() {
     var arraySommaire = new Array();
     var j = 0;
     var listeLi = "";
+
+
+
 
     $(".content h1, h2, h3").each(function(i) {
         var current = $(this);
@@ -24,15 +29,14 @@ function createSommaire() {
 
             current.attr("id", "title" + i);
 
-            listeLi += "<li><a id='link" + i + "' href='#title" +
-                    i + "' title='" + current.attr("tagName") + "'>" + "<i class='icon-chevron-right'></i>" +
+            listeLi += "<li class='list-right'><i class='glyphicon glyphicon-chevron-right'></i>  &nbsp;<a id='link" + i + "' href='#title" +
+                    i + "' title='" + current.attr("tagName") + "'>" + ""+
                     current.html() + "</a></li>"
 
             j++;
         }
     });
-    
     $("#sommaire").prepend(listeLi);
-    
-    
+
+
 }

@@ -6,6 +6,8 @@ namespace AndroidDev\SiteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * 
@@ -35,6 +37,94 @@ class BlogController extends Controller
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
             'articles' => $liste_articles, 'page' => $page, 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'route' => 'androiddev_accueil'
         ));
+        return $render;
+    }
+
+    /**
+     * 
+     * @return type
+     * @throws type
+     */
+    public function contactAction()
+    {
+        $form = $this->createFormBuilder()
+                ->add('nom', 'text')
+                ->add('prenom', 'text')
+                ->add('mail', 'email')
+                ->add('objet', 'text')
+                ->add('contenu', 'textarea')
+                ->getForm();
+
+        $render = $this->render('AndroidDevSiteBundle:Blog:contact.html.twig', array(
+            'form' => $form->createView(),'error' => false 
+        ));
+        return $render;
+    }
+
+    /**
+     * 
+     * @return type
+     * @throws type
+     */
+    public function aproposAction()
+    {
+
+        $render = $this->render('AndroidDevSiteBundle:Blog:apropos.html.twig');
+        return $render;
+    }
+
+    /**
+     * 
+     * @return type
+     * @throws type
+     */
+    public function mentionsAction()
+    {
+
+        $render = $this->render('AndroidDevSiteBundle:Blog:mentions.html.twig');
+        return $render;
+    }
+    
+    /**
+     * 
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return type
+     */
+    public function sendcontactAction(Request $request)
+    {
+        $form = $this->createFormBuilder()
+                ->add('nom', 'text')
+                ->add('prenom', 'text')
+                ->add('mail', 'email')
+                ->add('objet', 'text')
+                ->add('contenu', 'textarea')
+                ->getForm();
+
+        if ($request->isMethod('POST')) {
+            $form->bind($request);
+
+            // les données sont un tableau avec les clés "name", "email", et "message"
+            $data = $form->getData();
+        }
+
+        $message = \Swift_Message::newInstance();
+        $message->setSubject($data['objet']);
+        $message->setFrom($data['mail']);
+        $message->setTo('postmaster@android-dev.fr');
+        $message->setBody($this->renderView('AndroidDevSiteBundle:Blog:email.html.twig', array('data' => $data)));
+        $message->setContentType("text/html");
+        $send = $this->get('mailer')->send($message);
+
+        if ($send) {
+            $render = $this->render('AndroidDevSiteBundle:Blog:contactok.html.twig', array(
+                'form' => $form->createView(),
+            ));
+        } else {
+
+            $render = $this->render('AndroidDevSiteBundle:Blog:contact.html.twig', array(
+                'form' => $form->createView(), 'error' => true, 'data' => $data
+            ));
+        }
         return $render;
     }
 
@@ -392,6 +482,29 @@ class BlogController extends Controller
     public function redirectArticleAction()
     {
         return $this->redirect($this->generateUrl('androiddev_article'), 301);
+    }
+
+    public function getJsonAction()
+    {
+        $articles = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Article')
+                ->findLastArticleByPage(1, 40);
+
+        $data = array();
+        $index = 0;
+        foreach ($articles as $article) {
+            $data['article'][$index]['id'] = $article->getId();
+            $data['article'][$index]['titre'] = $article->getTitre();
+            $data['article'][$index]['sstitre'] = $article->getSousTitre();
+            $data['article'][$index]['contenu'] = $article->getContenu();
+            $data['article'][$index]['created'] = $article->getCreated()->format('Y-m-d H:i:s');
+            $data['article'][$index]['categorie'] = $article->getCategorie()->getId();
+            $data['article'][$index]['type'] = $article->getType()->getId();
+            $index++;
+        }
+
+        return new JsonResponse($data);
     }
 
 }

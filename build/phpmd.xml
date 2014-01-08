@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<pmd version="1.5.0" timestamp="2013-09-20T19:58:53+02:00">
+<pmd version="1.5.0" timestamp="2013-10-01T20:05:54+02:00">
   <file name="/var/www/android-dev.fr/src/AndroidDev/AdminBundle/Controller/ArticleController.php">
-    <violation beginline="124" endline="124" rule="UnusedLocalVariable" ruleset="Unused Code Rules" externalInfoUrl="http://phpmd.org/rules/unusedcode.html#unusedlocalvariable" priority="3">
+    <violation beginline="165" endline="165" rule="UnusedLocalVariable" ruleset="Unused Code Rules" externalInfoUrl="http://phpmd.org/rules/unusedcode.html#unusedlocalvariable" priority="3">
       Avoid unused local variables such as '$cle'.
     </violation>
-    <violation beginline="219" endline="272" rule="CyclomaticComplexity" ruleset="Code Size Rules" package="AndroidDev\AdminBundle\Controller" externalInfoUrl="http://phpmd.org/rules/codesize.html#cyclomaticcomplexity" class="ArticleController" method="updateAction" priority="3">
+    <violation beginline="260" endline="313" rule="CyclomaticComplexity" ruleset="Code Size Rules" package="AndroidDev\AdminBundle\Controller" externalInfoUrl="http://phpmd.org/rules/codesize.html#cyclomaticcomplexity" class="ArticleController" method="updateAction" priority="3">
       The method updateAction() has a Cyclomatic Complexity of 11. The configured cyclomatic complexity threshold is 10.
     </violation>
   </file>
@@ -108,11 +108,6 @@
   <file name="/var/www/android-dev.fr/src/AndroidDev/SiteBundle/Entity/Projet.php">
     <violation beginline="71" endline="71" rule="UnusedPrivateField" ruleset="Unused Code Rules" externalInfoUrl="http://phpmd.org/rules/unusedcode.html#unusedprivatefield" priority="3">
       Avoid unused private fields such as '$deletedAt'.
-    </violation>
-  </file>
-  <file name="/var/www/android-dev.fr/src/AndroidDev/SiteBundle/Extensions/TopPiwikExtension.php">
-    <violation beginline="25" endline="25" rule="UnusedLocalVariable" ruleset="Unused Code Rules" externalInfoUrl="http://phpmd.org/rules/unusedcode.html#unusedlocalvariable" priority="3">
-      Avoid unused local variables such as '$token_auth'.
     </violation>
   </file>
   <file name="/var/www/android-dev.fr/src/AndroidDev/UserBundle/Entity/User.php">
