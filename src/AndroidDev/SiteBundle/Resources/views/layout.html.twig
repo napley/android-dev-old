@@ -43,20 +43,6 @@
     <li><a href="{{ path('androiddev_projetVoir', {'slug': projet.slug}) }}">{{projet.getTitre()}}</a></li>
         {% endfor %}
 </ul>
-
-<!--<ul>
-
-    <li class="nav-header"><a href="{{ path('androiddev_astuce')}}">Astuce</a></li>
-        {% for categorie in filtrecat['astuce'] %}
-    <li><a href="{{ path('androiddev_astuceCat', {'slug': categorie.slug}) }}">{{categorie.getNom()}}</a></li>
-        {% endfor %}
-
-
-    <li class="nav-header"><a href="{{ path('androiddev_projet')}}">Projet</a></li>
-        {% for projet in filtrecat['projet'] %}
-    <li><a href="{{ path('androiddev_projetVoir', {'slug': projet.slug}) }}">{{projet.getTitre()}}</a></li>
-        {% endfor %}
-</ul>-->
 {% endblock %}
 
 {% block enteteContentPC %}

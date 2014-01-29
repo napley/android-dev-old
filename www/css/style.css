@@ -274,7 +274,7 @@ span.infoConnect {
 
 a.lightbox img {
     box-shadow: 0 0 4px #333333;
-    margin: 10px;
+    margin: 1%;
 }
 
 a.lightbox img:hover {
@@ -664,4 +664,12 @@ form textarea
 
 .linkedin {
     padding: 3px;
+}
+
+.img-responsive {
+    display: inline;
+}
+
+form.contact-form > div > input{
+    margin-bottom: 5px;
 }

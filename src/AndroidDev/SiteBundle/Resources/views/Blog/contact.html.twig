@@ -18,7 +18,7 @@
 <h2>Désolé, un problème est survenu lors de l'envoie du mail. Contactez moi via twitter si le problème se reproduit.</h2>
 {% endif %}
 
-<form action="{{ path('androiddev_send_contact') }}" method="post" {{ form_enctype(form) }}>
+<form class="contact-form" action="{{ path('androiddev_send_contact') }}" method="post" {{ form_enctype(form) }}>
     {{ form_errors(form) }}
 
     {{ form_row(form.nom) }}
