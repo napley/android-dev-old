@@ -7,10 +7,10 @@
         <meta name="description" content="{% block description %}{% endblock %}">
         <meta name="author" content="Android-dev">
         <link rel="canonical" href="{% block urlCanonical %}{% endblock %}" />
-        <link rel="alternate" type="application/rss+xml" href="/feeds/derniersArticles.rss" title="Derniers articles">
-        <link rel="alternate" type="application/rss+xml" href="/feeds/derniersAstuces.rss" title="Dernieres astuces">
-        <link rel="alternate" type="application/rss+xml" href="/feeds/derniersArticlesAstuces.rss" title="Derniers articles et astuces">
-        <link rel="alternate" type="application/rss+xml" href="/feeds/derniersProjets.rss" title="Derniers projets">
+        <link rel="alternate" type="application/rss+xml" href="{{ path('androiddev_feed1') }}" title="Derniers articles">
+        <link rel="alternate" type="application/rss+xml" href="{{ path('androiddev_feed2') }}" title="Dernieres astuces">
+        <link rel="alternate" type="application/rss+xml" href="{{ path('androiddev_feed3') }}" title="Derniers articles et astuces">
+        <link rel="alternate" type="application/rss+xml" href="{{ path('androiddev_feed4') }}" title="Derniers projets">
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/fav.ico') }}" />
 
         <script type="text/javascript">

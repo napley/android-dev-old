@@ -4,6 +4,7 @@ namespace AndroidDev\SiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Eko\FeedBundle\Item\Writer\ItemInterface;
 
 /**
  * Article
@@ -12,7 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity(repositoryClass="AndroidDev\SiteBundle\Entity\ArticleRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
-class Article implements \Nekland\Bundle\FeedBundle\Item\ItemInterface
+class Article implements ItemInterface
 {
 
     /**
@@ -81,19 +82,19 @@ class Article implements \Nekland\Bundle\FeedBundle\Item\ItemInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="AndroidDev\SiteBundle\Entity\Type",
-      inversedBy="articles")
+      inversedBy="Articles")
      */
     private $Type;
 
     /**
      * @ORM\ManyToOne(targetEntity="AndroidDev\UserBundle\Entity\User", cascade={"persist", "remove"},
-      inversedBy="articles")
+      inversedBy="Articles")
      */
     private $Auteur;
 
     /**
      * @ORM\ManyToOne(targetEntity="AndroidDev\SiteBundle\Entity\Categorie",
-      inversedBy="articles")
+      inversedBy="Articles")
      */
     private $Categorie;
 
@@ -403,40 +404,32 @@ class Article implements \Nekland\Bundle\FeedBundle\Item\ItemInterface
         return $this->MotCles;
     }
 
-    public function getFeedDate()
-    {
-        return $this->getCreated();
-    }
-
-    public function getFeedDescription()
+    public function getFeedItemDescription()
     {
         return $this->getSousTitre();
     }
 
-    public function getFeedId()
+    public function getFeedItemLink()
     {
-        return $this->getId();
+        return 'http://www.android-dev.fr/'.$this->slug;
     }
 
-    public function getFeedRoutes()
+    public function getFeedItemPubDate()
     {
-        $route[0]['route'][0] = 'androiddev_voir';
-        $route[0]['route'][1]['slug'] = $this->slug;
-        $route[1] = 'http://www.android-dev.fr';
-        return $route;
+        return $this->getCreated();
     }
 
-    public function getFeedTitle()
+    public function getFeedItemTitle()
     {
         return $this->getTitre();
     }
-    
+
     public function getPrevArticle()
     {
-        if($this->getProjet()!=null){
+        if ($this->getProjet() != null) {
             $part = $this->getProjet()->getPrevPart();
-            
-            if(!empty($part)){
+
+            if (!empty($part)) {
                 return $part->getArticle();
             }
         }
@@ -445,14 +438,14 @@ class Article implements \Nekland\Bundle\FeedBundle\Item\ItemInterface
 
     public function getNextArticle()
     {
-        if($this->getProjet()!=null){
+        if ($this->getProjet() != null) {
             $part = $this->getProjet()->getNextPart();
-            
-            if(!empty($part)){
+
+            if (!empty($part)) {
                 return $part->getArticle();
             }
         }
         return null;
     }
-    
+
 }

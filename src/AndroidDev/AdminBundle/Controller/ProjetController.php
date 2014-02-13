@@ -27,16 +27,16 @@ class ProjetController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AndroidDevSiteBundle:Projet')->findAll();
-
-        $projets = $em->getRepository('AndroidDevSiteBundle:Projet')->findLastNotEmpty(10);
-        $factory = $this->get('nekland_feed.factory');
-        $factory->load('my_feed4', 'rss_file'); 
-        $feed = $factory->get('my_feed4');
-        foreach ($projets as $projet) {
-            $feed->add($projet);
-        }
-        
-        $factory->render('my_feed4', 'rss');
+//
+//        $projets = $em->getRepository('AndroidDevSiteBundle:Projet')->findLastNotEmpty(10);
+//        $factory = $this->get('nekland_feed.factory');
+//        $factory->load('my_feed4', 'rss_file'); 
+//        $feed = $factory->get('my_feed4');
+//        foreach ($projets as $projet) {
+//            $feed->add($projet);
+//        }
+//        
+//        $factory->render('my_feed4', 'rss');
         
         return array(
             'entities' => $entities,

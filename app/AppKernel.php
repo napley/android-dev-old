@@ -24,7 +24,7 @@ class AppKernel extends Kernel
             new AndroidDev\UserBundle\AndroidDevUserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new AndroidDev\AdminBundle\AndroidDevAdminBundle(),
-            new Nekland\Bundle\FeedBundle\NeklandFeedBundle(),
+            new Eko\FeedBundle\EkoFeedBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

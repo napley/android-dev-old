@@ -34,8 +34,14 @@ class BlogController extends Controller
         $routeBef['page'] = $page - 1;
         $routeAft['page'] = $page + 1;
 
+        $liste_articles_next = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Article')
+                ->findLastArticleByPage($routeAft['page'], $infoSite['nbByPage']);
+
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
-            'articles' => $liste_articles, 'page' => $page, 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'route' => 'androiddev_accueil'
+            'articles' => $liste_articles, 'page' => $page, 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'route' => 'androiddev_accueil',
+            'articlesNext' => $liste_articles_next
         ));
         return $render;
     }
@@ -56,7 +62,7 @@ class BlogController extends Controller
                 ->getForm();
 
         $render = $this->render('AndroidDevSiteBundle:Blog:contact.html.twig', array(
-            'form' => $form->createView(),'error' => false 
+            'form' => $form->createView(), 'error' => false
         ));
         return $render;
     }
@@ -84,7 +90,7 @@ class BlogController extends Controller
         $render = $this->render('AndroidDevSiteBundle:Blog:mentions.html.twig');
         return $render;
     }
-    
+
     /**
      * 
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -147,8 +153,15 @@ class BlogController extends Controller
         $routeBef['page'] = $page - 1;
         $routeAft['page'] = $page + 1;
 
+        $liste_articles_next = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Article')
+                ->findArticleByPage($routeAft['page'], $infoSite['nbByPage']);
+
+
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
-            'articles' => $liste_articles, 'page' => $page, 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'route' => 'androiddev_article', 'type' => 'article'
+            'articles' => $liste_articles, 'page' => $page, 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'route' => 'androiddev_article', 'type' => 'article',
+            'articlesNext' => $liste_articles_next
         ));
         return $render;
     }
@@ -179,8 +192,14 @@ class BlogController extends Controller
         $routeAft['slug'] = $slug;
         $routeAft['page'] = $page + 1;
 
+        $liste_articles_next = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Article')
+                ->findArticleCatByPage($slug, $routeAft['page'], $infoSite['nbByPage']);
+
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
-            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_articleCat', 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'type' => 'article', 'categorie' => $categorie->getNom()
+            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_articleCat', 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'type' => 'article', 'categorie' => $categorie->getNom(),
+            'articlesNext' => $liste_articles_next
         ));
         return $render;
     }
@@ -204,8 +223,14 @@ class BlogController extends Controller
         $routeBef['page'] = $page - 1;
         $routeAft['page'] = $page + 1;
 
+        $liste_articles_next = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Article')
+                ->findAstuceByPage($routeAft['page'], $infoSite['nbByPage']);
+
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
-            'articles' => $liste_articles, 'page' => $page, 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'route' => 'androiddev_astuce', 'type' => 'astuce'
+            'articles' => $liste_articles, 'page' => $page, 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'route' => 'androiddev_astuce', 'type' => 'astuce',
+            'articlesNext' => $liste_articles_next
         ));
         return $render;
     }
@@ -236,8 +261,14 @@ class BlogController extends Controller
         $routeAft['slug'] = $slug;
         $routeAft['page'] = $page + 1;
 
+        $liste_articles_next = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Article')
+                ->findAstuceCatByPage($slug, $routeAft['page'], $infoSite['nbByPage']);
+
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
-            'articles' => $liste_articles, 'page' => $page, 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'route' => 'androiddev_astuceCat', 'type' => 'astuce', 'categorie' => $categorie->getNom()
+            'articles' => $liste_articles, 'page' => $page, 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'route' => 'androiddev_astuceCat', 'type' => 'astuce', 'categorie' => $categorie->getNom(),
+            'articlesNext' => $liste_articles_next
         ));
         return $render;
     }
@@ -258,8 +289,14 @@ class BlogController extends Controller
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findProjetByPage($page, $infoSite['nbByPage']);
 
+        $liste_articles_next = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Article')
+                ->findProjetByPage($page + 1, $infoSite['nbByPage']);
+
         $render = $this->render('AndroidDevSiteBundle:Blog:allProjet.html.twig', array(
-            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_projet'
+            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_projet',
+            'articlesNext' => $liste_articles_next
         ));
         return $render;
     }
@@ -447,10 +484,16 @@ class BlogController extends Controller
         $routeAft['motcles'] = $motcles;
         $routeAft['page'] = $page + 1;
 
+        $liste_articles_next = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Article')
+                ->getArticleBySearch($motCle, $routeAft['page'], $infoSite['nbByPage']);
+
         $motCleJoin = implode(' - ', $motCle);
 
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
-            'articles' => $articles, 'page' => $page, 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'route' => 'androiddev_recherche', 'type' => 'recherche', 'motCle' => $motCleJoin
+            'articles' => $articles, 'page' => $page, 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'route' => 'androiddev_recherche', 'type' => 'recherche', 'motCle' => $motCleJoin,
+            'articlesNext' => $liste_articles_next
         ));
         return $render;
     }
@@ -505,6 +548,50 @@ class BlogController extends Controller
         }
 
         return new JsonResponse($data);
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function fragmentAction()
+    {
+        $dtStart = new \DateTime('2009-09-01 00:00:00');
+        $today = new \DateTime();
+
+        $Androids = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('AndroidDevSiteBundle:Android')
+                ->findAll();
+
+        $arrayPoint = array();
+        while ($today > $dtStart) {
+            $trouve = 0;
+            foreach ($Androids as $Android) {
+                $pct = $this->container->get('androiddev.point')->getPoint($Android, $dtStart);
+
+                if ($pct > 0) {
+                    $arrayPoint[$Android->getTitre()][$dtStart->format('u')] = $pct;
+                    $trouve = 1;
+                }
+            }
+            if ($trouve) {
+                foreach ($Androids as $Android) {
+                    if (!empty($arrayPoint[$Android->getTitre()][$dtStart->format('u')])) {
+                        $arrayPoint[$Android->getTitre()][$dtStart->format('u')] = 0;
+                    }
+                }
+            }
+            $dtStart->modify('+1 month');
+            var_dump($arrayPoint);
+            exit;
+        }
+
+        $render = $this->render('AndroidDevSiteBundle:Blog:fragmentation.html.twig', array(
+            'Points' => $arrayPoint
+                )
+        );
+        return $render;
     }
 
 }

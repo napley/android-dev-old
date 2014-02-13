@@ -85,7 +85,9 @@ Page {{ page }}.
     </div>
 </div>
 <ul class="pager">
-    <li class="previous">
+    <li class="previous {% if  articlesNext|length < 1 %}
+        disabled
+              {% endif %}">
         <a href="{{path(route, routeAft) }}">&larr; Plus ancien</a>
     </li>
     <li class="next {% if  page == 1 %}

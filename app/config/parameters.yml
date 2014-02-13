@@ -2,9 +2,9 @@ parameters:
     database_driver:   pdo_mysql
     database_host:     localhost
     database_port:     ~
-    database_name:     androiddbdd
+    database_name:     android-dev
     database_user:     root
-    database_password: 
+    database_password: Okirrchsim1
 
     mailer_transport:  smtp
     mailer_auth_mode:  login

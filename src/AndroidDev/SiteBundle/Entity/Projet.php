@@ -4,6 +4,7 @@ namespace AndroidDev\SiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Eko\FeedBundle\Item\Writer\ItemInterface;
 
 /**
  * Projet
@@ -12,8 +13,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity(repositoryClass="AndroidDev\SiteBundle\Entity\ProjetRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
-class Projet implements \Nekland\Bundle\FeedBundle\Item\ItemInterface
+class Projet implements ItemInterface
 {
+
     /**
      * @var integer
      *
@@ -64,7 +66,6 @@ class Projet implements \Nekland\Bundle\FeedBundle\Item\ItemInterface
      */
     private $slug;
 
-
     /**
      * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
      */
@@ -92,12 +93,10 @@ class Projet implements \Nekland\Bundle\FeedBundle\Item\ItemInterface
      */
     private $updated;
 
-    
     public function __construct()
     {
         $this->Articles = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
 
     /**
      * Get id
@@ -118,7 +117,7 @@ class Projet implements \Nekland\Bundle\FeedBundle\Item\ItemInterface
     public function setTitre($titre)
     {
         $this->titre = $titre;
-    
+
         return $this;
     }
 
@@ -131,7 +130,7 @@ class Projet implements \Nekland\Bundle\FeedBundle\Item\ItemInterface
     {
         return $this->titre;
     }
-    
+
     /**
      * Get titre
      *
@@ -141,7 +140,7 @@ class Projet implements \Nekland\Bundle\FeedBundle\Item\ItemInterface
     {
         return $this->updated;
     }
-    
+
     /**
      * Get titre
      *
@@ -152,7 +151,6 @@ class Projet implements \Nekland\Bundle\FeedBundle\Item\ItemInterface
         return $this->created;
     }
 
-
     /**
      * Set sousTitre
      *
@@ -162,7 +160,7 @@ class Projet implements \Nekland\Bundle\FeedBundle\Item\ItemInterface
     public function setSousTitre($sousTitre)
     {
         $this->sousTitre = $sousTitre;
-    
+
         return $this;
     }
 
@@ -185,7 +183,7 @@ class Projet implements \Nekland\Bundle\FeedBundle\Item\ItemInterface
     public function setContenu($contenu)
     {
         $this->contenu = $contenu;
-    
+
         return $this;
     }
 
@@ -222,7 +220,6 @@ class Projet implements \Nekland\Bundle\FeedBundle\Item\ItemInterface
         return $this;
     }
 
-
     /**
      * Set contenuFin
      *
@@ -232,7 +229,7 @@ class Projet implements \Nekland\Bundle\FeedBundle\Item\ItemInterface
     public function setContenuFin($contenuFin)
     {
         $this->contenuFin = $contenuFin;
-    
+
         return $this;
     }
 
@@ -255,7 +252,7 @@ class Projet implements \Nekland\Bundle\FeedBundle\Item\ItemInterface
     public function setSlug($slug)
     {
         $this->slug = $slug;
-    
+
         return $this;
     }
 
@@ -268,8 +265,7 @@ class Projet implements \Nekland\Bundle\FeedBundle\Item\ItemInterface
     {
         return $this->slug;
     }
-        
-    
+
     public function addArticle(\AndroidDev\SiteBundle\Entity\Article $article)
     {
         $this->Articles[] = $article;
@@ -286,31 +282,24 @@ class Projet implements \Nekland\Bundle\FeedBundle\Item\ItemInterface
         return $this->Articles;
     }
 
-    public function getFeedDate()
-    {
-        return $this->created;
-    }
-
-    public function getFeedDescription()
+    public function getFeedItemDescription()
     {
         return $this->getSousTitre();
     }
 
-    public function getFeedId()
+    public function getFeedItemLink()
     {
-        return $this->getId();
+        return 'http://www.android-dev.fr/projet/' . $this->slug;
     }
 
-    public function getFeedRoutes()
+    public function getFeedItemPubDate()
     {
-        $route[0]['route'][0] = 'androiddev_projetVoir';
-        $route[0]['route'][1]['slug'] = $this->slug;
-        $route[1] = 'http://www.android-dev.fr';
-        return $route;
+        return $this->getCreated();
     }
 
-    public function getFeedTitle()
+    public function getFeedItemTitle()
     {
         return $this->getTitre();
     }
+
 }
