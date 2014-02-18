@@ -9,6 +9,30 @@ androiddev_sitemap:
     defaults:  { _controller: AndroidDevAdminBundle:Sitemap:sitemap }
     requirements:
       format: xml
+    
+androiddev_feed1:
+    pattern:   /feeds/derniersArticles.{_format}
+    defaults:  { _controller: AndroidDevAdminBundle:Feed:article, _format: rss }
+    requirements:
+      format: rss
+    
+androiddev_feed2:
+    pattern:   /feeds/derniersAstuces.{_format}
+    defaults:  { _controller: AndroidDevAdminBundle:Feed:astuce, _format: rss }
+    requirements:
+      format: rss
+    
+androiddev_feed3:
+    pattern:   /feeds/derniersArticlesAstuces.{_format}
+    defaults:  { _controller: AndroidDevAdminBundle:Feed:articleAstuce, _format: rss }
+    requirements:
+      format: rss
+    
+androiddev_feed4:
+    pattern:   /feeds/derniersProjets.{_format}
+    defaults:  { _controller: AndroidDevAdminBundle:Feed:projet, _format: rss }
+    requirements:
+      format: rss
  
 androiddev_article:
     pattern:   /article/{page}
@@ -25,6 +49,10 @@ androiddev_astuce:
 androiddev_contact:
     pattern:   /contact/
     defaults:  { _controller: AndroidDevSiteBundle:Blog:contact}
+    
+androiddev_fragmentation:
+    pattern:   /fragmentation/
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:fragment}
     
 androiddev_apropos:
     pattern:   /a_propos/

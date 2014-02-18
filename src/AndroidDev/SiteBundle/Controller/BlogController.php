@@ -556,7 +556,7 @@ class BlogController extends Controller
      */
     public function fragmentAction()
     {
-        $dtStart = new \DateTime('2009-09-01 00:00:00');
+        $dtStart = new \DateTime('2009-12-01 00:00:00');
         $today = new \DateTime();
 
         $Androids = $this->getDoctrine()
@@ -567,25 +567,28 @@ class BlogController extends Controller
         $arrayPoint = array();
         while ($today > $dtStart) {
             $trouve = 0;
-            foreach ($Androids as $Android) {
+            foreach ($Androids as $key => $Android) {
                 $pct = $this->container->get('androiddev.point')->getPoint($Android, $dtStart);
 
                 if ($pct > 0) {
-                    $arrayPoint[$Android->getTitre()][$dtStart->format('u')] = $pct;
+                    $arrayPoint['courbe' . $key]['data'][$dtStart->getTimestamp()] = $pct;
+                    $arrayPoint['courbe' . $key]['titre'] = $Android->getTitre();
+                    $arrayPoint['courbe' . $key]['code'] = $Android->getCode();
                     $trouve = 1;
                 }
             }
             if ($trouve) {
-                foreach ($Androids as $Android) {
-                    if (!empty($arrayPoint[$Android->getTitre()][$dtStart->format('u')])) {
-                        $arrayPoint[$Android->getTitre()][$dtStart->format('u')] = 0;
+                foreach ($Androids as  $key => $And) {
+                    if (!isset($arrayPoint['courbe' . $key]['data'][$dtStart->getTimestamp()])) {
+                        $arrayPoint['courbe' . $key]['data'][$dtStart->getTimestamp()] = 0;
+                        $arrayPoint['courbe' . $key]['titre'] = $And->getTitre();
+                        $arrayPoint['courbe' . $key]['code'] = $And->getCode();
                     }
                 }
             }
             $dtStart->modify('+1 month');
-            var_dump($arrayPoint);
-            exit;
         }
+
 
         $render = $this->render('AndroidDevSiteBundle:Blog:fragmentation.html.twig', array(
             'Points' => $arrayPoint

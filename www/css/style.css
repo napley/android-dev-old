@@ -673,3 +673,9 @@ form textarea
 form.contact-form > div > input{
     margin-bottom: 5px;
 }
+
+.rickshaw_graph .x_tick .title {
+    bottom: -16px !important;
+    color: #000000;
+    margin-left: -15px !important;
+}

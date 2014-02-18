@@ -10,6 +10,11 @@ services:
         class: AndroidDev\SiteBundle\Service\InfoSite
         arguments:
           doctrine: "@doctrine"
+    
+    androiddev.point:
+        class: AndroidDev\SiteBundle\Service\Point
+        arguments:
+          doctrine: "@doctrine"
           
     twig.extension.infosite:
         class: AndroidDev\SiteBundle\Extensions\InfoSiteExtension
@@ -20,6 +25,20 @@ services:
           
     twig.extension.toppiwik:
         class: AndroidDev\SiteBundle\Extensions\TopPiwikExtension
+        arguments:
+          doctrine: "@doctrine"
+        tags:
+            - { name: twig.extension }
+          
+    twig.extension.articlecat:
+        class: AndroidDev\SiteBundle\Extensions\ArticleCatExtension
+        arguments:
+          doctrine: "@doctrine"
+        tags:
+            - { name: twig.extension }
+          
+    twig.extension.articlekey:
+        class: AndroidDev\SiteBundle\Extensions\ArticleKeyExtension
         arguments:
           doctrine: "@doctrine"
         tags:

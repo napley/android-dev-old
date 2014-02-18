@@ -1,0 +1,49 @@
+{% extends "AndroidDevAdminBundle::layout.html.twig" %}
+
+{% block title %}Admin - Liste de point - Android-dev{% endblock %}
+{% block description %}{% endblock %}
+
+{% block contentDetail %}
+<div class="col-md-12"><h1>Point list</h1>
+
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_point_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Pct</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('admin_point_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.pct }}</td>
+                <td>{% if entity.date %}{{ entity.date|date('d/m/Y H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_point_show', { 'id': entity.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_point_edit', { 'id': entity.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

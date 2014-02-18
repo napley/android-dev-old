@@ -44,6 +44,23 @@ class ArticleRepository extends EntityRepository
         return $query->getResult();
     }
 
+    public function findArticleCatByIdCat($id, $nb)
+    {
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at JOIN a.Categorie ac WHERE a.visible = 1 AND at.id = 1 AND ac.id = :id ORDER BY a.created DESC');
+        $query->setParameter('id', $id);
+        $query->setMaxResults($nb);
+        return $query->getResult();
+    }
+
+    public function findArticleCatByIdKey($id, $nb)
+    {
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at JOIN a.MotCles am WHERE a.visible = 1 AND at.id = 1 AND am.id = :id ORDER BY a.created DESC');
+        $query->setParameter('id', $id);
+        $query->setMaxResults($nb);
+        return $query->getResult();
+    }
+
+
     public function findAstuceByPage($page, $nb)
     {
         $deb = ($nb * $page) - ($nb);
