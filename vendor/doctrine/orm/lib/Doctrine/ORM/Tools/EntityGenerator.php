@@ -152,7 +152,7 @@ class EntityGenerator
         Type::SMALLINT      => 'integer',
         Type::TEXT          => 'string',
         Type::BLOB          => 'string',
-        Type::DECIMAL       => 'float',
+        Type::DECIMAL       => 'string',
         Type::JSON_ARRAY    => 'array',
         Type::SIMPLE_ARRAY  => 'array',
     );
@@ -1087,6 +1087,15 @@ public function __construct()
 
             if (isset($associationMapping['orphanRemoval']) && $associationMapping['orphanRemoval']) {
                 $typeOptions[] = 'orphanRemoval=' . ($associationMapping['orphanRemoval'] ? 'true' : 'false');
+            }
+
+            if (isset($associationMapping['fetch']) && $associationMapping['fetch'] !== ClassMetadataInfo::FETCH_LAZY) {
+                $fetchMap = array(
+                    ClassMetadataInfo::FETCH_EXTRA_LAZY => 'EXTRA_LAZY',
+                    ClassMetadataInfo::FETCH_EAGER      => 'EAGER',
+                );
+
+                $typeOptions[] = 'fetch="' . $fetchMap[$associationMapping['fetch']] . '"';
             }
 
             $lines[] = $this->spaces . ' * @' . $this->annotationsPrefix . '' . $type . '(' . implode(', ', $typeOptions) . ')';

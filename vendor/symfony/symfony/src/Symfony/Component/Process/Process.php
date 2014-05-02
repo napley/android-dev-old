@@ -34,10 +34,14 @@ class Process
     const STDOUT = 1;
     const STDERR = 2;
 
+    // Timeout Precision in seconds.
+    const TIMEOUT_PRECISION = 0.2;
+
     private $commandline;
     private $cwd;
     private $env;
     private $stdin;
+    private $starttime;
     private $timeout;
     private $options;
     private $exitcode;
@@ -127,7 +131,16 @@ class Process
         }
 
         $this->commandline = $commandline;
-        $this->cwd = null === $cwd ? getcwd() : $cwd;
+        $this->cwd = $cwd;
+
+        // on windows, if the cwd changed via chdir(), proc_open defaults to the dir where php was started
+        // on gnu/linux, PHP builds with --enable-maintainer-zts are also affected
+        // @see : https://bugs.php.net/bug.php?id=51800
+        // @see : https://bugs.php.net/bug.php?id=50524
+
+        if (null === $this->cwd && (defined('ZEND_THREAD_SAFE') || defined('PHP_WINDOWS_VERSION_BUILD'))) {
+            $this->cwd = getcwd();
+        }
         if (null !== $env) {
             $this->env = array();
             foreach ($env as $key => $value) {
@@ -159,8 +172,8 @@ class Process
      * The STDOUT and STDERR are also available after the process is finished
      * via the getOutput() and getErrorOutput() methods.
      *
-     * @param Closure|string|array $callback A PHP callback to run whenever there is some
-     *                                       output available on STDOUT or STDERR
+     * @param callback|null $callback A PHP callback to run whenever there is some
+     *                                output available on STDOUT or STDERR
      *
      * @return integer The exit status code
      *
@@ -190,8 +203,8 @@ class Process
      * with true as a second parameter then the callback will get all data occurred
      * in (and since) the start call.
      *
-     * @param Closure|string|array $callback A PHP callback to run whenever there is some
-     *                                       output available on STDOUT or STDERR
+     * @param callback|null $callback A PHP callback to run whenever there is some
+     *                                output available on STDOUT or STDERR
      *
      * @throws \RuntimeException When process can't be launch or is stopped
      * @throws \RuntimeException When process is already running
@@ -202,6 +215,7 @@ class Process
             throw new \RuntimeException('Process is already running');
         }
 
+        $this->starttime = microtime(true);
         $this->stdout = '';
         $this->stderr = '';
         $callback = $this->buildCallback($callback);
@@ -213,6 +227,9 @@ class Process
             $this->fileHandles = array(
                 self::STDOUT => tmpfile(),
             );
+            if (false === $this->fileHandles[self::STDOUT]) {
+                throw new RuntimeException('A temporary file could not be opened to write the process output to, verify that your TEMP environment variable is writable');
+            }
             $this->readBytes = array(
                 self::STDOUT => 0,
             );
@@ -273,7 +290,7 @@ class Process
             $w = $writePipes;
             $e = null;
 
-            $n = @stream_select($r, $w, $e, $this->timeout);
+            $n = @stream_select($r, $w, $e, 0, ceil(static::TIMEOUT_PRECISION * 1E6));
 
             if (false === $n) {
                 break;
@@ -306,6 +323,8 @@ class Process
                     unset($this->pipes[$type]);
                 }
             }
+
+            $this->checkTimeout();
         }
 
         $this->updateStatus();
@@ -318,11 +337,12 @@ class Process
      * from the output in real-time while writing the standard input to the process.
      * It allows to have feedback from the independent process during execution.
      *
-     * @param mixed $callback A valid PHP callback
+     * @param callback|null $callback A valid PHP callback
      *
-     * @return int The exitcode of the process
+     * @return integer The exitcode of the process
      *
-     * @throws \RuntimeException
+     * @throws \RuntimeException When process timed out
+     * @throws \RuntimeException When process stopped after receiving signal
      */
     public function wait($callback = null)
     {
@@ -332,23 +352,29 @@ class Process
             if (defined('PHP_WINDOWS_VERSION_BUILD') && $this->fileHandles) {
                 $this->processFileHandles($callback, !$this->pipes);
             }
+            $this->checkTimeout();
 
             if ($this->pipes) {
                 $r = $this->pipes;
                 $w = null;
                 $e = null;
 
-                $n = @stream_select($r, $w, $e, $this->timeout);
+                // let's have a look if something changed in streams
+                if (false === $n = @stream_select($r, $w, $e, 0, ceil(static::TIMEOUT_PRECISION * 1E6))) {
+                    $lastError = error_get_last();
 
-                if (false === $n) {
-                    $this->pipes = array();
+                    // stream_select returns false when the `select` system call is interrupted by an incoming signal
+                    if (isset($lastError['message']) && false === stripos($lastError['message'], 'interrupted system call')) {
+                        $this->pipes = array();
+                    }
 
                     continue;
                 }
-                if (0 === $n) {
-                    proc_terminate($this->process);
 
-                    throw new \RuntimeException('The process timed out.');
+
+                // nothing has changed
+                if (0 === $n) {
+                    continue;
                 }
 
                 foreach ($r as $pipe) {
@@ -372,7 +398,10 @@ class Process
         }
         $this->updateStatus();
         if ($this->processInformation['signaled']) {
-            throw new \RuntimeException(sprintf('The process stopped because of a "%s" signal.', $this->processInformation['stopsig']));
+            if ($this->isSigchildEnabled()) {
+                throw new RuntimeException('The process has been signaled.');
+            }
+            throw new RuntimeException(sprintf('The process has been signaled with signal "%s".', $this->processInformation['termsig']));
         }
 
         $time = 0;
@@ -384,7 +413,10 @@ class Process
         $exitcode = proc_close($this->process);
 
         if ($this->processInformation['signaled']) {
-            throw new \RuntimeException(sprintf('The process stopped because of a "%s" signal.', $this->processInformation['stopsig']));
+            if ($this->isSigchildEnabled()) {
+                throw new RuntimeException('The process has been signaled.');
+            }
+            throw new RuntimeException(sprintf('The process has been signaled with signal "%s".', $this->processInformation['termsig']));
         }
 
         $this->exitcode = $this->processInformation['running'] ? $exitcode : $this->processInformation['exitcode'];
@@ -452,8 +484,6 @@ class Process
      *
      * @return string A string representation for the exit status code
      *
-     * @throws RuntimeException In case --enable-sigchild is activated and the sigchild compatibility mode is disabled
-     *
      * @see http://tldp.org/LDP/abs/html/exitcodes.html
      * @see http://en.wikipedia.org/wiki/Unix_signal
      */
@@ -468,8 +498,6 @@ class Process
      * Checks if the process ended successfully.
      *
      * @return Boolean true if the process ended successfully, false otherwise
-     *
-     * @throws RuntimeException In case --enable-sigchild is activated and the sigchild compatibility mode is disabled
      *
      * @api
      */
@@ -573,21 +601,23 @@ class Process
     /**
      * Stops the process.
      *
-     * @param float $timeout The timeout in seconds
+     * @param integer|float $timeout The timeout in seconds
      *
      * @return integer The exit-code of the process
-     *
-     * @throws \RuntimeException if the process got signaled
      */
     public function stop($timeout=10)
     {
-        $timeoutMicro = (int) $timeout*10E6;
+        $timeoutMicro = (int) $timeout*1E6;
         if ($this->isRunning()) {
             proc_terminate($this->process);
             $time = 0;
             while (1 == $this->isRunning() && $time < $timeoutMicro) {
                 $time += 1000;
                 usleep(1000);
+            }
+
+            if (!defined('PHP_WINDOWS_VERSION_BUILD') && $this->isRunning()) {
+                proc_terminate($this->process, SIGKILL);
             }
 
             foreach ($this->pipes as $pipe) {
@@ -665,7 +695,7 @@ class Process
      *
      * To disable the timeout, set this value to null.
      *
-     * @param integer|null $timeout The timeout in seconds
+     * @param float|null $timeout The timeout in seconds
      *
      * @throws \InvalidArgumentException if the timeout is negative
      */
@@ -677,10 +707,10 @@ class Process
             return;
         }
 
-        $timeout = (integer) $timeout;
+        $timeout = (float) $timeout;
 
         if ($timeout < 0) {
-            throw new \InvalidArgumentException('The timeout value must be a valid positive integer.');
+            throw new \InvalidArgumentException('The timeout value must be a valid positive integer or float number.');
         }
 
         $this->timeout = $timeout;
@@ -693,6 +723,13 @@ class Process
      */
     public function getWorkingDirectory()
     {
+        // This is for BC only
+        if (null === $this->cwd) {
+            // getcwd() will return false if any one of the parent directories does not have
+            // the readable or search mode set, even if the current directory does
+            return getcwd() ?: null;
+        }
+
         return $this->cwd;
     }
 
@@ -813,14 +850,32 @@ class Process
     }
 
     /**
+     * Performs a check between the timeout definition and the time the process
+     * started
+     *
+     * In case you run a background process (with the start method), you should
+     * trigger this method regularly to ensure the process timeout
+     *
+     * @throws RuntimeException In case the timeout was reached
+     */
+    public function checkTimeout()
+    {
+        if (0 < $this->timeout && $this->timeout < microtime(true) - $this->starttime) {
+            $this->stop(0);
+
+            throw new RuntimeException('The process timed-out.');
+        }
+    }
+
+    /**
      * Builds up the callback used by wait().
      *
      * The callbacks adds all occurred output to the specific buffer and calls
      * the user callback (if present) with the received output.
      *
-     * @param mixed $callback The user defined PHP callback
+     * @param callback|null $callback The user defined PHP callback
      *
-     * @return mixed A PHP callable
+     * @return callback A PHP callable
      */
     protected function buildCallback($callback)
     {
@@ -860,6 +915,9 @@ class Process
         }
     }
 
+    /**
+     * Updates the current error output of the process (STDERR).
+     */
     protected function updateErrorOutput()
     {
         if (isset($this->pipes[self::STDERR]) && is_resource($this->pipes[self::STDERR])) {
@@ -867,6 +925,9 @@ class Process
         }
     }
 
+    /**
+     * Updates the current output of the process (STDOUT).
+     */
     protected function updateOutput()
     {
         if (defined('PHP_WINDOWS_VERSION_BUILD') && isset($this->fileHandles[self::STDOUT]) && is_resource($this->fileHandles[self::STDOUT])) {
