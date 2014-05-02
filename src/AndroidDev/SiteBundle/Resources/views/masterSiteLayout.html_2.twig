@@ -1,0 +1,200 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}Android-dev{% endblock %}
+{% block description %}{% endblock %}
+{% block urlCanonical %}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.min.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/jquery.fancybox.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/shCore.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/shThemeDefault.css') }}" type="text/css" />
+{% endblock %}
+
+{% block navbar %}
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+</a>
+<a class="brand" href="{{ path('androiddev_accueil') }}">{{ infosite['titre'] }}</a>
+<div class="nav-collapse collapse">
+    <ul class="nav" role="navigation">
+        <li><a href="{{ path('androiddev_accueil') }}">Accueil</a></li>
+        <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle">Article <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li class="nav-header"><a href="{{ path('androiddev_article')}}">Tous les articles</a></li>
+
+                    {% for categorie in filtrecat['article'] %}
+                <li><a href="{{ path('androiddev_articleCat', {'slug': categorie.slug}) }}">{{categorie.getNom()}}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle">Astuce <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li class="nav-header"><a href="{{ path('androiddev_astuce')}}">Toutes les astuces</a></li>
+
+                    {% for categorie in filtrecat['astuce'] %}
+                    <li><a href="{{ path('androiddev_astuceCat', {'slug': categorie.slug}) }}">{{categorie.getNom()}}</a></li>
+                    {% endfor %}
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle">Projet <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-header"><a href="{{ path('androiddev_projet')}}">Tous les projets</a></li>
+        {% for projet in filtrecat['projet'] %}
+                            <li><a href="{{ path('androiddev_projetVoir', {'slug': projet.slug}) }}">{{projet.getTitre()}}</a></li>
+        {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                    <form action="{{ path('androiddev_search') }}" method="post" class="navbar-search pull-right">
+                        <input type="text" name="motCles" class="search-query" placeholder="Rechercher sur android-dev.fr">
+                    </form>
+                </div><!--/.nav-collapse -->
+{% endblock %}
+
+{% block infoMobileTablet %}
+{% endblock %}
+
+{% block menuGauche %}
+{% endblock %}
+
+{% block enteteContentPC %}
+
+{% endblock %}
+
+{% block contentPC %}
+
+{% endblock %}
+
+{% block enteteContentMobileTablet %}
+
+{% endblock %}
+
+{% block contentMobileTablet %}
+
+{% endblock %}
+
+{% block colonneDroite %}
+                <div class="well sidebar-nav listeDroite">
+                    <ul class="nav nav-list">
+                        <li class="nav-header">SUIVRE Android-dev.fr</li>
+                        <li><a href="https://twitter.com/androiddevfr" class="twitter-follow-button" data-show-count="false" data-lang="fr">Follow @androiddevfr</a>
+
+                            <script>!function(d, s, id) {
+                                    var js, fjs = d.getElementsByTagName(s)[0];
+                                    if (!d.getElementById(id)) {
+                                        js = d.createElement(s);
+                                        js.id = id;
+                                        js.async = true;
+                                        js.src = "//platform.twitter.com/widgets.js";
+                                        fjs.parentNode.insertBefore(js, fjs);
+                                    }
+                                }(document, "script", "twitter-wjs");</script></li>
+                            <li><div id="fb-root"></div>
+                                <script>(function(d, s, id) {
+                                        var js, fjs = d.getElementsByTagName(s)[0];
+                                        if (d.getElementById(id))
+                                            return;
+                                        js = d.createElement(s);
+                                        js.id = id;
+                                        js.async = true;
+                                        js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
+                                        fjs.parentNode.insertBefore(js, fjs);
+                                    }(document, 'script', 'facebook-jssdk'));</script><div class="fb-like" data-href="http://www.facebook.com/androiddev.fr" data-send="true" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+                                </li>
+                                <li>
+                                    <!-- Placez cette balise où vous souhaitez faire apparaître le gadget badge. -->
+                                    <div class="g-plus" data-width="187" data-height="69" data-href="//plus.google.com/109789572578192575458" data-rel="publisher"></div>
+
+                                    <!-- Placez cette ballise après la dernière balise badge. -->
+                                    <script type="text/javascript">
+                                        window.___gcfg = {lang: 'fr'};
+
+                                        (function() {
+                                            var po = document.createElement('script');
+                                            po.type = 'text/javascript';
+                                            po.async = true;
+                                            po.src = 'https://apis.google.com/js/plusone.js';
+                                            var s = document.getElementsByTagName('script')[0];
+                                            s.parentNode.insertBefore(po, s);
+                                        })();
+                                        </script>
+                                    </li>
+                                </ul>
+                            </div><!--/.well --> 
+
+                            <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                            <ins class="adsbygoogle"
+                                 style="display:inline-block;width:300px;height:250px"
+                                 data-ad-client="ca-pub-4672745701309961"
+                                 data-ad-slot="8367214971"></ins>
+                            <script>
+                                        (adsbygoogle = window.adsbygoogle || []).push({});
+                                </script>
+
+                                <div class="well sidebar-nav listeDroite">
+ 
+                                        </div><!--/.well --> 
+                                        <div class="well sidebar-nav listeDroite">
+                                            
+                                                </div><!--/.well -->
+                                                <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                                                <ins class="adsbygoogle"
+                                                     style="display:inline-block;width:160px;height:600px"
+                                                     data-ad-client="ca-pub-4672745701309961"
+                                                     data-ad-slot="3797414572"></ins>
+                                                <script>
+                                        (adsbygoogle = window.adsbygoogle || []).push({});
+                                                    </script>
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+
+{% block footer %}
+    {{ infosite['footer'] | raw  }}
+                                                    <!-- Piwik -->
+                                                    <script type="text/javascript">
+                                                        var _paq = _paq || [];
+                                                        _paq.push(["trackPageView"]);
+                                                        _paq.push(["enableLinkTracking"]);
+
+                                                        (function() {
+                                                            var u = (("https:" == document.location.protocol) ? "https" : "http") + "://www.android-dev.fr/Piwik/";
+                                                            _paq.push(["setTrackerUrl", u + "piwik.php"]);
+                                                            _paq.push(["setSiteId", "1"]);
+                                                            var d = document, g = d.createElement("script"), s = d.getElementsByTagName("script")[0];
+                                                            g.type = "text/javascript";
+                                                            g.defer = true;
+                                                            g.async = true;
+                                                            g.src = u + "piwik.js";
+                                                            s.parentNode.insertBefore(g, s);
+                                                        })();
+                                                        </script>
+                                                        <!-- End Piwik Code -->
+                                                        <script type="text/javascript">
+
+                                                            var _gaq = _gaq || [];
+                                                            _gaq.push(['_setAccount', 'UA-18303318-3']);
+                                                            _gaq.push(['_trackPageview']);
+
+                                                            (function() {
+                                                                var ga = document.createElement('script');
+                                                                ga.type = 'text/javascript';
+                                                                ga.async = true;
+                                                                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                                                                var s = document.getElementsByTagName('script')[0];
+                                                                s.parentNode.insertBefore(ga, s);
+                                                            })();
+
+                                                            </script>
+
+{% endblock %}

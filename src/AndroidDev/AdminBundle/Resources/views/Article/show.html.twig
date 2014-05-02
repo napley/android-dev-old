@@ -1,0 +1,70 @@
+{% extends "AndroidDevAdminBundle::layout.html.twig" %}
+
+{% block title %}Voir - {{ entity.titre }} - Android-dev{% endblock %}
+{% block description %}{% endblock %}
+
+{% block contentDetail %}
+<div class="col-md-12">
+    <h1>Article</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ entity.titre | raw }}</td>
+            </tr>
+            <tr>
+                <th>Soustitre</th>
+                <td>{{ entity.sousTitre | raw }}</td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ entity.contenu | raw }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ entity.slug }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ entity.Type.nom }}</td>
+            </tr>
+            <tr>
+                <th>Catégorie</th>
+                <td>{% if entity.Categorie%}{{ entity.Categorie.nom }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{{ entity.created|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('admin_article') }}">
+                Retour à la liste des articles
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('admin_article_edit', { 'id': entity.id }) }}">
+                Modifier
+            </a>
+        </li>
+        <li>
+            <form action="{{ path('admin_article_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+                    <button type="submit">Supprimer</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+{% endblock %}

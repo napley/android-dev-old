@@ -1,0 +1,43 @@
+{% extends "AndroidDevAdminBundle::layout.html.twig" %}
+
+{% block title %}Voir - {{ entity.nom }} - Android-dev{% endblock %}
+{% block description %}{% endblock %}
+
+{% block contentDetail %}
+<div class="col-md-12"><h1>Categorie</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ entity.nom }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('admin_categorie') }}">
+                Retour à la liste
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('admin_categorie_edit', { 'id': entity.id }) }}">
+                Modifier
+            </a>
+        </li>
+        <li>
+            <form action="{{ path('admin_categorie_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+                    <button type="submit">Supprimer</button>
+                </form>
+            </li>
+        </ul>
+
+    </div>
+
+{% endblock %}

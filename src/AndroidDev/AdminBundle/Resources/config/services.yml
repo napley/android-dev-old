@@ -1,0 +1,21 @@
+parameters:
+#    android_dev_admin.example.class: AndroidDev\AdminBundle\Example
+
+services:
+    androiddev_user.registration.form.type:
+        class: AndroidDev\AdminBundle\Form\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: androiddev_user_registration }
+            
+    twig.extension.partproject:
+        class: AndroidDev\AdminBundle\Extensions\PartProjectExtension
+        arguments:
+          doctrine: "@doctrine"
+        tags:
+            - { name: twig.extension }
+            
+    androiddev.article:
+        class: AndroidDev\AdminBundle\Service\Article
+        arguments:
+          doctrine: "@doctrine"

@@ -1,0 +1,38 @@
+{% extends "AndroidDevSiteBundle::layout.html.twig" %}
+
+{% block title %}Accueil - Android-dev{% endblock %}
+{% block description %}{% endblock %}
+
+{% block enteteContentPC %}
+<div class="jumbotron">
+
+</div>
+{% endblock %}
+
+{% block contentPC %}
+
+{% for article in articles %}
+<div class="row-fluid listeArticle">
+    <h2><a href="{{ path('androiddev_voir', {'slug': article.slug}) }}">{{ article.titre | raw }}</a></h2>
+        {{ article.sousTitre | raw }}
+        <p class="text-left"><small><span class="label label-info">{{ article.getType().getNom() }} </span>  <span class="label label-info"> {{ article.getCategorie().getNom() }}</span>
+            <br />{% for motCle in article.getMotCles() %}
+                    <span class="label">{{ motCle.getNom() }}</span>
+            {% endfor %}
+            </small></p>
+        <p><a class="btn"  href="{{ path('androiddev_voir', {'slug': article.slug}) }}">Lire la suite &raquo;</a></p>
+    </div>
+{% endfor %}
+    <ul class="pager">
+        <li class="previous {% if  articlesNext|length < 1 %}
+        disabled
+              {% endif %}">
+            <a href="{{path(route, {'page': page + 1}) }}">&larr; Plus ancien</a>
+        </li>
+        <li class="next {% if  page == 1 %}
+            disabled
+              {% endif %} ">
+                <a href="{{path(route, {'page': page - 1}) }}">Plus récent &rarr;</a>
+            </li>
+        </ul>
+{% endblock %}

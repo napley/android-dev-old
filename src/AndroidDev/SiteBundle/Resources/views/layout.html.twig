@@ -1,0 +1,62 @@
+{% extends "AndroidDevSiteBundle::masterSiteLayout.html.twig" %}
+
+{% block title %}Android-dev{% endblock %}
+
+{% block description %}{% endblock %}
+
+{% block meta %}
+{% endblock %}
+
+{% block menuGauche %}    
+<div class="title-left">
+    <h3>
+        Tous les <a class="title-list-left" href="{{ path('androiddev_article')}}">Articles</a>
+    </h3>
+    <span class="blue-border"></span>
+</div>
+<ul class="list-left">
+        {% for categorie in filtrecat['article'] %}
+    <li><a href="{{ path('androiddev_articleCat', {'slug': categorie.slug}) }}">{{categorie.getNom()}}</a></li>
+        {% endfor %}
+</ul>
+
+<div class="title-left">
+    <h3>
+        Toutes les <a class="title-list-left" href="{{ path('androiddev_astuce')}}">Astuces</a>
+    </h3>
+    <span class="blue-border"></span>
+</div>
+<ul class="list-left">
+        {% for categorie in filtrecat['astuce'] %}
+    <li><a href="{{ path('androiddev_astuceCat', {'slug': categorie.slug}) }}">{{categorie.getNom()}}</a></li>
+        {% endfor %}
+</ul>
+
+<div class="title-left">
+    <h3>
+        Tous les <a class="title-list-left" href="{{ path('androiddev_projet')}}">Projets</a>
+    </h3>
+    <span class="blue-border"></span>
+</div>
+<ul class="list-left">
+        {% for projet in filtrecat['projet'] %}
+    <li><a href="{{ path('androiddev_projetVoir', {'slug': projet.slug}) }}">{{projet.getTitre()}}</a></li>
+        {% endfor %}
+</ul>
+{% endblock %}
+
+{% block enteteContentPC %}
+
+{% endblock %}
+
+{% block contentPC %}
+
+{% endblock %}
+
+{% block enteteContentMobileTablet %}
+
+{% endblock %}
+
+{% block contentMobileTablet %}
+
+{% endblock %}

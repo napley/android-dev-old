@@ -474,7 +474,7 @@ class SelectSqlGenerationTest extends \Doctrine\Tests\OrmTestCase
     {
         $this->assertSqlGeneration(
             "SELECT u FROM Doctrine\Tests\Models\Company\CompanyPerson u WHERE u INSTANCE OF ?1",
-            "SELECT c0_.id AS id0, c0_.name AS name1, c0_.discr AS discr2 FROM company_persons c0_ WHERE c0_.discr IN ('employee')",
+            "SELECT c0_.id AS id0, c0_.name AS name1, c0_.discr AS discr2 FROM company_persons c0_ WHERE c0_.discr IN (?)",
             array(), array(1 => $this->_em->getClassMetadata('Doctrine\Tests\Models\Company\CompanyEmployee'))
         );
     }
@@ -1708,6 +1708,18 @@ class SelectSqlGenerationTest extends \Doctrine\Tests\OrmTestCase
         $this->assertSqlGeneration(
             'SELECT g, p FROM Doctrine\Tests\Models\Quote\Group g JOIN g.parent p',
             'SELECT q0_."group-id" AS groupid0, q0_."group-name" AS groupname1, q1_."group-id" AS groupid2, q1_."group-name" AS groupname3 FROM "quote-group" q0_ INNER JOIN "quote-group" q1_ ON q0_."parent-id" = q1_."group-id"'
+        );
+    }
+
+    /**
+     * @group DDC-2506
+     */
+    public function testClassTableInheritanceJoinWithConditionAppliesToBaseTable()
+    {
+        $this->assertSqlGeneration(
+            'SELECT e.id FROM Doctrine\Tests\Models\Company\CompanyOrganization o JOIN o.events e WITH e.id = ?1',
+            'SELECT c0_.id AS id0 FROM company_organizations c1_ INNER JOIN company_events c0_ ON c1_.id = c0_.org_id AND (c0_.id = ?) LEFT JOIN company_auctions c2_ ON c0_.id = c2_.id LEFT JOIN company_raffles c3_ ON c0_.id = c3_.id',
+            array(Query::HINT_FORCE_PARTIAL_LOAD => false)
         );
     }
 }

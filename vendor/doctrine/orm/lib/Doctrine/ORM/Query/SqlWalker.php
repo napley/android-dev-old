@@ -750,7 +750,10 @@ class SqlWalker implements TreeWalker
         $sqlParts = array();
 
         foreach ($identificationVarDecls as $identificationVariableDecl) {
-            $sql = $this->walkRangeVariableDeclaration($identificationVariableDecl->rangeVariableDeclaration);
+            $sql = $this->platform->appendLockHint(
+                $this->walkRangeVariableDeclaration($identificationVariableDecl->rangeVariableDeclaration),
+                $this->query->getHint(Query::HINT_LOCK_MODE)
+            );
 
             foreach ($identificationVariableDecl->joins as $join) {
                 $sql .= $this->walkJoin($join);
@@ -770,7 +773,7 @@ class SqlWalker implements TreeWalker
                 }
             }
 
-            $sqlParts[] = $this->platform->appendLockHint($sql, $this->query->getHint(Query::HINT_LOCK_MODE));
+            $sqlParts[] = $sql;
         }
 
         return ' FROM ' . implode(', ', $sqlParts);
@@ -801,9 +804,13 @@ class SqlWalker implements TreeWalker
     /**
      * Walks down a JoinAssociationDeclaration AST node, thereby generating the appropriate SQL.
      *
+     * @param AST\JoinAssociationDeclaration $joinAssociationDeclaration
+     * @param int                            $joinType
+     * @param AST\ConditionalExpression      $condExpr
+     *
      * @return string
      */
-    public function walkJoinAssociationDeclaration($joinAssociationDeclaration, $joinType = AST\Join::JOIN_TYPE_INNER)
+    public function walkJoinAssociationDeclaration($joinAssociationDeclaration, $joinType = AST\Join::JOIN_TYPE_INNER, $condExpr = null)
     {
         $sql = '';
 
@@ -918,6 +925,13 @@ class SqlWalker implements TreeWalker
                 break;
         }
 
+        // Handle WITH clause
+        if ($condExpr !== null) {
+            // Phase 2 AST optimization: Skip processing of ConditionalExpression
+            // if only one ConditionalTerm is defined
+            $sql .= ' AND (' . $this->walkConditionalExpression($condExpr) . ')';
+        }
+
         // FIXME: these should either be nested or all forced to be left joins (DDC-XXX)
         if ($targetClass->isInheritanceTypeJoined()) {
             $sql .= $this->_generateClassTableInheritanceJoins($targetClass, $joinedDqlAlias);
@@ -1017,14 +1031,7 @@ class SqlWalker implements TreeWalker
                 break;
 
             case ($joinDeclaration instanceof \Doctrine\ORM\Query\AST\JoinAssociationDeclaration):
-                $sql .= $this->walkJoinAssociationDeclaration($joinDeclaration, $joinType);
-
-                // Handle WITH clause
-                if (($condExpr = $join->conditionalExpression) !== null) {
-                    // Phase 2 AST optimization: Skip processment of ConditionalExpression
-                    // if only one ConditionalTerm is defined
-                    $sql .= ' AND (' . $this->walkConditionalExpression($condExpr) . ')';
-                }
+                $sql .= $this->walkJoinAssociationDeclaration($joinDeclaration, $joinType, $join->conditionalExpression);
                 break;
         }
 
@@ -1367,13 +1374,16 @@ class SqlWalker implements TreeWalker
         $sqlParts = array ();
 
         foreach ($identificationVarDecls as $subselectIdVarDecl) {
-            $sql = $this->walkRangeVariableDeclaration($subselectIdVarDecl->rangeVariableDeclaration);
+            $sql = $this->platform->appendLockHint(
+                $this->walkRangeVariableDeclaration($subselectIdVarDecl->rangeVariableDeclaration),
+                $this->query->getHint(Query::HINT_LOCK_MODE)
+            );
 
             foreach ($subselectIdVarDecl->joins as $join) {
                 $sql .= $this->walkJoin($join);
             }
 
-            $sqlParts[] = $this->platform->appendLockHint($sql, $this->query->getHint(Query::HINT_LOCK_MODE));
+            $sqlParts[] = $sql;
         }
 
         return ' FROM ' . implode(', ', $sqlParts);
@@ -1910,31 +1920,22 @@ class SqlWalker implements TreeWalker
 
         foreach ($instanceOfExpr->value as $parameter) {
             if ($parameter instanceof AST\InputParameter) {
-                // We need to modify the parameter value to be its correspondent mapped value
-                $dqlParamKey = $parameter->name;
-                $dqlParam    = $this->query->getParameter($dqlParamKey);
-                $paramValue  = $this->query->processParameterValue($dqlParam->getValue());
-
-                if ( ! ($paramValue instanceof \Doctrine\ORM\Mapping\ClassMetadata)) {
-                    throw QueryException::invalidParameterType('ClassMetadata', get_class($paramValue));
-                }
-
-                $entityClassName = $paramValue->name;
+                $sqlParameterList[] = $this->walkInputParameter($parameter);
             } else {
                 // Get name from ClassMetadata to resolve aliases.
                 $entityClassName = $this->em->getClassMetadata($parameter)->name;
-            }
 
-            if ($entityClassName == $class->name) {
-                $sqlParameterList[] = $this->conn->quote($class->discriminatorValue);
-            } else {
-                $discrMap = array_flip($class->discriminatorMap);
+                if ($entityClassName == $class->name) {
+                    $sqlParameterList[] = $this->conn->quote($class->discriminatorValue);
+                } else {
+                    $discrMap = array_flip($class->discriminatorMap);
 
-                if (!isset($discrMap[$entityClassName])) {
-                    throw QueryException::instanceOfUnrelatedClass($entityClassName, $class->rootEntityName);
+                    if (!isset($discrMap[$entityClassName])) {
+                        throw QueryException::instanceOfUnrelatedClass($entityClassName, $class->rootEntityName);
+                    }
+
+                    $sqlParameterList[] = $this->conn->quote($discrMap[$entityClassName]);
                 }
-
-                $sqlParameterList[] = $this->conn->quote($discrMap[$entityClassName]);
             }
         }
 

@@ -39,7 +39,7 @@ class FileProfilerStorage implements ProfilerStorageInterface
         $this->folder = substr($dsn, 5);
 
         if (!is_dir($this->folder)) {
-            mkdir($this->folder);
+            mkdir($this->folder, 0777, true);
         }
     }
 
@@ -58,10 +58,7 @@ class FileProfilerStorage implements ProfilerStorageInterface
         fseek($file, 0, SEEK_END);
 
         $result = array();
-
-        while ($limit > 0) {
-            $line = $this->readLineFromFile($file);
-
+        while (count($result) < $limit && $line = $this->readLineFromFile($file)) {
             if (false === $line) {
                 break;
             }
@@ -84,7 +81,6 @@ class FileProfilerStorage implements ProfilerStorageInterface
                 'time'   => $csvTime,
                 'parent' => $csvParent,
             );
-            --$limit;
         }
 
         fclose($file);

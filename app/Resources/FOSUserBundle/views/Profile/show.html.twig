@@ -1,0 +1,16 @@
+{% extends "AndroidDevAdminBundle::layout.html.twig" %}
+
+{% block title %}Accueil - Android-dev{% endblock %}
+{% block description %}{% endblock %}
+
+{% block contentDetail %}
+
+{% block fos_user_content %}
+{% include "FOSUserBundle:Profile:show_content.html.twig" %}
+{% endblock fos_user_content %}
+<ul>
+    <li><a href="{{ path('fos_user_change_password') }}">Changer de mot de passe</a></li>
+    <li><a href="{{ path('fos_user_resetting_request') }}">Réinitialiser le mot de passe</a></li>
+</ul>
+
+{% endblock %}

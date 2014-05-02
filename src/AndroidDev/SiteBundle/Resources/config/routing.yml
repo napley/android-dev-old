@@ -1,0 +1,135 @@
+androiddev_accueil:
+    pattern:   /{page}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:index, page: 1 }
+    requirements:
+        page:  \d*
+    
+androiddev_sitemap:
+    pattern:   /sitemap.{_format}
+    defaults:  { _controller: AndroidDevAdminBundle:Sitemap:sitemap }
+    requirements:
+      format: xml
+    
+androiddev_feed1:
+    pattern:   /feeds/derniersArticles.{_format}
+    defaults:  { _controller: AndroidDevAdminBundle:Feed:article, _format: rss }
+    requirements:
+      format: rss
+    
+androiddev_feed2:
+    pattern:   /feeds/derniersAstuces.{_format}
+    defaults:  { _controller: AndroidDevAdminBundle:Feed:astuce, _format: rss }
+    requirements:
+      format: rss
+    
+androiddev_feed3:
+    pattern:   /feeds/derniersArticlesAstuces.{_format}
+    defaults:  { _controller: AndroidDevAdminBundle:Feed:articleAstuce, _format: rss }
+    requirements:
+      format: rss
+    
+androiddev_feed4:
+    pattern:   /feeds/derniersProjets.{_format}
+    defaults:  { _controller: AndroidDevAdminBundle:Feed:projet, _format: rss }
+    requirements:
+      format: rss
+ 
+androiddev_article:
+    pattern:   /article/{page}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:article, page: 1 }
+    requirements:
+        page:  \d*
+    
+androiddev_astuce:
+    pattern:   /astuce/{page}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:astuce, page: 1 }
+    requirements:
+        page:  \d*
+    
+androiddev_contact:
+    pattern:   /contact/
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:contact}
+    
+androiddev_fragmentation:
+    pattern:   /fragmentation/
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:fragment}
+    
+androiddev_apropos:
+    pattern:   /a_propos/
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:apropos}
+    
+androiddev_mentions:
+    pattern:   /mentions/
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:mentions}
+    
+androiddev_send_contact:
+    pattern:   /contact_ok/
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:sendcontact}
+ 
+androiddev_projet:
+    pattern:   /projet/{page}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:projet, page: 1 }
+    requirements:
+        page:  \d*
+ 
+androiddev_articleCat:
+    pattern:   /article/{slug}/{page}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:articleCat, page: 1 }
+    requirements:
+        page:  \d*
+    
+androiddev_astuceCat:
+    pattern:   /astuce/{slug}/{page}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:astuceCat, page: 1 }
+    requirements:
+        page:  \d*
+ 
+androiddev_voir:
+    pattern:   /{slug}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:voir }
+ 
+androiddev_search:
+    pattern:   /recherche/
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:search }
+ 
+androiddev_recherche:
+    pattern:   /recherche/{motcles}/{page}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:recherche, page: 1 }
+    requirements:
+        page:  \d*
+ 
+androiddev_projetVoir:
+    pattern:   /projet/{slug}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:projetVoir }
+    
+androiddev_oldUrlHome:
+    pattern:   /web/blog
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:redirectAccueil }
+    
+androiddev_oldUrlTuto2:
+    pattern:   /web/blog/tuto/
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:redirectProjet }
+    
+androiddev_oldUrlArticle2:
+    pattern:   /web/blog/article/
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:redirectArticle }
+    
+androiddev_oldUrlTuto:
+    pattern:   /web/blog/tuto
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:redirectProjet }
+    
+androiddev_oldUrlArticle:
+    pattern:   /web/blog/article
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:redirectArticle }
+ 
+androiddev_oldUrl:
+    pattern:   /web/blog/voir/{id}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:redirect }
+ 
+androiddev_oldUrlTitre:
+    pattern:   /web/blog/voir/{id}?titre={titre}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:redirect }
+    
+androiddev_apiJson:
+    pattern:   /api/all
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:getJson }

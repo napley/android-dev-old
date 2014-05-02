@@ -15,6 +15,7 @@ use Symfony\Component\DependencyInjection\Compiler\Compiler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\Exception\BadMethodCallException;
+use Symfony\Component\DependencyInjection\Exception\InactiveScopeException;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 use Symfony\Component\DependencyInjection\Exception\LogicException;
 use Symfony\Component\DependencyInjection\Exception\RuntimeException;
@@ -350,7 +351,12 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
 
             $this->loading[$id] = true;
 
-            $service = $this->createService($definition, $id);
+            try {
+                $service = $this->createService($definition, $id);
+            } catch (\Exception $e) {
+                unset($this->loading[$id]);
+                throw $e;
+            }
 
             unset($this->loading[$id]);
 
@@ -734,19 +740,22 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
      *
      * @throws RuntimeException When the scope is inactive
      * @throws RuntimeException When the factory definition is incomplete
+     * @throws RuntimeException When the service is a synthetic service
      * @throws InvalidArgumentException When configure callable is not callable
      */
     private function createService(Definition $definition, $id)
     {
+        if ($definition->isSynthetic()) {
+            throw new RuntimeException(sprintf('You have requested a synthetic service ("%s"). The DIC does not know how to construct this service.', $id));
+        }
+
         $parameterBag = $this->getParameterBag();
 
         if (null !== $definition->getFile()) {
             require_once $parameterBag->resolveValue($definition->getFile());
         }
 
-        $arguments = $this->resolveServices(
-            $parameterBag->unescapeValue($parameterBag->resolveValue($definition->getArguments()))
-        );
+        $arguments = $this->resolveServices($parameterBag->unescapeValue($parameterBag->resolveValue($definition->getArguments())));
 
         if (null !== $definition->getFactoryMethod()) {
             if (null !== $definition->getFactoryClass()) {
@@ -766,7 +775,7 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
 
         if (self::SCOPE_PROTOTYPE !== $scope = $definition->getScope()) {
             if (self::SCOPE_CONTAINER !== $scope && !isset($this->scopedServices[$scope])) {
-                throw new RuntimeException('You tried to create a service of an inactive scope.');
+                throw new InactiveScopeException($id, $scope);
             }
 
             $this->services[$lowerId = strtolower($id)] = $service;
@@ -839,9 +848,20 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
     /**
      * Returns service ids for a given tag.
      *
+     * Example:
+     *
+     * $container->register('foo')->addTag('my.tag', array('hello' => 'world'));
+     *
+     * $serviceIds = $container->findTaggedServiceIds('my.tag');
+     * foreach ($serviceIds as $serviceId => $tags) {
+     *     foreach ($tags as $tag) {
+     *         echo $tag['hello'];
+     *     }
+     * }
+     *
      * @param string $name The tag name
      *
-     * @return array An array of tags
+     * @return array An array of tags with the tagged service as key, holding a list of attribute arrays.
      *
      * @api
      */
@@ -849,7 +869,7 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
     {
         $tags = array();
         foreach ($this->getDefinitions() as $id => $definition) {
-            if ($definition->getTag($name)) {
+            if ($definition->hasTag($name)) {
                 $tags[$id] = $definition->getTag($name);
             }
         }

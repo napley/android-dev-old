@@ -1,0 +1,211 @@
+android_dev_admin_homepage:
+    pattern:  /
+    defaults: { _controller: AndroidDevAdminBundle:Default:index }
+
+admin_article:
+    pattern:  /article/
+    defaults: { _controller: AndroidDevAdminBundle:Article:index }
+
+admin_article_show:
+    pattern:  /article/{id}/show
+    defaults: { _controller: AndroidDevAdminBundle:Article:show }
+
+admin_article_edit:
+    pattern:  /article/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:Article:edit }
+
+admin_article_new:
+    pattern:  /article/new
+    defaults: { _controller: AndroidDevAdminBundle:Article:new }
+
+admin_article_delete:
+    pattern:  /article/{id}/deletes
+    defaults: { _controller: AndroidDevAdminBundle:Article:delete }
+
+admin_article_create:
+    pattern:  /article/create
+    defaults: { _controller: AndroidDevAdminBundle:Article:create }
+    
+admin_article_edit:
+    pattern:  /article/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:Article:edit }
+    
+admin_article_update:
+    pattern:  /article/{id}/update
+    defaults: { _controller: AndroidDevAdminBundle:Article:update }
+
+admin_infosite:
+    pattern:  /infosite/
+    defaults: { _controller: AndroidDevAdminBundle:InfoSite:index }
+
+admin_infosite_show:
+    pattern:  /infosite/{id}/show
+    defaults: { _controller: AndroidDevAdminBundle:InfoSite:show }
+
+admin_infosite_edit:
+    pattern:  /infosite/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:InfoSite:edit }
+
+admin_infosite_new:
+    pattern:  /infosite/new
+    defaults: { _controller: AndroidDevAdminBundle:InfoSite:new }
+
+admin_infosite_delete:
+    pattern:  /infosite/{id}/deletes
+    defaults: { _controller: AndroidDevAdminBundle:InfoSite:delete }
+
+admin_infosite_create:
+    pattern:  /infosite/create
+    defaults: { _controller: AndroidDevAdminBundle:InfoSite:create }
+    
+admin_infosite_edit:
+    pattern:  /infosite/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:InfoSite:edit }
+    
+admin_infosite_update:
+    pattern:  /infosite/{id}/update
+    defaults: { _controller: AndroidDevAdminBundle:InfoSite:update }
+
+admin_type:
+    pattern:  /type/
+    defaults: { _controller: AndroidDevAdminBundle:Type:index }
+
+admin_type_show:
+    pattern:  /type/{id}/show
+    defaults: { _controller: AndroidDevAdminBundle:Type:show }
+
+admin_type_edit:
+    pattern:  /type/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:Type:edit }
+
+admin_type_new:
+    pattern:  /type/new
+    defaults: { _controller: AndroidDevAdminBundle:Type:new }
+
+admin_type_delete:
+    pattern:  /type/{id}/deletes
+    defaults: { _controller: AndroidDevAdminBundle:Type:delete }
+
+admin_type_create:
+    pattern:  /type/create
+    defaults: { _controller: AndroidDevAdminBundle:Type:create }
+    
+admin_type_edit:
+    pattern:  /type/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:Type:edit }
+    
+admin_type_update:
+    pattern:  /type/{id}/update
+    defaults: { _controller: AndroidDevAdminBundle:Type:update }
+
+admin_categorie:
+    pattern:  /categorie/
+    defaults: { _controller: AndroidDevAdminBundle:Categorie:index }
+
+admin_categorie_show:
+    pattern:  /categorie/{id}/show
+    defaults: { _controller: AndroidDevAdminBundle:Categorie:show }
+
+admin_categorie_edit:
+    pattern:  /categorie/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:Categorie:edit }
+
+admin_categorie_new:
+    pattern:  /categorie/new
+    defaults: { _controller: AndroidDevAdminBundle:Categorie:new }
+
+admin_categorie_delete:
+    pattern:  /categorie/{id}/deletes
+    defaults: { _controller: AndroidDevAdminBundle:Categorie:delete }
+
+admin_categorie_create:
+    pattern:  /categorie/create
+    defaults: { _controller: AndroidDevAdminBundle:Categorie:create }
+    
+admin_categorie_edit:
+    pattern:  /categorie/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:Categorie:edit }
+    
+admin_categorie_update:
+    pattern:  /categorie/{id}/update
+    defaults: { _controller: AndroidDevAdminBundle:Categorie:update }
+
+admin_user:
+    pattern:  /user/
+    defaults: { _controller: AndroidDevAdminBundle:User:index }
+
+admin_user_show:
+    pattern:  /user/{id}/show
+    defaults: { _controller: AndroidDevAdminBundle:User:show }
+
+admin_user_edit:
+    pattern:  /user/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:User:edit }
+
+admin_user_new:
+    pattern:  /user/new
+    defaults: { _controller: AndroidDevAdminBundle:User:new }
+
+admin_user_delete:
+    pattern:  /user/{id}/deletes
+    defaults: { _controller: AndroidDevAdminBundle:User:delete }
+
+admin_user_create:
+    pattern:  /user/create
+    defaults: { _controller: AndroidDevAdminBundle:User:create }
+    
+admin_user_edit:
+    pattern:  /user/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:User:edit }
+    
+admin_user_update:
+    pattern:  /user/{id}/update
+    defaults: { _controller: AndroidDevAdminBundle:User:update }
+
+admin_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /user/profile
+
+admin_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /user/register
+
+admin_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /user/resetting
+
+admin_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /user
+
+admin_projet:
+    pattern:  /projet/
+    defaults: { _controller: AndroidDevAdminBundle:Projet:index }
+
+admin_projet_show:
+    pattern:  /projet/{id}/show
+    defaults: { _controller: AndroidDevAdminBundle:Projet:show }
+
+admin_projet_edit:
+    pattern:  /projet/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:Projet:edit }
+
+admin_projet_new:
+    pattern:  /projet/new
+    defaults: { _controller: AndroidDevAdminBundle:Projet:new }
+
+admin_projet_delete:
+    pattern:  /projet/{id}/deletes
+    defaults: { _controller: AndroidDevAdminBundle:Projet:delete }
+
+admin_projet_create:
+    pattern:  /projet/create
+    defaults: { _controller: AndroidDevAdminBundle:Projet:create }
+    
+admin_projet_edit:
+    pattern:  /projet/{id}/edit
+    defaults: { _controller: AndroidDevAdminBundle:Projet:edit }
+    
+admin_projet_update:
+    pattern:  /projet/{id}/update
+    defaults: { _controller: AndroidDevAdminBundle:Projet:update }

@@ -1,0 +1,58 @@
+{% extends "::layout2.html.twig" %}
+
+{% block title %}Android-dev{% endblock %}
+{% block description %}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/bootstrap-theme.min.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/demo_table.css') }}" type="text/css" />
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block navbar %}
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#">android-dev.fr</a>
+</div>
+
+<div style="height: 1px;" class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+        <li><a href="{{ path('android_dev_admin_homepage') }}">Accueil</a></li>
+        <li><a href="{{ path('admin_article') }}">Articles</a></li>
+        <li><a href="{{ path('admin_infosite') }}">Info Site</a></li>
+        <li><a href="{{ path('admin_type') }}">Type</a></li>
+        <li><a href="{{ path('admin_categorie') }}">Catégorie</a></li>
+        <li><a href="{{ path('admin_user') }}">Utilisateur</a></li>
+        <li><a href="{{ path('admin_projet') }}">Projet</a></li>
+        <li><a href="{{ path('admin_point') }}">Point</a></li>
+        <li><a href="{{ path('admin_android') }}">Android</a></li>
+    </ul>
+    <span class="pull-right infoConnect">
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+            {% else %}
+        <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+            {% endif %}
+    </span>
+
+</div><!--/.nav-collapse -->
+{% endblock %}
+
+
+{% block content %}
+
+{% endblock %}
+
+
+{% block footer %}
+    {{ infosite['footer'] | raw  }}
+{% endblock %}

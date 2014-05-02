@@ -1,0 +1,41 @@
+{% extends "AndroidDevSiteBundle::masterSiteLayout.html.twig" %}
+
+{% block title %}Android-dev{% endblock %}
+{% block description %}{% endblock %}
+{% block urlCanonical %}{% endblock %}
+
+{% block menuGauche %}       
+<div>
+    <span class="title-right gras affix">Aller à</span>
+    <ul id="sommaire" class="bs-docs-sidenav affix">
+            {% if article is defined and article.getType().id == 3 %}
+                {% if article.getPrevArticle != null %}
+        <li class="list-right prevStep"><i class="glyphicon glyphicon-backward"></i> &nbsp; <a href="{{ path('androiddev_voir', {'slug': article.getPrevArticle().getSlug() }) }}"> {{ article.getPrevArticle().getProjet().getRang() }} - {{ article.getPrevArticle().getTitre() }}</a></li>
+                {% endif %}
+                {% if article.getNextArticle != null %}
+        <li class="list-right nextStep"><i class="glyphicon glyphicon-forward"></i> &nbsp; <a href="{{ path('androiddev_voir', {'slug': article.getNextArticle().getSlug() }) }}">{{ article.getNextArticle().getProjet().getRang() }} - {{ article.getNextArticle().getTitre() }} <i class="icon-forward"></i></a></li>
+                {% endif %}
+        <li class="list-right returnStep"><i class="glyphicon glyphicon-eject"></i> &nbsp; <a href="{{ path('androiddev_projetVoir', {'slug': article.getProjet().getProjet().slug}) }}">Retour au projet</a></li>
+            {% endif %}
+
+    </ul>
+</div>
+{% endblock %}
+
+{% block enteteContentPC %}
+
+{% endblock %}
+
+{% block contentPC %}
+
+{% endblock %}
+
+{% block enteteContentMobileTablet %}
+
+{% endblock %}
+
+{% block contentMobileTablet %}
+
+{% endblock %}
+
+{% block script %}{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "AndroidDevAdminBundle::layout.html.twig" %}
+
+{% block title %}Modifier - {{ entity.id }} - Android-dev{% endblock %}
+{% block description %}{% endblock %}
+
+{% block contentDetail %}
+<div class="col-md-12"><h1>Point edit</h1>
+
+    <form action="{{ path('admin_point_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    {{ form_widget(edit_form) }}
+        <p>
+            <button type="submit">Edit</button>
+        </p>
+    </form>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('admin_point') }}">
+                Back to the list
+            </a>
+        </li>
+        <li>
+            <form action="{{ path('admin_point_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    </ul>
+</div>
+
+{% endblock %}

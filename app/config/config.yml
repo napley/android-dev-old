@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: "%locale%" }
+    translator:      { fallback: "%locale%" }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -49,12 +49,60 @@ doctrine:
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        auto_mapping: true
+        auto_mapping: true 
+        filters:
+          softdeleteable:
+            class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+            enabled: true
 
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
+    auth_mode: "%mailer_auth_mode%"
     host:      "%mailer_host%"
+    port:      "%mailer_port%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
-    spool:     { type: memory }
+
+# Stof\DoctrineExtensionBundle configuration
+stof_doctrine_extensions:
+    orm:
+      default:
+        sluggable: true
+        timestampable: true
+        softdeleteable: true
+
+fos_user:
+    db_driver:     orm                        
+    firewall_name: main                       
+    user_class:    AndroidDev\UserBundle\Entity\User
+    registration:
+      form:
+        type: androiddev_user_registration
+        
+eko_feed:
+      feeds:
+          my_feed:
+              title:       "Les derniers articles et astuces d'android-dev.fr"
+              description: "Les derniers articles et astuces d'android-dev.fr"
+              link:         'http://www.android-dev.fr'
+              encoding:    'utf-8'
+              author:      'Android-dev.fr'
+          my_feed2:
+              title:       "Les derniers articles d'android-dev.fr"
+              description: "Les derniers articles d'android-dev.fr"
+              link:         'http://www.android-dev.fr'
+              encoding:    'utf-8'
+              author:      'Android-dev.fr'
+          my_feed3:
+              title:       "Les dernieres astuces d'android-dev.fr"
+              description: "Les dernieres astuces d'android-dev.fr"
+              link:         'http://www.android-dev.fr'
+              encoding:    'utf-8'
+              author:      'Android-dev.fr'
+          my_feed4:
+              title:       "Les derniers projets d'android-dev.fr"
+              description: "Les derniers projets d'android-dev.fr"
+              link:         'http://www.android-dev.fr'
+              encoding:    'utf-8'
+              author:      'Android-dev.fr'

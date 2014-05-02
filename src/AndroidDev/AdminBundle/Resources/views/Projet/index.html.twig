@@ -1,0 +1,55 @@
+{% extends "AndroidDevAdminBundle::layout.html.twig" %}
+
+{% block title %}Liste des projets - Android-dev{% endblock %}
+{% block description %}{% endblock %}
+
+{% block contentDetail %}
+<div class="col-md-12">
+    <h1>Liste des projets</h1>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_projet_new') }}">
+                Créer un nouveau projet
+            </a>
+        </li>
+    </ul>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Soustitre</th>
+                <th>Contenu</th>
+                <th>Visible</th>
+                <th>Contenufin</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for entity in entities %}
+                <tr>
+                    <td><a href="{{ path('admin_projet_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{{ entity.titre }}</td>
+                    <td>{{ entity.sousTitre }}</td>
+                    <td>{{ entity.contenu }}</td>
+                    <td>{{ entity.visible }}</td>
+                    <td>{{ entity.contenuFin }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('admin_projet_show', { 'id': entity.id }) }}">Voir</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('admin_projet_edit', { 'id': entity.id }) }}">Modifier</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+    {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

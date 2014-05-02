@@ -1,0 +1,54 @@
+{% extends "AndroidDevAdminBundle::layout.html.twig" %}
+
+{% block title %}Admin - Liste article - Android-dev{% endblock %}
+{% block description %}{% endblock %}
+
+{% block contentDetail %}
+<div class="col-md-12">
+    <h1>Listes d'articles</h1>
+
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_article_new') }}">
+                Créer un nouvel article
+            </a>
+        </li>
+    </ul>
+    <table class="records_list dataTable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Type</th>
+                <th>Catégorie</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for entity in entities %}
+                <tr>
+                    <td><a href="{{ path('admin_article_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{{ entity.titre | raw }}</td>
+                    <td>{{ entity.Type.nom }}</td>
+                    <td>{% if entity.Categorie%}{{ entity.Categorie.nom }}{% endif %}</td>
+                    <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>{% if entity.updated %}{{ entity.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('admin_article_show', { 'id': entity.id }) }}">Voir</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('admin_article_edit', { 'id': entity.id }) }}">Modifier</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,59 @@
+parameters:
+#    android_dev_site.example.class: AndroidDev\SiteBundle\Example
+
+services:
+#    android_dev_site.example:
+#        class: %android_dev_site.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+    
+    androiddev.infosite:
+        class: AndroidDev\SiteBundle\Service\InfoSite
+        arguments:
+          doctrine: "@doctrine"
+    
+    androiddev.point:
+        class: AndroidDev\SiteBundle\Service\Point
+        arguments:
+          doctrine: "@doctrine"
+          
+    twig.extension.infosite:
+        class: AndroidDev\SiteBundle\Extensions\InfoSiteExtension
+        arguments:
+          doctrine: "@doctrine"
+        tags:
+            - { name: twig.extension }
+          
+    twig.extension.toppiwik:
+        class: AndroidDev\SiteBundle\Extensions\TopPiwikExtension
+        arguments:
+          doctrine: "@doctrine"
+        tags:
+            - { name: twig.extension }
+          
+    twig.extension.articlecat:
+        class: AndroidDev\SiteBundle\Extensions\ArticleCatExtension
+        arguments:
+          doctrine: "@doctrine"
+        tags:
+            - { name: twig.extension }
+          
+    twig.extension.articlekey:
+        class: AndroidDev\SiteBundle\Extensions\ArticleKeyExtension
+        arguments:
+          doctrine: "@doctrine"
+        tags:
+            - { name: twig.extension }
+          
+    twig.extension.lastupdate:
+        class: AndroidDev\SiteBundle\Extensions\LastUpdateExtension
+        arguments:
+          doctrine: "@doctrine"
+        tags:
+            - { name: twig.extension }
+            
+    twig.extension.filtrecat:
+        class: AndroidDev\SiteBundle\Extensions\FiltreCatExtension
+        arguments:
+          doctrine: "@doctrine"
+        tags:
+            - { name: twig.extension }

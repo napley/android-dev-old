@@ -1,0 +1,26 @@
+{% extends "AndroidDevAdminBundle::layout.html.twig" %}
+
+{% block title %}Modifier - {{ entity.titre }} - Android-dev{% endblock %}
+{% block description %}{% endblock %}
+
+{% block contentDetail %}
+<div class="col-md-12">
+    <h1>InfoSite creation</h1>
+
+    <form action="{{ path('admin_infosite_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+            <p>
+                <button type="submit">Create</button>
+            </p>
+        </form>
+
+        <ul class="record_actions">
+            <li>
+                <a href="{{ path('admin_infosite') }}">
+                    Back to the list
+                </a>
+            </li>
+        </ul>
+
+    </div>
+{% endblock %}

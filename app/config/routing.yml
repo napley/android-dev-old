@@ -1,3 +1,24 @@
+android_dev_admin:
+    resource: "@AndroidDevAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
+admin_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+android_dev_site:
+    resource: "@AndroidDevSiteBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+point:
+    resource: "@AndroidDevAdminBundle/Controller/PointController.php"
+    type:     annotation
+    prefix:   /admin
+    
+android:
+    resource: "@AndroidDevAdminBundle/Controller/AndroidController.php"
+    type:     annotation
+    prefix:   /admin
+
 # Internal routing configuration to handle ESI
 # ****** WARNING ******
 # This route should be enabled with caution as it can open a security vulnerability
