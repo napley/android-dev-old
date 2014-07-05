@@ -17,7 +17,7 @@ class ArticleRepository extends EntityRepository
     {
         $deb = ($nb * $page) - ($nb);
 
-        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at WHERE a.visible = 1 AND (at.id = 1 OR at.id = 2) AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP()) ORDER BY a.created DESC');
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at WHERE a.visible = 2 AND (at.id = 1 OR at.id = 2) AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP()) ORDER BY a.created DESC');
         $query->setMaxResults($nb);
         $query->setFirstResult($deb);
         return $query->getResult();
