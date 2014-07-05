@@ -17,7 +17,7 @@ class ArticleRepository extends EntityRepository
     {
         $deb = ($nb * $page) - ($nb);
 
-        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at WHERE a.visible = 1 AND (at.id = 1 OR at.id = 2) ORDER BY a.created DESC');
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at WHERE a.visible = 1 AND (at.id = 1 OR at.id = 2) AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP()) ORDER BY a.created DESC');
         $query->setMaxResults($nb);
         $query->setFirstResult($deb);
         return $query->getResult();
@@ -27,7 +27,7 @@ class ArticleRepository extends EntityRepository
     {
         $deb = ($nb * $page) - ($nb);
 
-        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at WHERE a.visible = 1 AND at.id = 1 ORDER BY a.created DESC');
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at WHERE a.visible = 1 AND at.id = 1 AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP()) ORDER BY a.created DESC');
         $query->setMaxResults($nb);
         $query->setFirstResult($deb);
         return $query->getResult();
@@ -37,7 +37,7 @@ class ArticleRepository extends EntityRepository
     {
         $deb = ($nb * $page) - ($nb);
 
-        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at JOIN a.Categorie ac WHERE a.visible = 1 AND at.id = 1 AND ac.slug = :slug ORDER BY a.created DESC');
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at JOIN a.Categorie ac WHERE a.visible = 1 AND at.id = 1 AND ac.slug = :slug AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP()) ORDER BY a.created DESC');
         $query->setParameter('slug', $slug);
         $query->setMaxResults($nb);
         $query->setFirstResult($deb);
@@ -46,7 +46,7 @@ class ArticleRepository extends EntityRepository
 
     public function findArticleCatByIdCat($id, $nb)
     {
-        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at JOIN a.Categorie ac WHERE a.visible = 1 AND at.id = 1 AND ac.id = :id ORDER BY a.created DESC');
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at JOIN a.Categorie ac WHERE a.visible = 1 AND at.id = 1 AND ac.id = :id AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP()) ORDER BY a.created DESC');
         $query->setParameter('id', $id);
         $query->setMaxResults($nb);
         return $query->getResult();
@@ -54,7 +54,7 @@ class ArticleRepository extends EntityRepository
 
     public function findArticleCatByIdKey($id, $nb)
     {
-        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at JOIN a.MotCles am WHERE a.visible = 1 AND at.id = 1 AND am.id = :id ORDER BY a.created DESC');
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at JOIN a.MotCles am WHERE a.visible = 1 AND at.id = 1 AND am.id = :id AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP()) ORDER BY a.created DESC');
         $query->setParameter('id', $id);
         $query->setMaxResults($nb);
         return $query->getResult();
@@ -65,7 +65,7 @@ class ArticleRepository extends EntityRepository
     {
         $deb = ($nb * $page) - ($nb);
 
-        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at WHERE a.visible = 1 AND at.id = 2 ORDER BY a.created DESC');
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at WHERE a.visible = 1 AND at.id = 2 AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP()) ORDER BY a.created DESC');
         $query->setMaxResults($nb);
         $query->setFirstResult($deb);
         return $query->getResult();
@@ -75,7 +75,7 @@ class ArticleRepository extends EntityRepository
     {
         $deb = ($nb * $page) - ($nb);
 
-        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at JOIN a.Categorie ac WHERE a.visible = 1 AND at.id = 2 AND ac.slug = :slug ORDER BY a.created DESC');
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at JOIN a.Categorie ac WHERE a.visible = 1 AND at.id = 2 AND ac.slug = :slug AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP()) ORDER BY a.created DESC');
         $query->setParameter('slug', $slug);
         $query->setMaxResults($nb);
         $query->setFirstResult($deb);
@@ -86,7 +86,7 @@ class ArticleRepository extends EntityRepository
     {
         $deb = ($nb * $page) - ($nb);
 
-        $query = $this->_em->createQuery('SELECT p FROM AndroidDevSiteBundle:Projet p WHERE p.visible = 1 ORDER BY p.created DESC');
+        $query = $this->_em->createQuery('SELECT p FROM AndroidDevSiteBundle:Projet p WHERE p.visible = 1 AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP()) ORDER BY p.created DESC');
         $query->setMaxResults($nb);
         $query->setFirstResult($deb);
         return $query->getResult();
@@ -94,21 +94,21 @@ class ArticleRepository extends EntityRepository
 
     public function findBySlug($slug)
     {
-        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a WHERE a.slug = :slug AND a.visible=1');
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a WHERE a.slug = :slug AND a.visible=1 AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP())');
         $query->setParameter('slug', $slug);
         return $query->getOneOrNullResult();
     }
 
     public function findById($id)
     {
-        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a WHERE a.id = :id AND a.visible=1');
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a WHERE a.id = :id AND a.visible=1 AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP())');
         $query->setParameter('id', $id);
         return $query->getOneOrNullResult();
     }
 
     public function findByNom($nom)
     {
-        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a WHERE a.titre = :titre AND a.visible=1');
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a WHERE a.titre = :titre AND a.visible=1 AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP())');
         $query->setParameter('titre', ltrim($nom));
         return $query->getOneOrNullResult();
     }
@@ -118,7 +118,7 @@ class ArticleRepository extends EntityRepository
         $query = $this->_em->createQuery('SELECT a 
             FROM AndroidDevSiteBundle:Article a 
             JOIN a.Type t
-            WHERE (t.id = 1 OR t.id = 2) AND a.visible = 1
+            WHERE (t.id = 1 OR t.id = 2) AND a.visible = 1 AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP()) AND a.updated > a.created
             ORDER BY a.updated DESC');
         $query->setMaxResults($nb);
         return $query->getResult();
@@ -127,7 +127,7 @@ class ArticleRepository extends EntityRepository
     public function findAllPartProject()
     {
 
-        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type t WHERE t.id = 3 AND a.visible = 1 ORDER BY a.created DESC');
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type t WHERE t.id = 3 AND a.visible = 1 AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP()) ORDER BY a.created DESC');
         return $query->getResult();
     }
 
@@ -137,7 +137,7 @@ class ArticleRepository extends EntityRepository
 
         $requete = 'SELECT a FROM AndroidDevSiteBundle:Article a
                         JOIN a.Type at
-                        WHERE a.visible = 1 ';
+                        WHERE a.visible = 1 AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP())';
 
         foreach ($motCles as $cle => $motCle) {
             $requete .=" AND ( a.titre LIKE '%" . $motCle . "%' OR a.sousTitre LIKE '%" . $motCle . "%' OR a.contenu LIKE '%" . $motCle . "%' ) ";
@@ -154,7 +154,7 @@ class ArticleRepository extends EntityRepository
     
     public function findLink($id, $cat, $nb)
     {
-        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at JOIN a.Categorie ac WHERE a.visible = 1 AND (at.id = 1 OR at.id = 2) AND a.id != :id AND ac.slug = :slug ORDER BY a.created DESC');
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at JOIN a.Categorie ac WHERE a.visible = 1 AND (at.id = 1 OR at.id = 2) AND a.id != :id AND ac.slug = :slug AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP()) ORDER BY a.created DESC');
         $query->setParameter('slug', $cat);
         $query->setParameter('id', $id);
         $query->setMaxResults($nb);

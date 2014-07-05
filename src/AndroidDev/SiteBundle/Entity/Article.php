@@ -60,6 +60,11 @@ class Article implements ItemInterface
     private $slug;
 
     /**
+     * @ORM\Column(name="publishedAt", type="datetime", nullable=true)
+     */
+    private $publishedAt;
+
+    /**
      * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
      */
     private $deletedAt;
@@ -112,6 +117,7 @@ class Article implements ItemInterface
     public function __construct()
     {
         $this->MotCles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->publishedAt = new \DateTime();
     }
 
     /**
@@ -448,4 +454,16 @@ class Article implements ItemInterface
         return null;
     }
 
+    public function getPublishedAt()
+    {
+        return $this->publishedAt;
+    }
+
+    public function setPublishedAt($publishedAt)
+    {
+        $this->publishedAt = $publishedAt;
+    }
+
+
+    
 }

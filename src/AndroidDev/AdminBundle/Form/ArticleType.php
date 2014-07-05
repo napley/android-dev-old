@@ -27,7 +27,10 @@ class ArticleType extends AbstractType
                 ))
                 ->add('categorie', 'entity', array(
                     'class' => 'AndroidDevSiteBundle:Categorie',
-                    'property' => 'nom',));
+                    'property' => 'nom',))
+                ->add('publishedAt', 'datetime', array(
+                        'widget' => 'choice'
+                ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
