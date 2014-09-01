@@ -1,4 +1,11 @@
 $(document).ready(function() {
+    $( "<input type='button' value='Effacer' onclick='document.getElementById(\"androiddev_adminbundle_articletype_vignette\").value=\"\"'/>" ).insertAfter( "#androiddev_adminbundle_articletype_vignette" );
+    $( "<input type='button' value='Effacer' onclick='document.getElementById(\"androiddev_adminbundle_categorietype_vignette\").value=\"\"'/>" ).insertAfter( "#androiddev_adminbundle_categorietype_vignette" );
+    $( "<input type='button' value='Effacer' onclick='document.getElementById(\"androiddev_adminbundle_projettype_vignette\").value=\"\"'/>" ).insertAfter( "#androiddev_adminbundle_projettype_vignette" );
+      
+    $(".champs-vignette").click(function() {
+        openKCFinder(this);
+    });
 
     $('.dataTable').dataTable({
         "iDisplayLength": 100,
@@ -187,4 +194,17 @@ function addMotCle() {
 
 function delMotCle(ligneMotCle) {
     ligneMotCle.parentNode.parentNode.removeChild(ligneMotCle.parentNode);
+}
+
+function openKCFinder(field) {
+    window.KCFinder = {
+        callBack: function(url) {
+            field.value = url;
+            window.KCFinder = null;
+        }
+    };
+    window.open('/kcfinder/browse.php?type=images', 'kcfinder_textbox',
+        'status=0, toolbar=0, location=0, menubar=0, directories=0, ' +
+        'resizable=1, scrollbars=0, width=800, height=600'
+    );
 }

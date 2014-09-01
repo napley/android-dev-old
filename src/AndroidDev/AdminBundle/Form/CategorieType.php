@@ -12,6 +12,10 @@ class CategorieType extends AbstractType
     {
         $builder
             ->add('nom')
+            ->add('vignette', 'text', array(
+                    'required' => false,
+                    'attr' => array('class' => 'champs-vignette')
+                ))
         ;
     }
 

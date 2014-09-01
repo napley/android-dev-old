@@ -77,6 +77,16 @@ androiddev_articleCat:
     defaults:  { _controller: AndroidDevSiteBundle:Blog:articleCat, page: 1 }
     requirements:
         page:  \d*
+ 
+androiddev_projetCat:
+    pattern:   /projet/{slug}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:projetVoir }
+ 
+androiddev_motCles:
+    pattern:   /mot-cle/{slug}/{page}
+    defaults:  { _controller: AndroidDevSiteBundle:Blog:motCles, page: 1 }
+    requirements:
+        page:  \d*
     
 androiddev_astuceCat:
     pattern:   /astuce/{slug}/{page}

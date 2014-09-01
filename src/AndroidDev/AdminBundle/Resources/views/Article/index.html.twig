@@ -19,6 +19,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Vignette</th>
                 <th>Titre</th>
                 <th>Type</th>
                 <th>Catégorie</th>
@@ -31,6 +32,7 @@
     {% for entity in entities %}
                 <tr>
                     <td><a href="{{ path('admin_article_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{% if entity.vignette %}<img class="vignette" src="{{ entity.vignette }} " />{% endif %}</td>
                     <td>{{ entity.titre | raw }}</td>
                     <td>{{ entity.Type.nom }}</td>
                     <td>{% if entity.Categorie%}{{ entity.Categorie.nom }}{% endif %}</td>

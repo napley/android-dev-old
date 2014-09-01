@@ -14,6 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Categorie
 {
+
     /**
      * @var integer
      *
@@ -36,19 +37,24 @@ class Categorie
      */
     private $slug;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="vignette", type="string", length=255, nullable=true)
+     */
+    private $vignette;
 
     /**
      * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
      */
     private $deletedAt;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="AndroidDev\SiteBundle\Entity\Article",
       mappedBy="Categorie")
      */
     private $Articles;
 
-    
     public function __construct()
     {
         $this->Articles = new \Doctrine\Common\Collections\ArrayCollection();
@@ -73,7 +79,7 @@ class Categorie
     public function setNom($nom)
     {
         $this->nom = $nom;
-    
+
         return $this;
     }
 
@@ -96,7 +102,7 @@ class Categorie
     public function setSlug($slug)
     {
         $this->slug = $slug;
-    
+
         return $this;
     }
 
@@ -109,8 +115,30 @@ class Categorie
     {
         return $this->slug;
     }
-    
-    
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getVignette()
+    {
+        return $this->vignette;
+    }
+
+    /**
+     * Set titre
+     *
+     * @param string $titre
+     * @return Article
+     */
+    public function setVignette($vignette)
+    {
+        $this->vignette = $vignette;
+
+        return $this;
+    }
+
     public function addArticle(\AndroidDev\SiteBundle\Entity\Article $article)
     {
         $this->Articles[] = $article;
@@ -126,4 +154,5 @@ class Categorie
     {
         return $this->Articles;
     }
+
 }

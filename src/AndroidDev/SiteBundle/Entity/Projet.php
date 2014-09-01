@@ -35,6 +35,13 @@ class Projet implements ItemInterface
     /**
      * @var string
      *
+     * @ORM\Column(name="vignette", type="string", length=255, nullable=true)
+     */
+    private $vignette;
+    
+    /**
+     * @var string
+     *
      * @ORM\Column(name="sousTitre", type="text")
      */
     private $sousTitre;
@@ -130,6 +137,11 @@ class Projet implements ItemInterface
     {
         return $this->titre;
     }
+    
+    public function getNom()
+    {
+        return $this->titre;
+    }
 
     /**
      * Get titre
@@ -174,6 +186,29 @@ class Projet implements ItemInterface
         return $this->sousTitre;
     }
 
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getVignette()
+    {
+        return $this->vignette;
+    }
+
+    /**
+     * Set titre
+     *
+     * @param string $titre
+     * @return Article
+     */
+    public function setVignette($vignette)
+    {
+        $this->vignette = $vignette;
+
+        return $this;
+    }
+ 
     /**
      * Set contenu
      *
@@ -302,4 +337,9 @@ class Projet implements ItemInterface
         return $this->getTitre();
     }
 
+//    public function publishedAt()
+//    {
+//        return $this->created;
+//    }
+    
 }

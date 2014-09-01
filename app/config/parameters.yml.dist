@@ -1,0 +1,17 @@
+parameters:
+    database_driver:   pdo_mysql
+    database_host:     localhost
+    database_port:     ~
+    database_name:     android-dev
+    database_user:     root
+    database_password: Okirrchsim1
+
+    mailer_transport:  smtp
+    mailer_auth_mode:  login
+    mailer_host:       mail.gandi.net
+    mailer_port:       587
+    mailer_user:       postmaster@android-dev.fr
+    mailer_password:   Okirrchsim1
+
+    locale:            fr
+    secret:            6a40c410b1b7951d10bea7be812bb561f7

@@ -10,6 +10,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Vignette</th>
                 <th>Nom</th>
                 <th>Actions</th>
             </tr>
@@ -18,6 +19,7 @@
     {% for entity in entities %}
                 <tr>
                     <td><a href="{{ path('admin_categorie_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{% if entity.vignette %}<img class="vignette" src="{{ entity.vignette }} " />{% endif %}</td>
                     <td>{{ entity.nom }}</td>
                     <td>
                         <ul>

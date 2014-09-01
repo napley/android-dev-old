@@ -12,6 +12,10 @@ class ProjetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('titre')
+                ->add('vignette', 'text', array(
+                    'required' => false,
+                    'attr' => array('class' => 'champs-vignette')
+                ))
                 ->add('sousTitre', 'textarea', array(
                     'required' => false,
                 ))

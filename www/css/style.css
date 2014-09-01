@@ -81,10 +81,6 @@ body {
     cursor: pointer;
 }
 
-ul.dropdown-menu > li.nav-header > a {
-    color: #000000;
-}
-
 ul.dropdown-menu > li.nav-header > a:hover {
     color: #FFFFFF;
 }
@@ -95,10 +91,19 @@ ul.dropdown-menu > li.nav-header > a:hover {
     background-image: none;
 }
 
+.dropdown-menu > li > a {
+    color: #6f6f6f;
+    font-family: "OpenSansRegular";
+}
+
+.dropdown-menu > li {
+    border-bottom: 1px solid #eee;
+}
+
 .title-nav {
-    margin-bottom: 3px;
-    border-bottom: 1px solid grey;
-    height: 28px;
+/*    margin-bottom: 3px;*/
+    /*border-bottom: 1px solid grey;*/
+    /*height: 28px;*/
 }
 
 /*div.content > div.row-fluid > div {
@@ -112,6 +117,13 @@ ul.dropdown-menu > li.nav-header > a {
 
 ul.dropdown-menu > li.nav-header > a:hover {
 }
+
+ul.dropdown-menu {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+    padding: 0;
+    border-bottom: 3px solid rgb(67, 113, 207);
+}
+
 
 /**/
 h2 {
@@ -152,9 +164,10 @@ h1, h2, h3 {
 .listeArticle{
     margin-bottom: 30px;
     /*background: none repeat scroll 0px 0px rgb(245, 245, 245);*/
-    border-bottom: 1px solid #E3E3E3;
+    border: 1px solid #eee;
+    /*border-bottom: 1px solid #E3E3E3;*/
     overflow: hidden;
-    padding: 10px;
+    padding: 15px;
     font-family: 'OpenSansRegular';
 }
 
@@ -185,7 +198,7 @@ h1, h2, h3 {
 }
 
 .contenuArticle p {
-    text-indent: 3%;
+    /*text-indent: 3%;*/
 }
 
 .contenuArticle h2 {
@@ -510,6 +523,13 @@ div.row {
     margin-bottom: 5px;
 }
 
+.cat-slider:hover {
+    padding: 3px 4px !important;
+    color: rgb(67, 113, 207);
+    background: none repeat scroll 0% 0% rgb(255, 255, 255);
+    border: 1px solid #dedede;
+}
+
 .mot-slider {
     padding: 4px 5px !important;
     font-size: 11px;
@@ -517,6 +537,13 @@ div.row {
     display: inline-block !important;
     background: none repeat scroll 0% 0% rgb(255, 255, 255);
     border: 1px solid #dedede;
+}
+
+.mot-slider:hover {
+    color: rgb(255, 255, 255);
+    background: none repeat scroll 0% 0% rgb(67, 113, 207);
+    border: 0px;
+    padding: 5px 6px !important;
 }
 
 .btn-lire-suite {
@@ -560,7 +587,6 @@ p.post-meta > a  {
 
 p.post-meta > a:hover  {
     color: #000000;
-    text-decoration: none;
 }
 
 .follow-button {
@@ -574,25 +600,25 @@ p.post-meta > a:hover  {
 
 .breadcrumb {
     border-radius: 0px;
-    background: none repeat scroll 0% 0% rgb(45, 45, 45);
+    background: none;
+    margin-bottom: 10px;
 }
 
 .breadcrumb li a:hover {
     color: rgb(67, 113, 207);
-    transition: color 0.4s linear 0s;
     text-decoration: none;
 }
 
 .breadcrumb li a {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 16px;
-    color: rgb(255, 255, 255);
     font-family: 'OpenSansRegular';
+    color: #777;
 }
 
-.breadcrumb li.active {
-    line-height: 24px;
-    color: rgb(255, 255, 255);
+.breadcrumb li.active > a {
+    font-size: 12px;
+    line-height: 16px;
     font-family: 'OpenSansBold';
 }
 
@@ -678,4 +704,78 @@ form.contact-form > div > input{
     bottom: -16px !important;
     color: #000000;
     margin-left: -15px !important;
+}
+
+.item-container {
+    margin-bottom: 10px !important;
+    overflow: hidden;
+    width: 140px !important;
+}
+
+.ob_org_header {
+    font-family: 'OpenSansRegular';
+    font-size: 16.5px !important;
+    font-weight: 100 !important;
+    color: #6f6f6f;    
+    padding-bottom: 10px !important;
+}
+
+.jumbotron p {
+    font-size: 16px;
+}
+
+.strip-rec-link-title {
+    height: 48px !important;
+    font-size: 11px !important;
+}
+
+.ob_container_recs {
+    position: inherit !important;
+}
+
+.ob_container {
+    position: inherit !important;
+}
+
+.ob-rec-link-img {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#androiddev_adminbundle_articletype_titre {
+    width: 80%;
+}
+
+.glyphicon {
+    color: rgb(119, 119, 119);
+}
+
+.title-article-center > h2 {
+    margin-bottom: 10px;
+}
+
+.listePartProjet {
+    list-style-type: none;
+}
+
+
+.listePartProjet h2 {
+    font-size: 14px;
+    margin-bottom: 0px;
+}
+
+#androiddev_adminbundle_projettype_vignette, #androiddev_adminbundle_projettype_titre, #androiddev_adminbundle_categorietype_vignette, #androiddev_adminbundle_articletype_vignette {
+    width: 80%;
+}
+
+.vignette {
+    width: 70px;
+}
+
+.all-larg {
+    width: 100%;
+}
+
+.contenuArticle .img-responsive {
+    text-align: center;
 }

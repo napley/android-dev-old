@@ -9,13 +9,15 @@
     <h1>{{ projet.titre | raw }}</h1>
     {{ projet.sousTitre | raw }}
     <!-- AddThis Button BEGIN -->
-    <div class="addthis_toolbox addthis_default_style">
-        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-        <a class="addthis_button_tweet"></a>
-        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-        <a class="addthis_button_linkedin_counter"></a>
-        <a class="addthis_counter addthis_pill_style"></a>
+    <div class="addthis_toolbox addthis_default_style addthis_16x16_style">
+        <a class="addthis_button_facebook"></a>
+        <a class="addthis_button_twitter"></a>
+        <a class="addthis_button_google_plusone_share"></a>
+        <a class="addthis_button_linkedin"></a>
+        <a class="addthis_button_viadeo"></a>
+        <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
     </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar": true};</script>
     <!-- AddThis Button END -->
 </div>
 {% endblock %}
@@ -31,7 +33,10 @@
             <div class="listePart">
                 <span class="title-article-center"><h2 class="title-list-article"><a href="{{ path('androiddev_voir', {'slug': part.slug}) }}">{{ rang }}. {{ part.titre }}</a></h2></span>
                 <div>{{ part.sousTitre | raw }}</div>
-                
+                <p class="text-left">{% for motCle in part.getMotCles() %}
+                    <a href="{{ path('androiddev_motCles', {'slug': motCle.getSlug()}) }}"><span class="mot-slider ">{{ motCle.getNom() }}</span></a>
+            {% endfor %}
+                </p>
             </div>
         </div>
         
@@ -41,7 +46,7 @@
 </div>
 <br />
 <p class="text-left muted">
-    {% if projet.getUpdated() ==  projet.getCreated() %}
+    {% if projet.getUpdated() <=  projet.getCreated() %}
     Publié le {{ projet.getCreated()|date("d/m/Y") }}
     {% else %}
     Modifié le {{ projet.getUpdated()|date("d/m/Y") }}
@@ -58,7 +63,14 @@
     <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
 </div>
 <!-- AddThis Button END -->
-
+<hr />
+<h4>Ceci pourrait vous intéresser</h4>
+<dl class="related">
+                   {% for projet in lastProjet %}
+    <dt><a href="{{ path('androiddev_projetVoir', {'slug': projet.slug}) }}">{{ projet.titre | raw }}</a></dt>
+    <dd>{{ projet.sousTitre | raw }}</dd>
+                    {% endfor %}
+</dl>
 <hr />
 
 <div id="disqus_thread"></div>

@@ -27,7 +27,7 @@ class BlogController extends Controller
         $infoSite = $this->container->get('androiddev.infosite')->getInfoSite();
 
         $liste_articles = $this->getDoctrine()
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findLastArticleByPage($page, $infoSite['nbByPage']);
 
@@ -35,7 +35,7 @@ class BlogController extends Controller
         $routeAft['page'] = $page + 1;
 
         $liste_articles_next = $this->getDoctrine()
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findLastArticleByPage($routeAft['page'], $infoSite['nbByPage']);
 
@@ -146,7 +146,7 @@ class BlogController extends Controller
         $infoSite = $this->container->get('androiddev.infosite')->getInfoSite();
 
         $liste_articles = $this->getDoctrine()
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findArticleByPage($page, $infoSite['nbByPage']);
 
@@ -154,7 +154,7 @@ class BlogController extends Controller
         $routeAft['page'] = $page + 1;
 
         $liste_articles_next = $this->getDoctrine()
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findArticleByPage($routeAft['page'], $infoSite['nbByPage']);
 
@@ -178,12 +178,12 @@ class BlogController extends Controller
         $infoSite = $this->container->get('androiddev.infosite')->getInfoSite();
 
         $liste_articles = $this->getDoctrine()
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findArticleCatByPage($slug, $page, $infoSite['nbByPage']);
 
         $categorie = $this->getDoctrine()
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Categorie')
                 ->findOneBySlug($slug);
 
@@ -193,12 +193,56 @@ class BlogController extends Controller
         $routeAft['page'] = $page + 1;
 
         $liste_articles_next = $this->getDoctrine()
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findArticleCatByPage($slug, $routeAft['page'], $infoSite['nbByPage']);
 
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
             'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_articleCat', 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'type' => 'article', 'categorie' => $categorie->getNom(),
+            'articlesNext' => $liste_articles_next
+        ));
+        return $render;
+    }
+
+
+    /**
+     * 
+     * @return type
+     * @throws type
+     */
+    public function motClesAction($slug, $page = 1)
+    {
+        $page = (($page < 1 || empty($page)) ? 1 : $page);
+
+        $infoSite = $this->container->get('androiddev.infosite')->getInfoSite();
+
+        $motCle =  $this->getDoctrine()
+                ->getManager()
+                ->getRepository('AndroidDevSiteBundle:MotCle')
+                ->findOneBySlug($slug);
+        
+        $liste_articles = $this->getDoctrine()
+                ->getManager()
+                ->getRepository('AndroidDevSiteBundle:Article')
+                ->findByMotCles($slug, $page, $infoSite['nbByPage']);
+
+//        $categorie = $this->getDoctrine()
+//                ->getManager()
+//                ->getRepository('AndroidDevSiteBundle:Categorie')
+//                ->findOneBySlug($slug);
+
+        $routeBef['slug'] = $slug;
+        $routeBef['page'] = $page - 1;
+        $routeAft['slug'] = $slug;
+        $routeAft['page'] = $page + 1;
+
+        $liste_articles_next = $this->getDoctrine()
+                ->getManager()
+                ->getRepository('AndroidDevSiteBundle:Article')
+                ->findByMotCles($slug, $routeAft['page'], $infoSite['nbByPage']);
+        
+        $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
+            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_motCles', 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'type' => 'article', 'motcle' => $motCle->getNom(),
             'articlesNext' => $liste_articles_next
         ));
         return $render;
@@ -216,7 +260,7 @@ class BlogController extends Controller
         $infoSite = $this->container->get('androiddev.infosite')->getInfoSite();
 
         $liste_articles = $this->getDoctrine()
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findAstuceByPage($page, $infoSite['nbByPage']);
 
@@ -224,7 +268,7 @@ class BlogController extends Controller
         $routeAft['page'] = $page + 1;
 
         $liste_articles_next = $this->getDoctrine()
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findAstuceByPage($routeAft['page'], $infoSite['nbByPage']);
 
@@ -247,12 +291,12 @@ class BlogController extends Controller
         $infoSite = $this->container->get('androiddev.infosite')->getInfoSite();
 
         $liste_articles = $this->getDoctrine()
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findAstuceCatByPage($slug, $page, $infoSite['nbByPage']);
 
         $categorie = $this->getDoctrine()
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Categorie')
                 ->findOneBySlug($slug);
 
@@ -262,7 +306,7 @@ class BlogController extends Controller
         $routeAft['page'] = $page + 1;
 
         $liste_articles_next = $this->getDoctrine()
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findAstuceCatByPage($slug, $routeAft['page'], $infoSite['nbByPage']);
 
@@ -284,19 +328,27 @@ class BlogController extends Controller
 
         $infoSite = $this->container->get('androiddev.infosite')->getInfoSite();
 
-        $liste_articles = $this->getDoctrine()
-                ->getEntityManager()
+        $liste_projets = $this->getDoctrine()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findProjetByPage($page, $infoSite['nbByPage']);
-
+        //var_dump($liste_projets);
+        foreach ($liste_projets as $key => $projet) {
+            $part[$projet->getId()] = $this->getDoctrine()
+                ->getManager()
+                ->getRepository('AndroidDevSiteBundle:Projet')
+                ->listPartsByIndex($projet);
+        }
+        
         $liste_articles_next = $this->getDoctrine()
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findProjetByPage($page + 1, $infoSite['nbByPage']);
 
         $render = $this->render('AndroidDevSiteBundle:Blog:allProjet.html.twig', array(
-            'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_projet',
-            'articlesNext' => $liste_articles_next
+            'articles' => $liste_projets, 'page' => $page, 'route' => 'androiddev_projet',
+            'articlesNext' => $liste_articles_next,
+            'articlesProjet' => $part
         ));
         return $render;
     }
@@ -309,7 +361,7 @@ class BlogController extends Controller
     public function voirAction($slug)
     {
         $article = $this->getDoctrine()
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findBySlug($slug);
 
@@ -318,7 +370,7 @@ class BlogController extends Controller
             $category = $article->getCategorie();
             if (!empty($category)) {
                 $links = $this->getDoctrine()
-                        ->getEntityManager()
+                        ->getManager()
                         ->getRepository('AndroidDevSiteBundle:Article')
                         ->findLink($article->getId(), $category->getSlug(), 5);
             } else {
@@ -346,12 +398,12 @@ class BlogController extends Controller
     {
         $parts = array();
         $projet = $this->getDoctrine()
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Projet')
                 ->findOneBySlug($slug);
 
         $parts = $this->getDoctrine()
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Projet')
                 ->listPartsByIndex($projet);
 
@@ -453,7 +505,7 @@ class BlogController extends Controller
 //        $motCle = array();
 //        $motCle = explode(' ', $_POST['motCles']);
 //        $articles = $this->getDoctrine()
-//                ->getEntityManager()
+//                ->getManager()
 //                ->getRepository('AndroidDevSiteBundle:Article')
 //                ->getArticleBySearch($motCle);
 
@@ -475,7 +527,7 @@ class BlogController extends Controller
         $motCle = explode(' ', str_replace('+', ' ', $motcles));
 
         $articles = $this->getDoctrine()
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->getArticleBySearch($motCle, $page, $infoSite['nbByPage']);
 
@@ -485,7 +537,7 @@ class BlogController extends Controller
         $routeAft['page'] = $page + 1;
 
         $liste_articles_next = $this->getDoctrine()
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->getArticleBySearch($motCle, $routeAft['page'], $infoSite['nbByPage']);
 
@@ -501,7 +553,7 @@ class BlogController extends Controller
     public function redirectAction($id, $titre = null)
     {
         $article = $this->getDoctrine()
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findById($id);
 
@@ -530,7 +582,7 @@ class BlogController extends Controller
     public function getJsonAction()
     {
         $articles = $this->getDoctrine()
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findLastArticleByPage(1, 40);
 
@@ -560,7 +612,7 @@ class BlogController extends Controller
         $today = new \DateTime();
 
         $Androids = $this->getDoctrine()
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Android')
                 ->findAll();
 

@@ -57,6 +57,10 @@ Page {{ page }}.
     {% if categorie is defined %}
     <p>De la catégorie : {{ categorie }}</p>
     {% endif %}
+
+    {% if motcle is defined %}
+    <p>Du mot-clé : {{ motcle }}</p>
+    {% endif %}
 {% else %}
     {{ infosite['entete'] | raw  }}
 {% endif %}
@@ -69,14 +73,18 @@ Page {{ page }}.
 
 {% for article in articles %}
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 cadreListeArticle">
+            {% if article.vignette %}
+                <img class="img-responsive all-larg" src="{{ article.vignette }}"/>
+            {% endif %}
             <div class="listeArticle">
                 <span class="title-article-center"><h2 class="title-list-article"><a href="{{ path('androiddev_voir', {'slug': article.slug}) }}">{{ article.titre | raw }}</a></h2></span>
-                <p class="post-meta"><span class="glyphicon glyphicon-time"></span>  {{ article.getUpdated()|date("d/m/Y") }}    <span class="glyphicon glyphicon-user"></span>  androiddevfr   <span class="glyphicon glyphicon-comment"></span>  <a href="{{ path('androiddev_voir', {'slug': article.slug}) }}#disqus_thread" data-disqus-identifier="{{ article.id }}"></a>   </p>
+                <p class="post-meta"><span class="glyphicon glyphicon-time"></span>  {{ article.getPublishedAt()|date("d/m/Y") }}   &nbsp;|&nbsp;   <span class="glyphicon glyphicon-user"></span>  androiddevfr  &nbsp;|&nbsp; <span class="glyphicon glyphicon-comment"></span>  <a href="{{ path('androiddev_voir', {'slug': article.slug}) }}#disqus_thread" data-disqus-identifier="{{ article.id }}"></a>   </p>
                 <div class="pres-article-list">{{ article.sousTitre | raw }}</div>
-                <p class="text-left"><span class="cat-slider ">{{ article.getType().getNom() }} </span>  <span class="cat-slider "> {{ article.getCategorie().getNom() }}</span>
-                    <br />{% for motCle in article.getMotCles() %}
-                    <span class="mot-slider ">{{ motCle.getNom() }}</span>
-            {% endfor %}
+                <p class="text-left"><a href="{{ path('androiddev_'~article.getType().getNom()|lower) }}"><span class="cat-slider ">{{ article.getType().getNom() }} </span></a>  <a href="{{ path('androiddev_'~article.getType().getNom()|lower ~'Cat', {'slug': article.getCategorie().getSlug() }) }}"><span class="cat-slider "> {{ article.getCategorie().getNom() }}</span></a>
+                    <br />
+                    {% for motCle in article.getMotCles() %}
+                        <a href="{{ path('androiddev_motCles', {'slug': motCle.getSlug()}) }}"><span class="mot-slider ">{{ motCle.getNom() }}</span></a>
+                    {% endfor %}
                 </p>
 
             </div>

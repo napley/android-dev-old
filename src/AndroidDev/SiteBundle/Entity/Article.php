@@ -35,6 +35,13 @@ class Article implements ItemInterface
     /**
      * @var string
      *
+     * @ORM\Column(name="vignette", type="string", length=255, nullable=true)
+     */
+    private $vignette;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="sousTitre", type="text")
      */
     private $sousTitre;
@@ -162,6 +169,45 @@ class Article implements ItemInterface
     public function setVisible($visible)
     {
         $this->visible = $visible;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getVignette()
+    {
+        if (empty($this->vignette) && $this->Type->getId() != 3) {
+            if (!empty($this->Categorie) && !empty($this->Categorie->getVignette())) {
+                return $this->Categorie->getVignette();
+            }
+            else {
+                return '';
+            }
+        } elseif(empty($this->vignette) && $this->Type->getId() == 3) {
+            if (!empty($this->Projet) && !empty($this->Projet->getProjet()->getVignette())) {
+                return $this->Projet->getProjet()->getVignette();
+            }
+            else {
+                return '';
+            }
+        }else {
+            return $this->vignette;
+        }
+    }
+
+    /**
+     * Set titre
+     *
+     * @param string $titre
+     * @return Article
+     */
+    public function setVignette($vignette)
+    {
+        $this->vignette = $vignette;
 
         return $this;
     }
@@ -351,7 +397,11 @@ class Article implements ItemInterface
      */
     public function getCategorie()
     {
-        return $this->Categorie;
+        if (!empty($this->Type) && $this->Type->getId() == 3) {
+            return $this->Projet->getProjet();
+        } else {
+            return $this->Categorie;
+        }
     }
 
     public function setProjet(\AndroidDev\SiteBundle\Entity\Projet $projet, $index)
@@ -417,12 +467,12 @@ class Article implements ItemInterface
 
     public function getFeedItemLink()
     {
-        return 'http://www.android-dev.fr/'.$this->slug;
+        return 'http://www.android-dev.fr/' . $this->slug;
     }
 
     public function getFeedItemPubDate()
     {
-        return $this->getCreated();
+        return $this->getPublishedAt();
     }
 
     public function getFeedItemTitle()
@@ -456,7 +506,11 @@ class Article implements ItemInterface
 
     public function getPublishedAt()
     {
-        return $this->publishedAt;
+        if (empty($this->publishedAt)) {
+            return $this->getCreated();
+        } else {
+            return $this->publishedAt;
+        }
     }
 
     public function setPublishedAt($publishedAt)
@@ -464,6 +518,4 @@ class Article implements ItemInterface
         $this->publishedAt = $publishedAt;
     }
 
-
-    
 }

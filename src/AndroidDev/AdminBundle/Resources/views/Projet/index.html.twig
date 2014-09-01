@@ -28,9 +28,10 @@
             </tr>
         </thead>
         <tbody>
-    {% for entity in entities %}
+            {% for entity in entities %}
                 <tr>
                     <td><a href="{{ path('admin_projet_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{% if entity.vignette %}<img class="vignette" src="{{ entity.vignette }} " />{% endif %}</td>
                     <td>{{ entity.titre }}</td>
                     <td>{{ entity.sousTitre }}</td>
                     <td>{{ entity.contenu }}</td>
@@ -47,9 +48,9 @@
                         </ul>
                     </td>
                 </tr>
-    {% endfor %}
-            </tbody>
-        </table>
+            {% endfor %}
+        </tbody>
+    </table>
 
     </div>
 {% endblock %}

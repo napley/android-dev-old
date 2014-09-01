@@ -15,6 +15,10 @@ class ArticleType extends AbstractType
                 ->add('sousTitre', 'textarea', array(
                     'required' => false,
                 ))
+                ->add('vignette', 'text', array(
+                    'required' => false,
+                    'attr' => array('class' => 'champs-vignette')
+                ))
                 ->add('contenu', 'textarea', array(
                     'required' => false,
                 ))

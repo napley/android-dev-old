@@ -2,10 +2,15 @@ $(document).ready(function() {
 
     $(".lightbox").attr('rel', 'gallery').fancybox();
     createSommaire();
-
+    
     $(".lightbox > img").addClass("img-responsive");
 
     $('table').addClass('table table-striped');
+    
+    $('iframe[src^="//www.youtube.com/embed/"]').each(function( index ) {
+        $(this).wrapAll(document.createElement("div"));
+        $(this).parent().addClass("embed-responsive embed-responsive-16by9");
+    });
 });
 
 function createSommaire() {
