@@ -180,16 +180,22 @@ class Article implements ItemInterface
      */
     public function getVignette()
     {
-        if (empty($this->vignette) && $this->Type->getId() != 3) {
-            if (!empty($this->Categorie) && !empty($this->Categorie->getVignette())) {
-                return $this->Categorie->getVignette();
+        if (empty($this->vignette) && !empty($this->Type) && $this->Type->getId() != 3) {
+            if (!empty($this->Categorie)) {
+                $vignette = $this->Categorie->getVignette();
+                if (!empty($vignette)) {
+                    return $this->Categorie->getVignette();
+                }
             }
             else {
                 return '';
             }
-        } elseif(empty($this->vignette) && $this->Type->getId() == 3) {
-            if (!empty($this->Projet) && !empty($this->Projet->getProjet()->getVignette())) {
+        } elseif(empty($this->vignette) && !empty($this->Type) && $this->Type->getId() == 3) {
+            if (!empty($this->Projet)) {
+                $vignette = $this->Projet->getProjet()->getVignette();
+                if (!empty($vignette)) {
                 return $this->Projet->getProjet()->getVignette();
+                }
             }
             else {
                 return '';

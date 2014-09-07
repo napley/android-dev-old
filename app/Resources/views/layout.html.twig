@@ -27,25 +27,25 @@
         <!-- Le styles -->
         {% block stylesheets %}
 
-            {% endblock %}
+        {% endblock %}
 
     </head>
 
     <body>
 
-                        {% block navbar %}
+        {% block navbar %}
 
-                        {% endblock %}
+        {% endblock %}
 
 
-            {% block infoMobileTablet %}
-            {% endblock %}
+        {% block infoMobileTablet %}
+        {% endblock %}
 
 
         <div class="row">
             <div class="col-md-2 hidden-sm hidden-xs">
-                    {% block menuGauche %}
-                    {% endblock %}
+                {% block menuGauche %}
+                {% endblock %}
             </div>
 
             <div class="col-md-7 content col-sm-9" itemscope itemtype="http://schema.org/Article">
@@ -68,7 +68,7 @@
                 {% endblock %}
 
                 {% block contentPC %}
-                 {% endblock %}
+                {% endblock %}
                 <script type="text/javascript">
                     google_ad_client = "ca-pub-4672745701309961";
                     width = document.documentElement.clientWidth;
@@ -92,16 +92,16 @@
             </div><!--/span-->
 
             <div class="col-md-3 col-sm-3">
-            {% block colonneDroite %}
+                {% block colonneDroite %}
 
-            {% endblock %}
+                {% endblock %}
             </div><!--/span-->
         </div><!--/row-->
 
         <div class="row">
             <div class="panel-footer">
-            {% block footer %}
-            {% endblock %}
+                {% block footer %}
+                {% endblock %}
                 <div class="container">
                     <!-- AddThis Follow BEGIN -->
                     <div class="addthis_toolbox addthis_32x32_style addthis_default_style">
@@ -122,22 +122,25 @@
         <!-- Le javascript
     ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script type="text/javascript" src="{{ asset('js/jquery-1.8.3.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/javascript.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/jquery.fancybox.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/jquery.fancybox.pack.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/shCore.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/shBrushXml.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/shBrushJava.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/shBrushBash.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/isotope.pkgd.min.js') }}"></script>
+        {% javascripts output="js/compiled/core.js"
+            'js/jquery-1.8.3.min.js'
+            'js/bootstrap.min.js'
+            'js/javascript.js'
+            'js/jquery.fancybox.js'
+            'js/jquery.fancybox.pack.js'
+            'js/shCore.js'
+            'js/shBrushXml.js'
+            'js/shBrushJava.js'
+            'js/shBrushBash.js'
+            'js/isotope.pkgd.min.js' %}
+        <script src="{{ asset_url }}" charset="utf-8"></script>
+        {% endjavascripts %}
         <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4e84c63d79df556f"></script>
-{% block script %}
-{% endblock %}
+        {% block script %}
+        {% endblock %}
         <script type="text/javascript">
-            SyntaxHighlighter.config.tagName = "textarea";
-            SyntaxHighlighter.all();
+                    SyntaxHighlighter.config.tagName = "textarea";
+                    SyntaxHighlighter.all();
         </script>
     </body>
 </html>

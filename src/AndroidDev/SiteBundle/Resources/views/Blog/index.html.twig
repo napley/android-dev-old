@@ -4,6 +4,8 @@
     {% if type is defined %}
         {% if type == 'recherche' %}
 Recherche sur android-dev.fr : {% if motCle is defined %}{{ motCle }}{% endif %}
+    {% elseif motcle is defined %}
+    Toutes les {{ type }}s du mot clé {{ motcle }} du site android-dev.fr
         {% else %}
 Toutes les {{ type }}s {% if categorie is defined %}{{ categorie }}{% endif %} du site android-dev.fr
         {% endif %}
@@ -18,22 +20,25 @@ Page {{ page }}.
 {% block description %}
     {% if type is defined %}
         {% if type == 'recherche' %}
-Recherche sur android-dev.fr. 
-Mots clés : {{ motCle }}.
+            Recherche sur android-dev.fr. 
+            Mots clés : {{ motCle }}.
+            
+        {% elseif motcle is defined %}
+            Toutes les {{ type }}s du mot clé {{ motcle }} présent sur le site android-dev.fr. 
         {% else %}
-Toutes les {{ type }}s présent sur le site android-dev.fr. 
+            Toutes les {{ type }}s présent sur le site android-dev.fr. 
         {% endif %}
 
         {% if categorie is defined %}
-De la catégorie : {{ categorie }}.
+             De la catégorie : {{ categorie }}.
         {% endif %}
     {% else %}
         {{ infosite['description'] | raw  }}
     {% endif %}
 
-{% if  page > 1 %}
-Page {{ page }}.
-{% endif %}
+    {% if  page > 1 %}
+    Page {{ page }}.
+    {% endif %}
 {% endblock %}
 
 {% block meta %}
@@ -69,21 +74,21 @@ Page {{ page }}.
 
 {% block contentPC %}
 <div class="row">
-    <div class="js-isotope">
+    <div id="container" class="js-isotope">
 
 {% for article in articles %}
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 cadreListeArticle">
             {% if article.vignette %}
-                <img class="img-responsive all-larg" src="{{ article.vignette }}"/>
+                <img class="img-responsive all-larg" alt="{{ article.titre | raw }}" src="{{ article.vignette }}"/>
             {% endif %}
             <div class="listeArticle">
-                <span class="title-article-center"><h2 class="title-list-article"><a href="{{ path('androiddev_voir', {'slug': article.slug}) }}">{{ article.titre | raw }}</a></h2></span>
-                <p class="post-meta"><span class="glyphicon glyphicon-time"></span>  {{ article.getPublishedAt()|date("d/m/Y") }}   &nbsp;|&nbsp;   <span class="glyphicon glyphicon-user"></span>  androiddevfr  &nbsp;|&nbsp; <span class="glyphicon glyphicon-comment"></span>  <a href="{{ path('androiddev_voir', {'slug': article.slug}) }}#disqus_thread" data-disqus-identifier="{{ article.id }}"></a>   </p>
+                <span class="title-article-center"><h2 class="title-list-article"><a title="{{ article.titre | raw }}" href="{{ path('androiddev_voir', {'slug': article.slug}) }}">{{ article.titre | raw }}</a></h2></span>
+                <p class="post-meta"><span class="glyphicon glyphicon-time"></span>  {{ article.getPublishedAt()|date("d/m/Y") }}   &nbsp;|&nbsp;   <span class="glyphicon glyphicon-user"></span>  androiddevfr  &nbsp;|&nbsp; <span class="glyphicon glyphicon-comment"></span>  <a title="commentaire" href="{{ path('androiddev_voir', {'slug': article.slug}) }}#disqus_thread" data-disqus-identifier="{{ article.id }}"></a>   </p>
                 <div class="pres-article-list">{{ article.sousTitre | raw }}</div>
-                <p class="text-left"><a href="{{ path('androiddev_'~article.getType().getNom()|lower) }}"><span class="cat-slider ">{{ article.getType().getNom() }} </span></a>  <a href="{{ path('androiddev_'~article.getType().getNom()|lower ~'Cat', {'slug': article.getCategorie().getSlug() }) }}"><span class="cat-slider "> {{ article.getCategorie().getNom() }}</span></a>
+                <p class="text-left"><a title="{{ article.getType().getNom() }}" href="{{ path('androiddev_'~article.getType().getNom()|lower) }}"><span class="cat-slider ">{{ article.getType().getNom() }} </span></a>  <a title="{{ article.getCategorie().getNom() }}" href="{{ path('androiddev_'~article.getType().getNom()|lower ~'Cat', {'slug': article.getCategorie().getSlug() }) }}"><span class="cat-slider "> {{ article.getCategorie().getNom() }}</span></a>
                     <br />
                     {% for motCle in article.getMotCles() %}
-                        <a href="{{ path('androiddev_motCles', {'slug': motCle.getSlug()}) }}"><span class="mot-slider ">{{ motCle.getNom() }}</span></a>
+                        <a title="{{ motCle.getNom() }}" href="{{ path('androiddev_motCles', {'slug': motCle.getSlug()}) }}"><span class="mot-slider ">{{ motCle.getNom() }}</span></a>
                     {% endfor %}
                 </p>
 

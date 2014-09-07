@@ -11,6 +11,15 @@ $(document).ready(function() {
         $(this).wrapAll(document.createElement("div"));
         $(this).parent().addClass("embed-responsive embed-responsive-16by9");
     });
+    
+    // initialize Isotope
+    var iso = new Isotope( container, {
+      transitionDuration: 0
+    });
+    // layout Isotope again after all images have loaded
+    imagesLoaded( container, function() {
+      iso.layout();
+    });
 });
 
 function createSommaire() {

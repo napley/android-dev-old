@@ -31,10 +31,10 @@
         
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 cadreListeArticle">
             <div class="listePart">
-                <span class="title-article-center"><h2 class="title-list-article"><a href="{{ path('androiddev_voir', {'slug': part.slug}) }}">{{ rang }}. {{ part.titre }}</a></h2></span>
+                <span class="title-article-center"><h2 class="title-list-article"><a title="{{ part.titre }}" href="{{ path('androiddev_voir', {'slug': part.slug}) }}">{{ rang }}. {{ part.titre }}</a></h2></span>
                 <div>{{ part.sousTitre | raw }}</div>
                 <p class="text-left">{% for motCle in part.getMotCles() %}
-                    <a href="{{ path('androiddev_motCles', {'slug': motCle.getSlug()}) }}"><span class="mot-slider ">{{ motCle.getNom() }}</span></a>
+                    <a title="{{ motCle.getNom() }}" href="{{ path('androiddev_motCles', {'slug': motCle.getSlug()}) }}"><span class="mot-slider ">{{ motCle.getNom() }}</span></a>
             {% endfor %}
                 </p>
             </div>
@@ -67,7 +67,7 @@
 <h4>Ceci pourrait vous intéresser</h4>
 <dl class="related">
                    {% for projet in lastProjet %}
-    <dt><a href="{{ path('androiddev_projetVoir', {'slug': projet.slug}) }}">{{ projet.titre | raw }}</a></dt>
+    <dt><a title="{{ projet.titre | raw }}" href="{{ path('androiddev_projetVoir', {'slug': projet.slug}) }}">{{ projet.titre | raw }}</a></dt>
     <dd>{{ projet.sousTitre | raw }}</dd>
                     {% endfor %}
 </dl>
@@ -77,18 +77,15 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
     var disqus_shortname = 'androiddev'; // required: replace example with your forum shortname
-
     var disqus_identifier = "p{{ projet.id }}";
 
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 {% endblock %}
