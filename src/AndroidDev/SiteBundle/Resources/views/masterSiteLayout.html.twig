@@ -35,33 +35,33 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div style="height: 1px;" class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="{{ path('androiddev_accueil') }}">Accueil</a></li>
+                <li><a onclick="javascript:_paq.push(['trackEvent', 'Clic', 'NavHome']);" href="{{ path('androiddev_accueil') }}">Accueil</a></li>
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle">Article <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li class="nav-header title-nav"><a href="{{ path('androiddev_article')}}">Tous les articles</a></li>
+                        <li class="nav-header title-nav"><a onclick="javascript:_paq.push(['trackEvent', 'Clic', 'NavArticleAll']);" href="{{ path('androiddev_article')}}">Tous les articles</a></li>
 
                         {% for categorie in filtrecat['article'] %}
-                            <li><a href="{{ path('androiddev_articleCat', {'slug': categorie.slug}) }}">{{categorie.getNom()}}</a></li>
+                            <li><a onclick="javascript:_paq.push(['trackEvent', 'Clic', 'NavArticle']);" href="{{ path('androiddev_articleCat', {'slug': categorie.slug}) }}">{{categorie.getNom()}}</a></li>
                             {% endfor %}
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle">Astuce <b class="caret"></b></a>
+                    <a onclick="javascript:_paq.push(['trackEvent', 'Clic', 'NavAstuceAll']);" data-toggle="dropdown" class="dropdown-toggle">Astuce <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li class="nav-header title-nav"><a href="{{ path('androiddev_astuce')}}">Toutes les astuces</a></li>
 
                         {% for categorie in filtrecat['astuce'] %}
-                            <li><a href="{{ path('androiddev_astuceCat', {'slug': categorie.slug}) }}">{{categorie.getNom()}}</a></li>
+                            <li><a onclick="javascript:_paq.push(['trackEvent', 'Clic', 'NavAstuce']);" href="{{ path('androiddev_astuceCat', {'slug': categorie.slug}) }}">{{categorie.getNom()}}</a></li>
                             {% endfor %}
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle">Projet <b class="caret"></b></a>
+                    <a onclick="javascript:_paq.push(['trackEvent', 'Clic', 'NavProjetAll']);" data-toggle="dropdown" class="dropdown-toggle">Projet <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li class="nav-header title-nav"><a href="{{ path('androiddev_projet')}}">Tous les projets</a></li>
                             {% for projet in filtrecat['projet'] %}
-                            <li><a href="{{ path('androiddev_projetVoir', {'slug': projet.slug}) }}">{{projet.getTitre()}}</a></li>
+                            <li><a onclick="javascript:_paq.push(['trackEvent', 'Clic', 'NavProjet']);" href="{{ path('androiddev_projetVoir', {'slug': projet.slug}) }}">{{projet.getTitre()}}</a></li>
                             {% endfor %}
                     </ul>
                 </li>
@@ -120,7 +120,7 @@
                 <li class="nav-header li-title-right"><span class="title-right gras">A la une</span></li>
                 <li class="list-right">
                     {% if topArticle.vignette %}
-                        <a class="link-center" title="{{ topArticle.titre | raw }}" href="{{ path('androiddev_voir', {'slug': topArticle.slug}) }}"><img class="img-responsive larg-80" alt="{{ topArticle.titre | raw }}" src="{{ topArticle.vignette }}"/></a>
+                        <a onclick="javascript:_paq.push(['trackEvent', 'Clic', 'Top']);" class="link-center" title="{{ topArticle.titre | raw }}" href="{{ path('androiddev_voir', {'slug': topArticle.slug}) }}"><img class="img-responsive larg-80" alt="{{ topArticle.titre | raw }}" src="{{ topArticle.vignette }}"/></a>
                     {% endif %}
                     <div class="topArticle">
                         <span class="title-article-center"><h2 class="title-list-article"><a title="{{ topArticle.titre | raw }}" href="{{ path('androiddev_voir', {'slug': topArticle.slug}) }}">{{ topArticle.titre | raw }}</a></h2></span>
@@ -153,7 +153,7 @@
         <ul class="nav nav-pills  nav-stacked">
             <li class="nav-header li-title-right"><span class="title-right gras">Top des 7 derniers jours</span></li>
                 {% for stat in topPiwik %}
-                <li class="list-right"><a href="{{ path('androiddev_voir', {'slug': stat.Article.slug}) }}"><img class="mini-vign-liste" src="{% if stat.Article.vignette != '' %}{{ stat.Article.vignette }}{% else %}/img/no-img.jpg{% endif %}"/>{{ stat.Article.titre }}</a></li>
+                <li class="list-right"><a onclick="javascript:_paq.push(['trackEvent', 'Clic', 'Stat']);" href="{{ path('androiddev_voir', {'slug': stat.Article.slug}) }}"><img class="mini-vign-liste" src="{% if stat.Article.vignette != '' %}{{ stat.Article.vignette }}{% else %}/img/no-img.jpg{% endif %}"/>{{ stat.Article.titre }}</a></li>
                 {% endfor %}
         </ul>
     </div>
@@ -164,7 +164,7 @@
         <ul class="nav nav-pills  nav-stacked">
             <li class="nav-header li-title-right"><span class="title-right gras">Mise à jour</span></li>
                 {% for article in lastUpdate %}
-                <li class="list-right"><a href="{{ path('androiddev_voir', {'slug': article.slug}) }}"><img class="mini-vign-liste" src="{% if article.vignette != '' %}{{ article.vignette }}{% else %}/img/no-img.jpg{% endif %}"/>{{ article.titre | raw }}</a></li>
+                <li class="list-right"><a onclick="javascript:_paq.push(['trackEvent', 'Clic', 'Update']);" href="{{ path('androiddev_voir', {'slug': article.slug}) }}"><img class="mini-vign-liste" src="{% if article.vignette != '' %}{{ article.vignette }}{% else %}/img/no-img.jpg{% endif %}"/>{{ article.titre | raw }}</a></li>
                 {% endfor %}
         </ul>
     </div>

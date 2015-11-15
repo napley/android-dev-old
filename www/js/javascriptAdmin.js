@@ -215,6 +215,32 @@ function addMotCle() {
 
     $listeMotCle.append('<li><input class="indexPartProject" type="text" name="motCle[]" />'
             + '<button onclick="delMotCle(this);">x</button></li>');
+    
+    $("#listeMotCle input").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "../motcle",
+                dataType: "json",
+                type:"POST",
+                data: {
+                    q: request.term
+                },
+                success: function (data) {
+                    response(data);
+                }
+            });
+        },
+        minLength: 1,
+        select: function (event, ui) {
+            this.value = ui.item.label;
+        },
+        open: function () {
+            $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+        },
+        close: function () {
+            $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+        }
+    });
 }
 
 function delMotCle(ligneMotCle) {

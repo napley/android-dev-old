@@ -201,7 +201,7 @@
         <h4>Dernier articles sur la fragmentation Android</h4>
         <dl class="related">
             {% for article in articleKey(64, 7) %}
-                <dt><a title="{{ article.titre | raw }}" href="{{ path('androiddev_voir', {'slug': article.slug}) }}">{{ article.titre | raw }}</a></dt>
+                <dt><a onclick="javascript:_paq.push(['trackEvent', 'Clic', 'FragArticle']);"  title="{{ article.titre | raw }}" href="{{ path('androiddev_voir', {'slug': article.slug}) }}">{{ article.titre | raw }}</a></dt>
                 <dd>{{ article.sousTitre | raw }}</dd>
             {% endfor %}
         </dl>

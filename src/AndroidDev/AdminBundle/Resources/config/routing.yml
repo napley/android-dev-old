@@ -9,6 +9,10 @@ admin_article:
 admin_article_motcle:
     pattern:  /article/motcle
     defaults: { _controller: AndroidDevAdminBundle:Article:motcle }
+    
+admin_article_motcle_bis:
+    pattern:  /motcle
+    defaults: { _controller: AndroidDevAdminBundle:Article:motcle }
 
 
 admin_article_show:

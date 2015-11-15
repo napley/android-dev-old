@@ -83,7 +83,7 @@
             {% for article in links %}
                 <li>
                     <img class="img-responsive all-larg" alt="{{ article.titre | raw }}" src="{% if article.vignette != '' %}{{ article.vignette }}{% else %}/img/no-img.jpg{% endif %}"/>
-                    <a title="{{ article.titre | raw }}" href="{{ path('androiddev_voir', {'slug': article.slug}) }}">{{ article.titre | raw }}</a>
+                    <a onclick="javascript:_paq.push(['trackEvent', 'Clic', 'Related']);"  title="{{ article.titre | raw }}" href="{{ path('androiddev_voir', {'slug': article.slug}) }}">{{ article.titre | raw }}</a>
                 </li>
             {% endfor %}
         </ul>

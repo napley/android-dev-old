@@ -28,11 +28,11 @@
                             {% for rang, part in articlesProjet[article.id] %}
                                 <li>
                                     <div>
-                                        <span class="title-article-center"><h2 class="title-list-article"><a href="{{ path('androiddev_voir', {'slug': part.slug}) }}">{{ rang }}. {{ part.titre }}</a></h2></span>
+                                        <span class="title-article-center"><h2 class="title-list-article"><a onclick="javascript:_paq.push(['trackEvent', 'Clic', 'ThumbPartProj']);"  href="{{ path('androiddev_voir', {'slug': part.slug}) }}">{{ rang }}. {{ part.titre }}</a></h2></span>
                                         <div>{{ part.sousTitre | raw }}</div>
                                         <p class="text-left">
                                             {% for motCle in part.getMotCles() %}
-                                                <a title="{{ motCle.getNom() }}" href="{{ path('androiddev_motCles', {'slug': motCle.getSlug()}) }}"><span class="mot-slider ">{{ motCle.getNom() }}</span></a>
+                                                <a onclick="javascript:_paq.push(['trackEvent', 'Clic', 'ThumbProjMotCle']);"  title="{{ motCle.getNom() }}" href="{{ path('androiddev_motCles', {'slug': motCle.getSlug()}) }}"><span class="mot-slider ">{{ motCle.getNom() }}</span></a>
                                                 {% endfor %}
                                         </p>
                                     </div>

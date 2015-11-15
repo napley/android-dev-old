@@ -3,18 +3,18 @@
 {% block title %}
     {% if type is defined %}
         {% if type == 'recherche' %}
-Recherche sur android-dev.fr : {% if motCle is defined %}{{ motCle }}{% endif %}
-    {% elseif motcle is defined %}
-    Toutes les {{ type }}s du mot clé {{ motcle }} du site android-dev.fr
+            Recherche sur android-dev.fr : {% if motCle is defined %}{{ motCle }}{% endif %}
+        {% elseif motcle is defined %}
+            Toutes les {{ type }}s du mot clé {{ motcle }} du site android-dev.fr
         {% else %}
-Toutes les {{ type }}s {% if categorie is defined %}{{ categorie }}{% endif %} du site android-dev.fr
+            Toutes les {{ type }}s {% if categorie is defined %}{{ categorie }}{% endif %} du site android-dev.fr
         {% endif %}
     {% else %}
-Android-dev.fr - Le site du développement pour Android.
+        Android-dev.fr - Le site du développement pour Android.
     {% endif %}
-{% if  page > 1 %}
-Page {{ page }}.
-{% endif %}
+    {% if  page > 1 %}
+        Page {{ page }}.
+    {% endif %}
 {% endblock %}
 
 {% block description %}
@@ -22,7 +22,7 @@ Page {{ page }}.
         {% if type == 'recherche' %}
             Recherche sur android-dev.fr. 
             Mots clés : {{ motCle }}.
-            
+
         {% elseif motcle is defined %}
             Toutes les {{ type }}s du mot clé {{ motcle }} présent sur le site android-dev.fr. 
         {% else %}
@@ -30,98 +30,110 @@ Page {{ page }}.
         {% endif %}
 
         {% if categorie is defined %}
-             De la catégorie : {{ categorie }}.
+            De la catégorie : {{ categorie }}.
         {% endif %}
     {% else %}
         {{ infosite['description'] | raw  }}
     {% endif %}
 
     {% if  page > 1 %}
-    Page {{ page }}.
+        Page {{ page }}.
     {% endif %}
 {% endblock %}
 
 {% block meta %}
-{% if  page > 1 %}
-<link rel="prev" href="{{path(route, routeBef) }}">
-{% endif %}
+    {% if  page > 1 %}
+        <link rel="prev" href="{{path(route, routeBef) }}">
+    {% endif %}
 
-<link rel="next" href="{{path(route, routeAft) }}">
+    <link rel="next" href="{{path(route, routeAft) }}">
 {% endblock %}
 
 {% block enteteContentPC %}
-<div class="jumbotron">
-{% if type is defined %}
-{% if type == 'recherche' %}
-    <h1>Recherche sur <span class="logo">android-dev.fr</span></h1>
-    <p>Mots clés : {{ motCle }}</p>
-{% else %}
-    <h1>Les {{ type }}s du site <span class="logo">android-dev.fr</span></h1>
-{% endif %}
+    <div class="jumbotron">
+        {% if type is defined %}
+            {% if type == 'recherche' %}
+                <h1>Recherche sur <span class="logo">android-dev.fr</span></h1>
+                <p>Mots clés : {{ motCle }}</p>
+                <script type="text/javascript">
+                    var _paq = _paq || [];
+                    _paq.push(['trackSiteSearch',
+                        // Search keyword searched for
+                        "{{ motCle }}",
+                        // Search category selected in your search engine. If you do not need this, set to false
+                        false,
+                                // Number of results on the Search results page. Zero indicates a 'No Result Search Keyword'. Set to false if you don't know
+                        {{ articles|length }}
+                        ]);
+                </script>
+            {% else %}
+                <h1>Les {{ type }}s du site <span class="logo">android-dev.fr</span></h1>
+            {% endif %}
 
-    {% if categorie is defined %}
-    <p>De la catégorie : {{ categorie }}</p>
-    {% endif %}
+            {% if categorie is defined %}
+                <p>De la catégorie : {{ categorie }}</p>
+            {% endif %}
 
-    {% if motcle is defined %}
-    <p>Du mot-clé : {{ motcle }}</p>
-    {% endif %}
-{% else %}
-    {{ infosite['entete'] | raw  }}
-{% endif %}
-</div>
+            {% if motcle is defined %}
+                <p>Du mot-clé : {{ motcle }}</p>
+            {% endif %}
+        {% else %}
+            {{ infosite['entete'] | raw  }}
+        {% endif %}
+    </div>
 {% endblock %}
 
 {% block contentPC %}
-<div class="row">
-    <div id="container" >
+    <div class="row">
+        <div id="container" >
 
-{% for article in articles %}
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 cadreListeArticle">
-            {% if article.vignette %}
-                <a title="{{ article.titre | raw }}" href="{{ path('androiddev_voir', {'slug': article.slug}) }}"><img class="img-responsive all-larg" alt="{{ article.titre | raw }}" src="{{ article.vignette }}"/></a>
-            {% endif %}
-            <div class="listeArticle">
-                <span class="title-article-center"><h2 class="title-list-article"><a title="{{ article.titre | raw }}" href="{{ path('androiddev_voir', {'slug': article.slug}) }}">{{ article.titre | raw }}</a></h2></span>
-                <p class="post-meta"><span class="glyphicon glyphicon-time"></span>  {{ article.getPublishedAt()|date("d/m/Y") }}   &nbsp;|&nbsp;   <span class="glyphicon glyphicon-user"></span>  androiddevfr  &nbsp;|&nbsp; <span class="glyphicon glyphicon-comment"></span>  <a title="commentaire" href="{{ path('androiddev_voir', {'slug': article.slug}) }}#disqus_thread" data-disqus-identifier="{{ article.id }}"></a>   </p>
-                <div class="pres-article-list">{{ article.sousTitre | raw }}</div>
-                <p class="text-left"><a title="{{ article.getType().getNom() }}" href="{{ path('androiddev_'~article.getType().getNom()|lower) }}"><span class="cat-slider ">{{ article.getType().getNom() }} </span></a>  <a title="{{ article.getCategorie().getNom() }}" href="{{ path('androiddev_'~article.getType().getNom()|lower ~'Cat', {'slug': article.getCategorie().getSlug() }) }}"><span class="cat-slider "> {{ article.getCategorie().getNom() }}</span></a>
-                    <br />
-                    {% for motCle in article.getMotCles() %}
-                        <a title="{{ motCle.getNom() }}" href="{{ path('androiddev_motCles', {'slug': motCle.getSlug()}) }}"><span class="mot-slider ">{{ motCle.getNom() }}</span></a>
-                    {% endfor %}
-                </p>
+            {% for article in articles %}
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 cadreListeArticle">
+                    {% if article.vignette %}
+                        <a title="{{ article.titre | raw }}" href="{{ path('androiddev_voir', {'slug': article.slug}) }}"><img class="img-responsive all-larg" alt="{{ article.titre | raw }}" src="{{ article.vignette }}"/></a>
+                        {% endif %}
+                    <div class="listeArticle">
+                        <span class="title-article-center"><h2 class="title-list-article"><a title="{{ article.titre | raw }}" href="{{ path('androiddev_voir', {'slug': article.slug}) }}">{{ article.titre | raw }}</a></h2></span>
+                        <p class="post-meta"><span class="glyphicon glyphicon-time"></span>  {{ article.getPublishedAt()|date("d/m/Y") }}   &nbsp;|&nbsp;   <span class="glyphicon glyphicon-user"></span>  androiddevfr  &nbsp;|&nbsp; <span class="glyphicon glyphicon-comment"></span>  <a title="commentaire" href="{{ path('androiddev_voir', {'slug': article.slug}) }}#disqus_thread" data-disqus-identifier="{{ article.id }}"></a>   </p>
+                        <div class="pres-article-list">{{ article.sousTitre | raw }}</div>
+                        <p class="text-left"><a onclick="javascript:_paq.push(['trackEvent', 'Clic', 'ThumbType']);"  title="{{ article.getType().getNom() }}" href="{{ path('androiddev_'~article.getType().getNom()|lower) }}"><span class="cat-slider ">{{ article.getType().getNom() }} </span></a>  <a onclick="javascript:_paq.push(['trackEvent', 'Clic', 'ThumbCategorie']);"  title="{{ article.getCategorie().getNom() }}" href="{{ path('androiddev_'~article.getType().getNom()|lower ~'Cat', {'slug': article.getCategorie().getSlug() }) }}"><span class="cat-slider "> {{ article.getCategorie().getNom() }}</span></a>
+                            <br />
+                            {% for motCle in article.getMotCles() %}
+                                <a onclick="javascript:_paq.push(['trackEvent', 'Clic', 'ThumbMotCle']);" title="{{ motCle.getNom() }}" href="{{ path('androiddev_motCles', {'slug': motCle.getSlug()}) }}"><span class="mot-slider ">{{ motCle.getNom() }}</span></a>
+                                {% endfor %}
+                        </p>
 
-            </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-{% endfor %}
     </div>
-</div>
-<ul class="pager">
-    <li class="previous {% if  articlesNext|length < 1 %}
-        disabled
-              {% endif %}">
-        <a href="{{path(route, routeAft) }}">&larr; Plus ancien</a>
-    </li>
-    <li class="next {% if  page == 1 %}
-        disabled
-              {% endif %} ">
-        <a href="{{path(route, routeBef) }}">Plus récent &rarr;</a>
-    </li>
-</ul>
+    <ul class="pager">
+        <li class="previous {% if  articlesNext|length < 1 %}
+            disabled
+            {% endif %}">
+                <a href="{{path(route, routeAft) }}">&larr; Plus ancien</a>
+            </li>
+            <li class="next {% if  page == 1 %}
+                disabled
+                {% endif %} ">
+                    <a href="{{path(route, routeBef) }}">Plus récent &rarr;</a>
+                </li>
+            </ul>
 
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = 'androiddev'; // required: replace example with your forum shortname
+            <script type="text/javascript">
+                / * * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * * /
+                var disqus_shortname = 'androiddev';
+                / / required: replace example with your forum shortname
 
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var s = document.createElement('script');
-        s.async = true;
-        s.type = 'text/javascript';
-        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
-</script>
+                        /* * * DON'T EDIT BELOW THIS LINE * * */
+                                (function () {
+                                    var s = document.createElement('script');
+                                    s.async = true;
+                                    s.type = 'text/javascript';
+                                    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+                                    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+                                }());
+            </script>
 
-{% endblock %}
+            {% endblock %}
