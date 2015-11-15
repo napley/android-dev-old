@@ -204,7 +204,6 @@ class BlogController extends Controller
         return $render;
     }
 
-
     /**
      * 
      * @return type
@@ -216,11 +215,11 @@ class BlogController extends Controller
 
         $infoSite = $this->container->get('androiddev.infosite')->getInfoSite();
 
-        $motCle =  $this->getDoctrine()
+        $motCle = $this->getDoctrine()
                 ->getManager()
                 ->getRepository('AndroidDevSiteBundle:MotCle')
                 ->findOneBySlug($slug);
-        
+
         $liste_articles = $this->getDoctrine()
                 ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
@@ -240,7 +239,7 @@ class BlogController extends Controller
                 ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findByMotCles($slug, $routeAft['page'], $infoSite['nbByPage']);
-        
+
         $render = $this->render('AndroidDevSiteBundle:Blog:index.html.twig', array(
             'articles' => $liste_articles, 'page' => $page, 'route' => 'androiddev_motCles', 'routeBef' => $routeBef, 'routeAft' => $routeAft, 'type' => 'article', 'motcle' => $motCle->getNom(),
             'articlesNext' => $liste_articles_next
@@ -335,11 +334,11 @@ class BlogController extends Controller
         //var_dump($liste_projets);
         foreach ($liste_projets as $key => $projet) {
             $part[$projet->getId()] = $this->getDoctrine()
-                ->getManager()
-                ->getRepository('AndroidDevSiteBundle:Projet')
-                ->listPartsByIndex($projet);
+                    ->getManager()
+                    ->getRepository('AndroidDevSiteBundle:Projet')
+                    ->listPartsByIndex($projet);
         }
-        
+
         $liste_articles_next = $this->getDoctrine()
                 ->getManager()
                 ->getRepository('AndroidDevSiteBundle:Article')
@@ -365,6 +364,9 @@ class BlogController extends Controller
                 ->getRepository('AndroidDevSiteBundle:Article')
                 ->findBySlug($slug);
 
+        if (empty($article)) {
+            return $this->redirect($this->generateUrl('androiddev_accueil'), 301);
+        }
 
         if (!empty($article)) {
             $category = $article->getCategorie();
@@ -372,14 +374,10 @@ class BlogController extends Controller
                 $links = $this->getDoctrine()
                         ->getManager()
                         ->getRepository('AndroidDevSiteBundle:Article')
-                        ->findLink($article->getId(), $category->getSlug(), 5);
+                        ->findLink($article, 12);
             } else {
                 $links = null;
             }
-        }
-
-        if (empty($article)) {
-            return $this->redirect($this->generateUrl('androiddev_accueil'), 301);
         }
 
         $render = $this->render('AndroidDevSiteBundle:Blog:voir.html.twig', array(
@@ -630,7 +628,7 @@ class BlogController extends Controller
                 }
             }
             if ($trouve) {
-                foreach ($Androids as  $key => $And) {
+                foreach ($Androids as $key => $And) {
                     if (!isset($arrayPoint['courbe' . $key]['data'][$dtStart->getTimestamp()])) {
                         $arrayPoint['courbe' . $key]['data'][$dtStart->getTimestamp()] = 0;
                         $arrayPoint['courbe' . $key]['titre'] = $And->getTitre();

@@ -3,6 +3,7 @@
 namespace AndroidDev\AdminBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -62,7 +63,7 @@ class ArticleController extends Controller
         $repository = $em->getRepository('AndroidDevSiteBundle:Article');
         $repoStat = $em->getRepository('AndroidDevSiteBundle:Stat');
 
-        $stats = $repoStat->SortAllById();
+        $stats = $repoStat->SortAllByRank();
 
         $content = array();
         foreach ($stats as $stat) {
@@ -89,8 +90,8 @@ class ArticleController extends Controller
                 unset($content[$cle]);
             } else {
                 $stat = new \AndroidDev\SiteBundle\Entity\Stat();
-                $stat->setTitre($article->getTitre());
-                $stat->setUrl($article->getSlug());
+                $stat->setArticle($article);
+                $stat->setRank($cle);
                 
                 $em->persist($stat);
                 $em->flush();
@@ -345,4 +346,25 @@ class ArticleController extends Controller
         ;
     }
 
+    public function motcleAction()
+    {
+        $request = $this->getRequest();
+        $param = $request->request->get('q');
+        
+        $em = $this->getDoctrine()->getManager();
+        $motCles = $em->getRepository('AndroidDevSiteBundle:MotCle')->findAllByMotCle($param);
+        
+        $listeMotCle = [];
+        foreach ($motCles as $key=>$motCle) {
+            $listeMotCle[$key]['id'] = $motCle->getNom();
+            $listeMotCle[$key]['label'] = $motCle->getNom();
+            $listeMotCle[$key]['value'] = $motCle->getNom();
+        }
+        
+        $response = new JsonResponse();
+        $response->setData($listeMotCle);
+
+        return $response;
+        
+    }
 }

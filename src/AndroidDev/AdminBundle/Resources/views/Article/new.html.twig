@@ -4,44 +4,44 @@
 {% block description %}{% endblock %}
 
 {% block head %}
-<script type="text/javascript">
-window.onload = function()
-{
-    CKEDITOR.replace( 'androiddev_adminbundle_articletype[sousTitre]' );
-    CKEDITOR.replace( 'androiddev_adminbundle_articletype[contenu]' );
-};
+    <script type="text/javascript">
+        window.onload = function ()
+        {
+            CKEDITOR.replace('androiddev_adminbundle_articletype[sousTitre]');
+            CKEDITOR.replace('androiddev_adminbundle_articletype[contenu]');
+        };
     </script>
 {% endblock %}
 
 {% block contentDetail %}
     <div class="col-md-12">
+
+        <ul class="record_actions">
+            <li>
+                <a href="{{ path('admin_article') }}">
+                    Retour à la liste des articles
+                </a>
+            </li>
+        </ul>
+                    
         <h1>Création d'article</h1>
 
         <form action="{{ path('admin_article_create') }}" method="post" {{ form_enctype(form) }}>
-   {{ form_widget(form) }}
-                <div>
-                    <fieldset>
-                        <legend>Mot Clé</legend>
+            {{ form_widget(form) }}
+            <div>
+                <fieldset>
+                    <legend>Mot Clé</legend>
+                    <label class="labelClick" onclick="addMotCle();" >Ajouter</label>
+                    <div class="clear"></div>
+                    <ul id="listeMotCle">
 
-                        <ul id="listeMotCle">
+                    </ul>
+                </fieldset>
+            </div>
+            <p>
+                <button type="submit">Créer</button>
+            </p>
+        </form>
 
-                        </ul>
-
-                        <label class="labelClick" onclick="addMotCle();" >Ajouter</label>
-                    </fieldset>
-                </div>
-                <p>
-                    <button type="submit">Créer</button>
-                </p>
-            </form>
-
-            <ul class="record_actions">
-                <li>
-                    <a href="{{ path('admin_article') }}">
-                        Retour à la liste des articles
-                    </a>
-                </li>
-            </ul>
-
-        </div>
+    </div>
 {% endblock %}

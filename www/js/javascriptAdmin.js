@@ -1,9 +1,9 @@
-$(document).ready(function() {
-    $( "<input type='button' value='Effacer' onclick='document.getElementById(\"androiddev_adminbundle_articletype_vignette\").value=\"\"'/>" ).insertAfter( "#androiddev_adminbundle_articletype_vignette" );
-    $( "<input type='button' value='Effacer' onclick='document.getElementById(\"androiddev_adminbundle_categorietype_vignette\").value=\"\"'/>" ).insertAfter( "#androiddev_adminbundle_categorietype_vignette" );
-    $( "<input type='button' value='Effacer' onclick='document.getElementById(\"androiddev_adminbundle_projettype_vignette\").value=\"\"'/>" ).insertAfter( "#androiddev_adminbundle_projettype_vignette" );
-      
-    $(".champs-vignette").click(function() {
+$(document).ready(function () {
+    $("<input type='button' value='Effacer' onclick='document.getElementById(\"androiddev_adminbundle_articletype_vignette\").value=\"\"'/>").insertAfter("#androiddev_adminbundle_articletype_vignette");
+    $("<input type='button' value='Effacer' onclick='document.getElementById(\"androiddev_adminbundle_categorietype_vignette\").value=\"\"'/>").insertAfter("#androiddev_adminbundle_categorietype_vignette");
+    $("<input type='button' value='Effacer' onclick='document.getElementById(\"androiddev_adminbundle_projettype_vignette\").value=\"\"'/>").insertAfter("#androiddev_adminbundle_projettype_vignette");
+
+    $(".champs-vignette").click(function () {
         openKCFinder(this);
     });
 
@@ -15,6 +15,32 @@ $(document).ready(function() {
         "sPaginationType": "bootstrap",
         "oLanguage": {
             "sLengthMenu": "_MENU_ records per page"
+        }
+    });
+
+    $("#listeMotCle input").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "../motcle",
+                dataType: "json",
+                type:"POST",
+                data: {
+                    q: request.term
+                },
+                success: function (data) {
+                    response(data);
+                }
+            });
+        },
+        minLength: 1,
+        select: function (event, ui) {
+            this.value = ui.item.label;
+        },
+        open: function () {
+            $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+        },
+        close: function () {
+            $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
         }
     });
 
@@ -37,7 +63,7 @@ $.extend($.fn.dataTableExt.oStdClasses, {
 
 
 /* API method to get paging information */
-$.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
+$.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings)
 {
     return {
         "iStart": oSettings._iDisplayStart,
@@ -56,9 +82,9 @@ $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
 /* Bootstrap style pagination control */
 $.extend($.fn.dataTableExt.oPagination, {
     "bootstrap": {
-        "fnInit": function(oSettings, nPaging, fnDraw) {
+        "fnInit": function (oSettings, nPaging, fnDraw) {
             var oLang = oSettings.oLanguage.oPaginate;
-            var fnClickHandler = function(e) {
+            var fnClickHandler = function (e) {
                 e.preventDefault();
                 if (oSettings.oApi._fnPageChange(oSettings, e.data.action)) {
                     fnDraw(oSettings);
@@ -79,7 +105,7 @@ $.extend($.fn.dataTableExt.oPagination, {
                 action: "next"
             }, fnClickHandler);
         },
-        "fnUpdate": function(oSettings, fnDraw) {
+        "fnUpdate": function (oSettings, fnDraw) {
             var iListLength = 5;
             var oPaging = oSettings.oInstance.fnPagingInfo();
             var an = oSettings.aanFeatures.p;
@@ -88,8 +114,7 @@ $.extend($.fn.dataTableExt.oPagination, {
             if (oPaging.iTotalPages < iListLength) {
                 iStart = 1;
                 iEnd = oPaging.iTotalPages;
-            }
-            else if (oPaging.iPage <= iHalf) {
+            } else if (oPaging.iPage <= iHalf) {
                 iStart = 1;
                 iEnd = iListLength;
             } else if (oPaging.iPage >= (oPaging.iTotalPages - iHalf)) {
@@ -109,7 +134,7 @@ $.extend($.fn.dataTableExt.oPagination, {
                     sClass = (j == oPaging.iPage + 1) ? 'class="active"' : '';
                     $('<li ' + sClass + '><a href="#">' + j + '</a></li>')
                             .insertBefore($('li:last', an[i])[0])
-                            .bind('click', function(e) {
+                            .bind('click', function (e) {
                                 e.preventDefault();
                                 oSettings._iDisplayStart = (parseInt($('a', this).text(), 10) - 1) * oPaging.iLength;
                                 fnDraw(oSettings);
@@ -189,7 +214,7 @@ function addMotCle() {
     var $listeMotCle = $("#listeMotCle");
 
     $listeMotCle.append('<li><input class="indexPartProject" type="text" name="motCle[]" />'
-            + '<label onclick="delMotCle(this);">x</label></li>');
+            + '<button onclick="delMotCle(this);">x</button></li>');
 }
 
 function delMotCle(ligneMotCle) {
@@ -198,13 +223,13 @@ function delMotCle(ligneMotCle) {
 
 function openKCFinder(field) {
     window.KCFinder = {
-        callBack: function(url) {
+        callBack: function (url) {
             field.value = url;
             window.KCFinder = null;
         }
     };
     window.open('/kcfinder/browse.php?type=images', 'kcfinder_textbox',
-        'status=0, toolbar=0, location=0, menubar=0, directories=0, ' +
-        'resizable=1, scrollbars=0, width=800, height=600'
-    );
+            'status=0, toolbar=0, location=0, menubar=0, directories=0, ' +
+            'resizable=1, scrollbars=0, width=800, height=600'
+            );
 }

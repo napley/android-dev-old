@@ -12,11 +12,12 @@ class PointType extends AbstractType
     {
         $builder
             ->add('pct')
-            ->add('date')
+            ->add('date', 'date', array(
+                'data' => new \DateTime(date('Y-m-1 00:00:00'))))
             ->add('Android')
         ;
     }
-
+    
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(

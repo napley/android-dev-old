@@ -4,53 +4,55 @@
 {% block description %}{% endblock %}
 
 {% block head %}
-<script type="text/javascript">
-window.onload = function()
-{
-    CKEDITOR.replace( 'androiddev_adminbundle_articletype[sousTitre]' );
-    CKEDITOR.replace( 'androiddev_adminbundle_articletype[contenu]' );
-};
+    <script type="text/javascript">
+        window.onload = function ()
+        {
+            CKEDITOR.replace('androiddev_adminbundle_articletype[sousTitre]');
+            CKEDITOR.replace('androiddev_adminbundle_articletype[contenu]');
+        };
     </script>
 {% endblock %}
 
 {% block contentDetail %}
     <div class="col-md-12">
+
+        <ul class="record_actions">
+            <li>
+                <form action="{{ path('admin_article_delete', { 'id': entity.id }) }}" method="post">
+                    {{ form_widget(delete_form) }}
+                    <button type="submit">Supprimer</button>
+                </form>
+            </li>
+            <li>
+                <a href="{{ path('admin_article') }}">
+                    Retour à la liste des articles
+                </a>
+            </li>
+        </ul>
         <h1>Modification d'article</h1>
 
         <form action="{{ path('admin_article_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    {{ form_widget(edit_form) }}
-                    <div>
-                        <fieldset>
-                            <legend>Mot Clé</legend>
-                            <ul id="listeMotCle">
-                    {% for motcle in entity.MotCles %}
-                                    <li>
-                                        <input type="text" name="motCle[]" value="{{ motcle.nom }}" />
-                                        <label onclick="delMotCle(this);">x</label>
-                                    </li>
-                    {% endfor %}
-                                </ul>
-                                <label class="labelClick" onclick="addMotCle();" >Ajouter</label>
-                            </fieldset>
-                        </div>
-                        <p>
-                            <button type="submit">Modifier</button>
-                        </p>
-                    </form>
-
-                    <ul class="record_actions">
-                        <li>
-                            <a href="{{ path('admin_article') }}">
-                                Retour à la liste des articles
-                            </a>
-                        </li>
-                        <li>
-                            <form action="{{ path('admin_article_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-                                    <button type="submit">Supprimer</button>
-                                </form>
+            {{ form_widget(edit_form) }}
+            <div>
+                <fieldset>
+                    <legend>Mot Clé</legend>
+                    <label class="labelClick" onclick="addMotCle();" >Ajouter</label>
+                    <div class="clear"></div>
+                    <ul id="listeMotCle">
+                        {% for motcle in entity.MotCles %}
+                            <li><div class="ui-widget">
+                                <input name="motCle[]" value="{{ motcle.nom }}" />
+                                <button onclick="delMotCle(this);">x</button>
+                                </div>
                             </li>
-                        </ul>
+                        {% endfor %}
+                    </ul>
+                </fieldset>
+            </div>
+            <p>
+                <button type="submit">Modifier</button>
+            </p>
+        </form>
 
-                </div>
+    </div>
 {% endblock %}

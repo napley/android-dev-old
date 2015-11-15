@@ -49,28 +49,31 @@
             </div>
 
             <div class="col-md-7 content col-sm-9" itemscope itemtype="http://schema.org/Article">
-                <style>
+                <!--Ancien code adsense<style>
                     .responsive { width: 320px; height: 50px; }
                     @media(min-width: 500px) { .responsive { width: 468px; height: 60px; } }
                     @media(min-width: 1300px) { .responsive { width: 728px; height: 90px; } }
-                </style>
+                </style>-->
+                
                 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                 <!-- responsive -->
-                <ins class="adsbygoogle responsive"
-                     style="display:inline-block"
+                <ins class="adsbygoogle"
+                     style="display:block"
                      data-ad-client="ca-pub-4672745701309961"
-                     data-ad-slot="8079289372"></ins>
+                     data-ad-slot="8079289372"
+                     data-ad-format="auto"></ins>
                 <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
+                (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
-
+                
                 {% block enteteContentPC %}
                 {% endblock %}
 
                 {% block contentPC %}
                 {% endblock %}
                 <script type="text/javascript">
-                    google_ad_client = "ca-pub-4672745701309961";
+                    /*Ancien code adsense
+                     * google_ad_client = "ca-pub-4672745701309961";
                     width = document.documentElement.clientWidth;
                     if (width < 500) {
                         google_ad_slot = "1978297378";
@@ -86,7 +89,7 @@
                         google_ad_slot = "9501564175";
                         google_ad_width = 728;
                         google_ad_height = 15;
-                    }
+                    }*/
 
                 </script>
             </div><!--/span-->
@@ -132,7 +135,8 @@
             'js/shBrushXml.js'
             'js/shBrushJava.js'
             'js/shBrushBash.js'
-            'js/isotope.pkgd.min.js' %}
+            'js/isotope.pkgd.min.js'
+            'js/imagesloaded.pkgd.min.js' %}
         <script src="{{ asset_url }}" charset="utf-8"></script>
         {% endjavascripts %}
         <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4e84c63d79df556f"></script>

@@ -1,12 +1,11 @@
 <?php
 
-//src/AndroidDev/SiteBundle/Service/TopPiwik.php
+//src/AndroidDev/SiteBundle/Extensions/TopArticleExtension.php
 
 namespace AndroidDev\SiteBundle\Extensions;
-
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class TopPiwikExtension extends \Twig_Extension
+class TopArticleExtension extends \Twig_Extension
 {
 
     protected $doctrine;
@@ -18,18 +17,18 @@ class TopPiwikExtension extends \Twig_Extension
 
     public function getGlobals()
     {
-        $repository = $this->doctrine->getRepository('AndroidDevSiteBundle:Stat');
+        $repository = $this->doctrine->getRepository('AndroidDevSiteBundle:Article');
 
-        $stats = $repository->SortAllByRank();
-
+        $article = $repository->findByTop();
+        
         return array(
-            'topPiwik' => $stats,
+            'topArticle' => $article,
         );
     }
 
     public function getName()
     {
-        return 'toppiwik';
+        return 'toparticle';
     }
 
 }

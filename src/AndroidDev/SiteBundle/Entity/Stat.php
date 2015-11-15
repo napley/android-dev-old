@@ -23,18 +23,17 @@ class Stat
     private $id;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="titre", type="string", length=255)
+     * @ORM\Column(name="rank", type="integer")
      */
-    private $titre;
-
+    private $rank;
+    
     /**
-     * @var string
-     *
-     * @ORM\Column(name="url", type="text")
+     * @ORM\OneToOne(targetEntity="AndroidDev\SiteBundle\Entity\Article")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
      */
-    private $url;
+    private $Article;
 
 
     public function __construct()
@@ -53,14 +52,14 @@ class Stat
     }
 
     /**
-     * Set titre
+     * Set rank
      *
-     * @param string $titre
-     * @return Article
+     * @param int $rank
+     * @return \AndroidDev\SiteBundle\Entity\Stat
      */
-    public function setTitre($titre)
+    public function setRank($rank)
     {
-        $this->titre = $titre;
+        $this->rank = $rank;
 
         return $this;
     }
@@ -89,14 +88,32 @@ class Stat
     }
 
     /**
-     * Get titre
+     * Get rank
      *
-     * @return string 
+     * @return int 
      */
-    public function getTitre()
+    public function getRank()
     {
-        return $this->titre;
+        return $this->rank;
     }
 
-    
+    /**
+     * set Article
+     * 
+     * @param \AndroidDev\SiteBundle\Entity\Article $article
+     */
+    public function setArticle(\AndroidDev\SiteBundle\Entity\Article $article)
+    {
+        $this->Article = $article;
+    }
+
+    /**
+     * get Article
+     * 
+     * @return \AndroidDev\SiteBundle\Entity\Article $article
+     */
+    public function getArticle()
+    {
+        return $this->Article;
+    }
 }

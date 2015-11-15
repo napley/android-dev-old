@@ -22,5 +22,15 @@ class MotCleRepository extends EntityRepository
 
         return $motCle;
     }
+    
+    public function findAllByMotCle($text)
+    {
+        $query = $this->_em->createQuery('SELECT m FROM AndroidDevSiteBundle:MotCle m 
+                        WHERE m.nom LIKE :text ORDER BY m.nom ASC');
+        $query->setParameter('text', "%".$text."%");
+        $motCle = $query->getResult();
+
+        return $motCle;
+    }
 
 }

@@ -61,6 +61,13 @@ class Article implements ItemInterface
     private $visible = false;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="top", type="boolean")
+     */
+    private $top = false;
+
+    /**
      * @Gedmo\Slug(fields={"titre"}, updatable=false, separator="_")
      * @ORM\Column(length=128, unique=true)
      */
@@ -114,7 +121,7 @@ class Article implements ItemInterface
      * @ORM\OneToOne(targetEntity="AndroidDev\SiteBundle\Entity\ArticleProjet", mappedBy="Article", cascade={"persist", "remove"})
      */
     private $Projet;
-
+    
     /**
      * @ORM\ManyToMany(targetEntity="AndroidDev\SiteBundle\Entity\MotCle", inversedBy="Articles", cascade={"persist"})
      * @ORM\JoinTable(name="article_motcles")
@@ -178,6 +185,29 @@ class Article implements ItemInterface
      *
      * @return integer 
      */
+    public function getTop()
+    {
+        return $this->top;
+    }
+
+    /**
+     * Set titre
+     *
+     * @param string $titre
+     * @return Article
+     */
+    public function setTop($top)
+    {
+        $this->top = $top;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
     public function getVignette()
     {
         if (empty($this->vignette) && !empty($this->Type) && $this->Type->getId() != 3) {
@@ -186,21 +216,19 @@ class Article implements ItemInterface
                 if (!empty($vignette)) {
                     return $this->Categorie->getVignette();
                 }
-            }
-            else {
+            } else {
                 return '';
             }
-        } elseif(empty($this->vignette) && !empty($this->Type) && $this->Type->getId() == 3) {
+        } elseif (empty($this->vignette) && !empty($this->Type) && $this->Type->getId() == 3) {
             if (!empty($this->Projet)) {
                 $vignette = $this->Projet->getProjet()->getVignette();
                 if (!empty($vignette)) {
-                return $this->Projet->getProjet()->getVignette();
+                    return $this->Projet->getProjet()->getVignette();
                 }
-            }
-            else {
+            } else {
                 return '';
             }
-        }else {
+        } else {
             return $this->vignette;
         }
     }
@@ -404,7 +432,11 @@ class Article implements ItemInterface
     public function getCategorie()
     {
         if (!empty($this->Type) && $this->Type->getId() == 3) {
-            return $this->Projet->getProjet();
+            if (!empty($this->Projet)) {
+                return $this->Projet->getProjet();
+            } else {
+                return $this->Categorie;
+            }
         } else {
             return $this->Categorie;
         }
@@ -461,6 +493,10 @@ class Article implements ItemInterface
         }
     }
 
+    /**
+     * 
+     * @return \AndroidDev\SiteBundle\Entity\MotCle[]
+     */
     public function getMotCles()
     {
         return $this->MotCles;

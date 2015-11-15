@@ -51,6 +51,13 @@ services:
         tags:
             - { name: twig.extension }
           
+    twig.extension.toparticle:
+        class: AndroidDev\SiteBundle\Extensions\TopArticleExtension
+        arguments:
+          doctrine: "@doctrine"
+        tags:
+            - { name: twig.extension }
+          
     twig.extension.lastprojet:
         class: AndroidDev\SiteBundle\Extensions\LastProjetExtension
         arguments:

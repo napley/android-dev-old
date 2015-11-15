@@ -60,7 +60,6 @@ class ArticleRepository extends EntityRepository
         return $query->getResult();
     }
 
-
     public function findAstuceByPage($page, $nb)
     {
         $deb = ($nb * $page) - ($nb);
@@ -102,7 +101,7 @@ class ArticleRepository extends EntityRepository
     public function findByMotCles($slug, $page, $nb)
     {
         $deb = ($nb * $page) - ($nb);
-        
+
         $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.MotCles am WHERE am.slug = :slug AND a.visible=1 AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP()) ORDER BY a.created DESC ');
         $query->setParameter('slug', $slug);
         $query->setMaxResults($nb);
@@ -114,6 +113,17 @@ class ArticleRepository extends EntityRepository
     {
         $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a WHERE a.id = :id AND a.visible=1 AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP())');
         $query->setParameter('id', $id);
+        return $query->getOneOrNullResult();
+    }
+
+    public function findByTop()
+    {
+        $query = $this->_em->createQuery('SELECT count(a) FROM AndroidDevSiteBundle:Article a WHERE a.top = 1 AND a.visible=1 AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP())');
+        $count = $query->getSingleScalarResult();
+
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a WHERE a.top = 1 AND a.visible=1 AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP())');
+        $query->setFirstResult(rand(0, $count - 1));
+        $query->setMaxResults(1);
         return $query->getOneOrNullResult();
     }
 
@@ -162,14 +172,77 @@ class ArticleRepository extends EntityRepository
 
         return $articles;
     }
-    
-    public function findLink($id, $cat, $nb)
+
+    /**
+     * retourne les articles liés pour un article
+     * @param \AndroidDev\SiteBundle\Entity\Article $article 
+     * @param int $max
+     * @return type
+     */
+    public function findLink($article, $max)
     {
-        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at JOIN a.Categorie ac WHERE a.visible = 1 AND (at.id = 1 OR at.id = 2) AND a.id != :id AND ac.slug = :slug AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP()) ORDER BY a.created DESC');
-        $query->setParameter('slug', $cat);
-        $query->setParameter('id', $id);
-        $query->setMaxResults($nb);
-        return $query->getResult();
+        $idMotCle = [];
+        $listeArticles = [];
+        $listeArticlesId = [];
+
+        foreach ($article->getMotCles() as $motcle) {
+            $idMotCle[] = $motcle->getId();
+        }
+
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.MotCles am WHERE a.visible = 1 AND am.id IN (:motcles) AND a.id != :id  AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP()) ORDER BY a.created DESC');
+        $query->setParameter('motcles', $idMotCle);
+        $query->setParameter('id', $article->getId());
+        $query->setMaxResults(6);
+        $listeArticles = array_merge($listeArticles, $query->getResult());
+
+        $listeArticlesId = [$article->getId()];
+        foreach ($listeArticles as $articleliste) {
+            $listeArticlesId[] = $articleliste->getId();
+        }
+
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Type at WHERE a.visible = 1 AND at.id = :type AND a.id NOT IN (:id)  AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP()) ORDER BY a.created DESC');
+        $query->setParameter('type', $article->getType()->getId());
+        $query->setParameter('id', $listeArticlesId);
+        $query->setMaxResults(2);
+        $listeArticles = array_merge($listeArticles, $query->getResult());
+
+        $listeArticlesId = [$article->getId()];
+        foreach ($listeArticles as $articleliste) {
+            $listeArticlesId[] = $articleliste->getId();
+        }
+
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Categorie ac WHERE a.visible = 1 AND ac.id = :cat AND a.id NOT IN (:id)  AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP()) ORDER BY a.created DESC');
+        $query->setParameter('cat', $article->getCategorie()->getId());
+        $query->setParameter('id', $listeArticlesId);
+        $query->setMaxResults(2);
+        $listeArticles = array_merge($listeArticles, $query->getResult());
+
+        $listeArticlesId = [$article->getId()];
+        foreach ($listeArticles as $articleliste) {
+            $listeArticlesId[] = $articleliste->getId();
+        }
+
+        $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a JOIN a.Categorie ac WHERE a.visible = 1 AND ac.id = :cat AND a.id NOT IN (:id)  AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP()) ORDER BY a.created DESC');
+        $query->setParameter('cat', $article->getCategorie()->getId());
+        $query->setParameter('id', $listeArticlesId);
+        $query->setMaxResults(2);
+        $listeArticles = array_merge($listeArticles, $query->getResult());
+
+        $listeArticlesId = [$article->getId()];
+        foreach ($listeArticles as $articleliste) {
+            $listeArticlesId[] = $articleliste->getId();
+        }
+
+        $nbArticleReste = $max - count($listeArticles);
+        
+        if ($nbArticleReste > 0) {
+            $query = $this->_em->createQuery('SELECT a FROM AndroidDevSiteBundle:Article a WHERE a.visible = 1 AND a.id NOT IN (:id)  AND (a.publishedAt IS NULL OR a.publishedAt< CURRENT_TIMESTAMP()) ORDER BY a.created DESC');
+            $query->setParameter('id', $listeArticlesId);
+            $query->setMaxResults($nbArticleReste);
+            $listeArticles = array_merge($listeArticles, $query->getResult());
+        }
+
+        return $listeArticles;
     }
 
 }

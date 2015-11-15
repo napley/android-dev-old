@@ -5,7 +5,7 @@
 {% block urlCanonical %}{% endblock %}
 
 {% block stylesheets %}
-{% stylesheets output="css/compiled/main.css" filter="cssrewrite" 
+    {% stylesheets output="css/compiled/main.css" filter="cssrewrite" 
     'css/bootstrap.min.css'
     'css/bootstrap-theme.min.css'
     'css/style.css'
@@ -13,69 +13,69 @@
     'css/shCore.css'
     'css/shThemeDefault.css' %}
     <link rel="stylesheet" href="{{ asset_url }}" />
-{% endstylesheets %}
-{% block meta %}
-{% endblock %}
+    {% endstylesheets %}
+    {% block meta %}
+    {% endblock %}
 {% endblock %}
 
 {% block navbar %}
 
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">android-dev.fr</a>
-    </div>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">android-dev.fr</a>
+        </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div style="height: 1px;" class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-            <li><a href="{{ path('androiddev_accueil') }}">Accueil</a></li>
-            <li class="dropdown">
-                <a data-toggle="dropdown" class="dropdown-toggle">Article <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li class="nav-header title-nav"><a href="{{ path('androiddev_article')}}">Tous les articles</a></li>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div style="height: 1px;" class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="{{ path('androiddev_accueil') }}">Accueil</a></li>
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle">Article <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-header title-nav"><a href="{{ path('androiddev_article')}}">Tous les articles</a></li>
 
-                    {% for categorie in filtrecat['article'] %}
-                    <li><a href="{{ path('androiddev_articleCat', {'slug': categorie.slug}) }}">{{categorie.getNom()}}</a></li>
-                    {% endfor %}
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a data-toggle="dropdown" class="dropdown-toggle">Astuce <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li class="nav-header title-nav"><a href="{{ path('androiddev_astuce')}}">Toutes les astuces</a></li>
+                        {% for categorie in filtrecat['article'] %}
+                            <li><a href="{{ path('androiddev_articleCat', {'slug': categorie.slug}) }}">{{categorie.getNom()}}</a></li>
+                            {% endfor %}
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle">Astuce <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-header title-nav"><a href="{{ path('androiddev_astuce')}}">Toutes les astuces</a></li>
 
-                    {% for categorie in filtrecat['astuce'] %}
-                    <li><a href="{{ path('androiddev_astuceCat', {'slug': categorie.slug}) }}">{{categorie.getNom()}}</a></li>
-                    {% endfor %}
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a data-toggle="dropdown" class="dropdown-toggle">Projet <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li class="nav-header title-nav"><a href="{{ path('androiddev_projet')}}">Tous les projets</a></li>
-        {% for projet in filtrecat['projet'] %}
-                    <li><a href="{{ path('androiddev_projetVoir', {'slug': projet.slug}) }}">{{projet.getTitre()}}</a></li>
-        {% endfor %}
-                </ul>
-            </li>
-        </ul>
+                        {% for categorie in filtrecat['astuce'] %}
+                            <li><a href="{{ path('androiddev_astuceCat', {'slug': categorie.slug}) }}">{{categorie.getNom()}}</a></li>
+                            {% endfor %}
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle">Projet <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-header title-nav"><a href="{{ path('androiddev_projet')}}">Tous les projets</a></li>
+                            {% for projet in filtrecat['projet'] %}
+                            <li><a href="{{ path('androiddev_projetVoir', {'slug': projet.slug}) }}">{{projet.getTitre()}}</a></li>
+                            {% endfor %}
+                    </ul>
+                </li>
+            </ul>
 
-        <form action="{{ path('androiddev_search') }}" method="post" class="navbar-form navbar-right" role="search">
-            <div class="form-group">
-                <input type="text" title="Rechercher sur android-dev.fr" name="motCles" class="form-control" placeholder="Rechercher sur android-dev.fr">
-            </div>
-        </form>
+            <form action="{{ path('androiddev_search') }}" method="post" class="navbar-form navbar-right" role="search">
+                <div class="form-group">
+                    <input type="text" title="Rechercher sur android-dev.fr" name="motCles" class="form-control" placeholder="Rechercher sur android-dev.fr">
+                </div>
+            </form>
 
 
-    </div><!-- /.navbar-collapse -->
-</nav>
+        </div><!-- /.navbar-collapse -->
+    </nav>
 
 {% endblock %}
 
@@ -103,95 +103,127 @@
 
 {% block colonneDroite %}
 
-<div class="follow-button">
-    <!-- AddThis Follow BEGIN -->
-    <div class="addthis_toolbox addthis_32x32_style addthis_default_style">
-        <a class="addthis_button_facebook_follow" addthis:userid="androiddev.fr"></a>
-        <a class="addthis_button_twitter_follow" addthis:userid="androiddevfr"></a>
-        <a class="addthis_button_google_follow" addthis:userid="+Android-devFr"></a>
-        <a class="addthis_button_rss_follow" addthis:userid="http://www.android-dev.fr/feeds/derniersArticlesAstuces.rss"></a>
+    <div class="follow-button">
+        <!-- AddThis Follow BEGIN -->
+        <div class="addthis_toolbox addthis_32x32_style addthis_default_style">
+            <a class="addthis_button_facebook_follow" addthis:userid="androiddev.fr"></a>
+            <a class="addthis_button_twitter_follow" addthis:userid="androiddevfr"></a>
+            <a class="addthis_button_google_follow" addthis:userid="+Android-devFr"></a>
+            <a class="addthis_button_rss_follow" addthis:userid="http://www.android-dev.fr/feeds/derniersArticlesAstuces.rss"></a>
+        </div>
+        <!-- AddThis Follow END -->
     </div>
-    <!-- AddThis Follow END -->
-</div>
-<div class="listeDroite">
-    <ul class="nav nav-pills  nav-stacked">
-        <li class="nav-header li-title-right"><span class="title-right gras">Outils</span></li>
-        <li class="list-right"><a href="{{ path('androiddev_fragmentation') }}">Historique de la fragmentation android</a></li>
-    </ul>
-</div><!--/.well --> 
 
-<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<ins class="adsbygoogle"
-     style="display:inline-block;width:300px;height:250px"
-     data-ad-client="ca-pub-4672745701309961"
-     data-ad-slot="8367214971"></ins>
-<script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+    {% if topArticle.titre is defined %}
+        <div class="listeDroite">
+            <ul class="nav nav-pills  nav-stacked">
+                <li class="nav-header li-title-right"><span class="title-right gras">A la une</span></li>
+                <li class="list-right">
+                    {% if topArticle.vignette %}
+                        <a class="link-center" title="{{ topArticle.titre | raw }}" href="{{ path('androiddev_voir', {'slug': topArticle.slug}) }}"><img class="img-responsive larg-80" alt="{{ topArticle.titre | raw }}" src="{{ topArticle.vignette }}"/></a>
+                    {% endif %}
+                    <div class="topArticle">
+                        <span class="title-article-center"><h2 class="title-list-article"><a title="{{ topArticle.titre | raw }}" href="{{ path('androiddev_voir', {'slug': topArticle.slug}) }}">{{ topArticle.titre | raw }}</a></h2></span>
+                        <div class="pres-article-list">{{ topArticle.sousTitre | raw }}</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    {% endif %}
 
-<div class="listeDroite">
-    <ul class="nav nav-pills  nav-stacked">
-        <li class="nav-header li-title-right"><span class="title-right gras">Top des 7 derniers jours</span></li>
-        {% for article in topPiwik %}
-        <li class="list-right"><a href="{{ path('androiddev_voir', {'slug': article["slug"]}) }}">{{ article["label"] }}</a></li>
-        {% endfor %}
-    </ul>
-</div><!--/.well --> 
-<iframe src="http://rcm-eu.amazon-adsystem.com/e/cm?t=androiddevfr-21&o=8&p=12&l=st1&mode=books-fr&search=android%20programmation&fc1=000000&lt1=_blank&lc1=3366FF&bg1=FFFFFF&npa=1&f=ifr" marginwidth="0" marginheight="0" width="300" height="250" border="0" frameborder="0" style="border:none;" scrolling="no"></iframe>
-<div class="listeDroite">
-    <ul class="nav nav-pills  nav-stacked">
-        <li class="nav-header li-title-right"><span class="title-right gras">Mise à jour</span></li>
-         {% for article in lastUpdate %}
-        <li class="list-right"><a href="{{ path('androiddev_voir', {'slug': article.slug}) }}">{{ article.titre | raw }}</a></li>
-        {% endfor %}
-    </ul>
-</div><!--/.well -->
-<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<ins class="adsbygoogle"
-     style="display:inline-block;width:160px;height:600px"
-     data-ad-client="ca-pub-4672745701309961"
-     data-ad-slot="3797414572"></ins>
-<script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+    <div class="listeDroite">
+        <ul class="nav nav-pills  nav-stacked">
+            <li class="nav-header li-title-right"><span class="title-right gras">Outils</span></li>
+            <li class="list-right"><a href="{{ path('androiddev_fragmentation') }}"><img class="mini-vign-liste" src="/upload/images/vignette/statistique.jpg"/>Historique de la fragmentation android</a></li>
+        </ul>
+    </div>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- responsive 3 -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-4672745701309961"
+         data-ad-slot="8326182171"
+         data-ad-format="auto"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+    <div class="listeDroite">
+        <ul class="nav nav-pills  nav-stacked">
+            <li class="nav-header li-title-right"><span class="title-right gras">Top des 7 derniers jours</span></li>
+                {% for stat in topPiwik %}
+                <li class="list-right"><a href="{{ path('androiddev_voir', {'slug': stat.Article.slug}) }}"><img class="mini-vign-liste" src="{% if stat.Article.vignette != '' %}{{ stat.Article.vignette }}{% else %}/img/no-img.jpg{% endif %}"/>{{ stat.Article.titre }}</a></li>
+                {% endfor %}
+        </ul>
+    </div>
+
+    <iframe src="http://rcm-eu.amazon-adsystem.com/e/cm?t=androiddevfr-21&o=8&p=12&l=st1&mode=books-fr&search=android%20programmation&fc1=000000&lt1=_blank&lc1=3366FF&bg1=FFFFFF&npa=1&f=ifr" marginwidth="0" marginheight="0" width="300" height="250" border="0" frameborder="0" style="border:none;" scrolling="no"></iframe>
+
+    <div class="listeDroite">
+        <ul class="nav nav-pills  nav-stacked">
+            <li class="nav-header li-title-right"><span class="title-right gras">Mise à jour</span></li>
+                {% for article in lastUpdate %}
+                <li class="list-right"><a href="{{ path('androiddev_voir', {'slug': article.slug}) }}"><img class="mini-vign-liste" src="{% if article.vignette != '' %}{{ article.vignette }}{% else %}/img/no-img.jpg{% endif %}"/>{{ article.titre | raw }}</a></li>
+                {% endfor %}
+        </ul>
+    </div>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- responsive 2 -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-4672745701309961"
+         data-ad-slot="6849448974"
+         data-ad-format="auto"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
 {% endblock %}
 
 {% block script %}
-    <input type="hidden" name="OBKey" value="strDPjRjiTPHYCnZXPFayQ=="/> <script LANGUAGE="JavaScript">var OBCTm='1406747715115'; </script><script LANGUAGE="JavaScript" src="http://widgets.outbrain.com/claim.js"></script>
+    <input type="hidden" name="OBKey" value="strDPjRjiTPHYCnZXPFayQ=="/> <script LANGUAGE="JavaScript">var OBCTm = '1406747715115';</script><script LANGUAGE="JavaScript" src="http://widgets.outbrain.com/claim.js"></script>
 {% endblock %}
 
 
 {% block footer %}
 
     {{ infosite['footer'] | raw  }}
-<!-- Piwik -->
-<script type="text/javascript">
-    var _paq = _paq || [];
-    _paq.push(["trackPageView"]);
-    _paq.push(["enableLinkTracking"]);
+    <!-- Piwik -->
+    <script type="text/javascript">
+        var _paq = _paq || [];
+        _paq.push(["trackPageView"]);
+        _paq.push(["enableLinkTracking"]);
 
-    (function() {
-        var u = (("https:" == document.location.protocol) ? "https" : "http") + "://www.android-dev.fr/Piwik/";
-        _paq.push(["setTrackerUrl", u + "piwik.php"]);
-        _paq.push(["setSiteId", "1"]);
-        var d = document, g = d.createElement("script"), s = d.getElementsByTagName("script")[0];
-        g.type = "text/javascript";
-        g.defer = true;
-        g.async = true;
-        g.src = u + "piwik.js";
-        s.parentNode.insertBefore(g, s);
-    })();
-</script>
-<!-- End Piwik Code -->
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        (function () {
+            var u = (("https:" == document.location.protocol) ? "https" : "http") + "://www.android-dev.fr/Piwik/";
+            _paq.push(["setTrackerUrl", u + "piwik.php"]);
+            _paq.push(["setSiteId", "1"]);
+            var d = document, g = d.createElement("script"), s = d.getElementsByTagName("script")[0];
+            g.type = "text/javascript";
+            g.defer = true;
+            g.async = true;
+            g.src = u + "piwik.js";
+            s.parentNode.insertBefore(g, s);
+        })();
+    </script>
+    <!-- End Piwik Code -->
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-  ga('create', 'UA-18303318-3', 'auto');
-  ga('send', 'pageview');
+        ga('create', 'UA-18303318-3', 'auto');
+        ga('send', 'pageview');
 
-</script>
+    </script>
 
 {% endblock %}

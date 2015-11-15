@@ -23,6 +23,7 @@
                 <th>Titre</th>
                 <th>Type</th>
                 <th>Catégorie</th>
+                <th>Top</th>
                 <th>Created</th>
                 <th>Updated</th>
                 <th>Actions</th>
@@ -36,6 +37,7 @@
                     <td>{{ entity.titre | raw }}</td>
                     <td>{{ entity.Type.nom }}</td>
                     <td>{% if entity.Categorie%}{{ entity.Categorie.nom }}{% endif %}</td>
+                    <td>{{ entity.top }}</td>
                     <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif %}</td>
                     <td>{% if entity.updated %}{{ entity.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
                     <td>

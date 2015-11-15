@@ -25,6 +25,9 @@ class ArticleType extends AbstractType
                 ->add('visible', 'checkbox', array(
                     'required' => false,
                 ))
+                ->add('top', 'checkbox', array(
+                    'required' => false,
+                ))
                 ->add('type', 'entity', array(
                     'class' => 'AndroidDevSiteBundle:Type',
                     'property' => 'nom',
@@ -33,8 +36,8 @@ class ArticleType extends AbstractType
                     'class' => 'AndroidDevSiteBundle:Categorie',
                     'property' => 'nom',))
                 ->add('publishedAt', 'datetime', array(
-                        'widget' => 'choice'
-                ));
+                    'widget' => 'choice'
+        ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

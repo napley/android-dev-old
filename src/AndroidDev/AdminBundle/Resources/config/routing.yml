@@ -5,6 +5,11 @@ android_dev_admin_homepage:
 admin_article:
     pattern:  /article/
     defaults: { _controller: AndroidDevAdminBundle:Article:index }
+    
+admin_article_motcle:
+    pattern:  /article/motcle
+    defaults: { _controller: AndroidDevAdminBundle:Article:motcle }
+
 
 admin_article_show:
     pattern:  /article/{id}/show

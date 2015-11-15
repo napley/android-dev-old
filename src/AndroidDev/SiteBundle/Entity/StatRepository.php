@@ -12,9 +12,9 @@ use Doctrine\ORM\EntityRepository;
  */
 class StatRepository extends EntityRepository
 {
-    public function SortAllById()
+    public function SortAllByRank()
     {
-        $query = $this->_em->createQuery('SELECT s FROM AndroidDevSiteBundle:Stat s ORDER BY s.id ASC');
+        $query = $this->_em->createQuery('SELECT s FROM AndroidDevSiteBundle:Stat s ORDER BY s.rank ASC');
         return $query->getResult();
     }
 

@@ -12,9 +12,11 @@ $(document).ready(function() {
         $(this).parent().addClass("embed-responsive embed-responsive-16by9");
     });
     
-    // initialize Isotope
+    var container = document.querySelector('#container');
+    // init
     var iso = new Isotope( container, {
-      transitionDuration: 0
+      // options
+          transitionDuration: 0
     });
     // layout Isotope again after all images have loaded
     imagesLoaded( container, function() {
