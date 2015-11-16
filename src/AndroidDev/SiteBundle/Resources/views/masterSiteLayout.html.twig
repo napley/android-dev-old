@@ -5,7 +5,7 @@
 {% block urlCanonical %}{% endblock %}
 
 {% block stylesheets %}
-    {% stylesheets output="css/compiled/main.css" filter="cssrewrite" 
+    {% stylesheets output="css/compiled/main_2015-11.css" filter="cssrewrite" 
     'css/bootstrap.min.css'
     'css/bootstrap-theme.min.css'
     'css/style.css'
@@ -114,6 +114,13 @@
         <!-- AddThis Follow END -->
     </div>
 
+    <div class="listeDroite">
+        <ul class="nav nav-pills  nav-stacked">
+            <li class="nav-header li-title-right"><span class="title-right gras">Outils</span></li>
+            <li class="list-right"><a href="{{ path('androiddev_fragmentation') }}"><img class="mini-vign-liste" src="/upload/images/vignette/statistique.jpg"/>Historique de la fragmentation android</a></li>
+        </ul>
+    </div>
+
     {% if topArticle.titre is defined %}
         <div class="listeDroite">
             <ul class="nav nav-pills  nav-stacked">
@@ -123,21 +130,13 @@
                         <a onclick="javascript:_paq.push(['trackEvent', 'Clic', 'Top']);" class="link-center" title="{{ topArticle.titre | raw }}" href="{{ path('androiddev_voir', {'slug': topArticle.slug}) }}"><img class="img-responsive larg-80" alt="{{ topArticle.titre | raw }}" src="{{ topArticle.vignette }}"/></a>
                     {% endif %}
                     <div class="topArticle">
-                        <span class="title-article-center"><h2 class="title-list-article"><a title="{{ topArticle.titre | raw }}" href="{{ path('androiddev_voir', {'slug': topArticle.slug}) }}">{{ topArticle.titre | raw }}</a></h2></span>
-                        <div class="pres-article-list">{{ topArticle.sousTitre | raw }}</div>
+                        <span class="title-article-center"><h2 class="title-list-article"><a onclick="javascript:_paq.push(['trackEvent', 'Clic', 'Top']);" title="{{ topArticle.titre | raw }}" href="{{ path('androiddev_voir', {'slug': topArticle.slug}) }}">{{ topArticle.titre | raw }}</a></h2></span>
                     </div>
                 </li>
             </ul>
         </div>
     {% endif %}
-
-    <div class="listeDroite">
-        <ul class="nav nav-pills  nav-stacked">
-            <li class="nav-header li-title-right"><span class="title-right gras">Outils</span></li>
-            <li class="list-right"><a href="{{ path('androiddev_fragmentation') }}"><img class="mini-vign-liste" src="/upload/images/vignette/statistique.jpg"/>Historique de la fragmentation android</a></li>
-        </ul>
-    </div>
-
+    
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <!-- responsive 3 -->
     <ins class="adsbygoogle"

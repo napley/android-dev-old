@@ -820,7 +820,7 @@ p button[type=submit] {
 }
 
 .related-inline li img {
-    height: 135px;
+    max-height: 135px;
     margin-bottom: 5px;
 }
 
@@ -834,7 +834,6 @@ p button[type=submit] {
 
 .list-right > a {
     color: rgb(45, 45, 45);
-    padding-left: 5px !important;
 }
 
 .list-right > a:hover {
@@ -851,8 +850,8 @@ p button[type=submit] {
     width: 40px;
     float: left;
     margin-right: 5px;
-    margin-left: 5px;
     margin-bottom: 5px;
+    margin-left: -5px;
 }
 
 .ui-autocomplete {
