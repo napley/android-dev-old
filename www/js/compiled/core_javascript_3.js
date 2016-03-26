@@ -12,11 +12,9 @@ $(document).ready(function() {
         $(this).parent().addClass("embed-responsive embed-responsive-16by9");
     });
     
-    var container = document.querySelector('#container');
-    // init
+    // initialize Isotope
     var iso = new Isotope( container, {
-      // options
-          transitionDuration: 0
+      transitionDuration: 0
     });
     // layout Isotope again after all images have loaded
     imagesLoaded( container, function() {
@@ -29,8 +27,11 @@ function createSommaire() {
     var arraySommaire = new Array();
     var j = 0;
     var listeLi = "";
-    
-    $(".content h1, .content h2, .content h3").each(function(i) {
+
+
+
+
+    $(".content h1, h2, h3").each(function(i) {
         var current = $(this);
 
         if ($.inArray($(this).html(), arraySommaire) >= 0) {
